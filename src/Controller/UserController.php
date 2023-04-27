@@ -13,8 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-
-
     #[Route('/', name: 'app_user_show', methods: ['GET'])]
     public function show(): Response
     {
