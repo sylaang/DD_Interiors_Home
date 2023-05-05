@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Form\EditProfileType;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,7 @@ class UserController extends AbstractController
     public function show(): Response
     {
         $monuser = $this->getUser();
-        return $this->render('user/showprofile.html.twig', [
+        return $this->render('user/show.html.twig', [
             'user' => $monuser,
         ]);
     }
@@ -38,7 +37,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_show', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user/editprofile.html.twig', [
+        return $this->renderForm('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);

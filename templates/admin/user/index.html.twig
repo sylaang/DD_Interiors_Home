@@ -16,6 +16,7 @@
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
+                <th>Profile vérifié</th>
                 <th>Password</th>
                 <th>Nom</th>
                 <th>Prenom</th>
@@ -31,6 +32,7 @@
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.isVerified ? user.isVerified|json_encode : '' }}</td>
                 <td>{{ user.password }}</td>
                 <td>{{ user.nom }}</td>
                 <td>{{ user.prenom }}</td>
@@ -39,14 +41,14 @@
             </tr>
             <tr>
                 <td>
-                    <a href="{{ path('app_admin_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_admin_profile_show', {'id': user.id}) }}">show</a>
                 </td>
                 <td>
                     <a href="{{ path('app_admin_profile_edit', {'id': user.id}) }}">edit</a>
                 </td>
                 </td>
                 <td>
-                    {{ include('user/_delete_form.html.twig') }}
+                    {{ include('admin/user/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
