@@ -38,8 +38,8 @@ class EditProfileType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 10, 'max' => 20]),
-                    new Regex('/^\(0\)[0-9]*$/',
-                        "Doit contenir au minimum 14 caractères, dont 1 majuscule, 1 minuscule, 1 chiffre & 1 caractère spécial (@$!%*?&)")
+                    new Regex('/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/',
+                        "Numéro de téléphone invalide, vérifier votre numéro")
                 ]
             ])
         ;

@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/profile')]
 class UserController extends AbstractController
 {
-    #[Route('/', name: 'app_userçprofile_show', methods: ['GET'])]
+    #[Route('/', name: 'app_user_profile_show', methods: ['GET'])]
     public function show(): Response
     {
         $monuser = $this->getUser();
@@ -28,13 +28,15 @@ class UserController extends AbstractController
         $form = $this->createForm(EditProfileType::class, $this->getUser());
         $form->handleRequest($request);
 
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $userRepository->save($user, true);
-
+            
             // $user->setUpdatedAt(new \DateTimeImmutable());
-
+            
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
             $this->addFlash('message', 'Profil mis a jour');
-            return $this->redirectToRoute('app_user_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_profile_show', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/edit.html.twig', [
