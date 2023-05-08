@@ -12,22 +12,10 @@
         </div>
         {% endfor %}
         <tbody>
-                {% if is_granted('ROLE_ADMIN') %}
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-                {% endif %}
             <tr>
                 <th>Email</th>
                 <td>{{ user.email }}</td>
             </tr>
-            {% if is_granted('ROLE_ADMIN') %}
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            {% endif %}
             <tr>
                 <th>Nom</th>
                 <td>{{ user.nom }}</td>
