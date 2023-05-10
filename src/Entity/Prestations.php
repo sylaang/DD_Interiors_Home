@@ -34,6 +34,9 @@ class Prestations
     #[ORM\OneToMany(mappedBy: 'prestation', targetEntity: Commentaires::class)]
     private Collection $commentaires;
 
+    #[ORM\ManyToOne(inversedBy: 'prestation')]
+    private ?CategoriesPrix $categoriesPrix = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -135,6 +138,18 @@ class Prestations
                 $commentaire->setPrestation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategoriesPrix(): ?CategoriesPrix
+    {
+        return $this->categoriesPrix;
+    }
+
+    public function setCategoriesPrix(?CategoriesPrix $categoriesPrix): self
+    {
+        $this->categoriesPrix = $categoriesPrix;
 
         return $this;
     }

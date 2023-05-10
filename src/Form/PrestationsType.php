@@ -2,10 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\CategoriesPrix;
 use App\Entity\Prestations;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Blank;
 
 class PrestationsType extends AbstractType
 {
@@ -14,6 +17,9 @@ class PrestationsType extends AbstractType
         $builder
             ->add('titre')
             ->add('prix')
+            ->add('categories_prix', EntityType::class, [
+                'class' => CategoriesPrix::class,
+            ])
             ->add('description')
             ->add('forfait')
             ->add('forfait2')

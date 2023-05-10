@@ -1,0 +1,11 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}New CategoriesPrix{% endblock %}
+
+{% block body %}
+    <h1>Create new CategoriesPrix</h1>
+
+    {{ include('admin/categories_prix/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_categories_prix_index') }}">back to list</a>
+{% endblock %}
