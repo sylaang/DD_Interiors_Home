@@ -1,0 +1,30 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Forfaits{% endblock %}
+
+{% block body %}
+    <h1>Forfaits</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ forfait.id }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ forfait.prix }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ forfait.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_forfaits_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_forfaits_edit', {'id': forfait.id}) }}">edit</a>
+
+    {{ include('admin/forfaits/_delete_form.html.twig') }}
+{% endblock %}

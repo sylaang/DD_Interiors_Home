@@ -39,9 +39,9 @@ class AdminUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setUpdatedAt(new \DateTimeImmutable());
             $userRepository->save($user, true);
 
-            // $user->setUpdatedAt(new \DateTimeImmutable());
 
             $this->addFlash('message', 'Profil mis a jour');
             return $this->redirectToRoute('app_admin_profile_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);

@@ -194,6 +194,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
+        
         return $this->createdAt;
     }
 

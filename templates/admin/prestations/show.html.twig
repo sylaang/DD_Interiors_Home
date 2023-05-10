@@ -1,0 +1,47 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Prestations{% endblock %}
+
+{% block body %}
+    <h1>Prestations</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prestation.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ prestation.titre }}</td>
+            </tr>
+            {% if prestation.prix %}
+            <tr>
+                <th>Prix</th>
+                <td>{{ prestation.prix }} € {% if prestation.titre == 	"PLANS D’ETUDES / AGENCEMENT" %}m²{% elseif prestation.id == 7 %}piece{% endif %}</td>
+            </tr>
+            {% endif %}
+            {% if prestation.forfait %}
+            <tr>
+                <th>Forfait</th>
+                <td>{{ prestation.forfait }} € : {{ prestation.forfait.description }}</td>
+            </tr>
+            <tr>
+                <th>Forfait</th>
+                <td>{{ prestation.forfait2 }} € : {{ prestation.forfait2.description }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>Description</th>
+                <td>{{ prestation.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_prestations_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_prestations_edit', {'id': prestation.id}) }}">edit</a>
+    <a href="{{ path('app_admin_commentaires_new', {'id': prestation.id}) }}">commentaire</a>
+
+    {{ include('admin/prestations/_delete_form.html.twig') }}
+{% endblock %}

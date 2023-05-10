@@ -22,7 +22,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/modifier', name: 'app_user_profile_edit', methods: ['GET', 'POST'])]
-    public function editProfile(Request $request, UserRepository $userRepository): Response
+    public function editProfile(Request $request, UserRepository $userRepository,): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(EditProfileType::class, $this->getUser());
@@ -30,11 +30,9 @@ class UserController extends AbstractController
 
         
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setUpdatedAt(new \DateTimeImmutable());
             $userRepository->save($user, true);
-            
-            // $user->setUpdatedAt(new \DateTimeImmutable());
-            
-            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
             $this->addFlash('message', 'Profil mis a jour');
             return $this->redirectToRoute('app_user_profile_show', [], Response::HTTP_SEE_OTHER);
         }

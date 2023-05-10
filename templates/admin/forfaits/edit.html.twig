@@ -1,0 +1,13 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Edit Forfaits{% endblock %}
+
+{% block body %}
+    <h1>Edit Forfaits</h1>
+
+    {{ include('admin/forfaits/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_forfaits_index') }}">back to list</a>
+
+    {{ include('admin/forfaits/_delete_form.html.twig') }}
+{% endblock %}

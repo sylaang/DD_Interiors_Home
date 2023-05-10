@@ -20,14 +20,14 @@ class Commentaires
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $creatAt = null;
-
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
     private ?User $users = null;
 
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
     private ?Prestations $prestation = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
     public function getId(): ?int
     {
@@ -58,16 +58,9 @@ class Commentaires
         return $this;
     }
 
-    public function getCreatAt(): ?\DateTimeImmutable
+    public function __toString()
     {
-        return $this->creatAt;
-    }
-
-    public function setCreatAt(\DateTimeImmutable $creatAt): self
-    {
-        $this->creatAt = $creatAt;
-
-        return $this;
+        return $this->message;
     }
 
     public function getUsers(): ?User
@@ -90,6 +83,18 @@ class Commentaires
     public function setPrestation(?Prestations $prestation): self
     {
         $this->prestation = $prestation;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

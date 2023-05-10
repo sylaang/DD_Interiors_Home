@@ -1,0 +1,48 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Prestations index{% endblock %}
+
+{% block body %}
+    <h1>Prestations index</h1>
+        {% for message in app.flashes('message') %}
+            <div class="col-xs4">
+                <div class="p-3my-2 rounded-2 succes"> {{message}} </div>
+            </div>
+        {% endfor %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Prix</th>
+                <th>Forfaits</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prestation in prestations %}
+            <tr>
+                <td>{{ prestation.id }}</td>
+                <td>{{ prestation.titre }}</td>
+                <td>{{ prestation.forfait }}</td>
+                <td>{{ prestation.prix }}</td>
+                <td>{{ prestation.description }}</td>
+                <td>
+                    <a href="{{ path('app_admin_prestations_show', {'id': prestation.id}) }}">show</a>
+                    <a href="{{ path('app_admin_prestations_edit', {'id': prestation.id}) }}">edit</a>
+                </td>
+                <td>
+                    {{ include('admin/prestations/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_prestations_new') }}">Create new</a>
+{% endblock %}

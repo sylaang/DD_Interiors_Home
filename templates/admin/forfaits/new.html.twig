@@ -1,0 +1,11 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}New Forfaits{% endblock %}
+
+{% block body %}
+    <h1>Create new Forfaits</h1>
+
+    {{ include('admin/forfaits/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_forfaits_index') }}">back to list</a>
+{% endblock %}

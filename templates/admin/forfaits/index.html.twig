@@ -1,0 +1,42 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Forfaits index{% endblock %}
+
+{% block body %}
+    <h1>Forfaits index</h1>
+            {% for message in app.flashes('message') %}
+            <div class="col-xs4">
+                <div class="p-3my-2 rounded-2 succes"> {{message}} </div>
+            </div>
+        {% endfor %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for forfait in forfaits %}
+            <tr>
+                <td>{{ forfait.id }}</td>
+                <td>{{ forfait.prix }}</td>
+                <td>{{ forfait.description }}</td>
+                <td>
+                    <a href="{{ path('app_admin_forfaits_show', {'id': forfait.id}) }}">show</a>
+                    <a href="{{ path('app_admin_forfaits_edit', {'id': forfait.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_forfaits_new') }}">Create new</a>
+{% endblock %}
