@@ -29,6 +29,7 @@ class AdminCommentairesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $commentaire->setCreatedAt(new \DateTimeImmutable());
             $commentairesRepository->save($commentaire, true);
 
             return $this->redirectToRoute('app_admin_commentaires_index', ['id' => $commentaire->getId()], Response::HTTP_SEE_OTHER);

@@ -1,0 +1,35 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}CategoriesPrix index{% endblock %}
+
+{% block body %}
+    <h1>CategoriesPrix index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categories_prix in categories_prixes %}
+            <tr>
+                <td>{{ categories_prix.id }}</td>
+                <td>{{ categories_prix.nom }}</td>
+                <td>
+                    <a href="{{ path('app_admin_categories_prix_show', {'id': categories_prix.id}) }}">show</a>
+                    <a href="{{ path('app_admin_categories_prix_edit', {'id': categories_prix.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_categories_prix_new') }}">Create new</a>
+{% endblock %}

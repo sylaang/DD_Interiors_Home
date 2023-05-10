@@ -18,7 +18,7 @@
             {% if prestation.prix %}
             <tr>
                 <th>Prix</th>
-                <td>{{ prestation.prix }} € {% if prestation.titre == 	"PLANS D’ETUDES / AGENCEMENT" %}m²{% elseif prestation.id == 7 %}piece{% endif %}</td>
+                <td>{{ prestation.prix }} € {% if prestation.categoriesPrix.nom == "mètre carré" %}m²{% elseif prestation.categoriesPrix.nom == "par pièce" %}/pièce{% endif %}</td>
             </tr>
             {% endif %}
             {% if prestation.forfait %}
