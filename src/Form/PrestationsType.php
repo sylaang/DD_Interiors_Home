@@ -21,6 +21,7 @@ class PrestationsType extends AbstractType
                 'class' => CategoriesPrix::class,
             ])
             ->add('description')
+            ->add('description2')
             ->add('forfait')
             ->add('forfait2')
         ;

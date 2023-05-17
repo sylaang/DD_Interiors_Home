@@ -37,6 +37,9 @@ class Prestations
     #[ORM\ManyToOne(inversedBy: 'prestation')]
     private ?CategoriesPrix $categoriesPrix = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description2 = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -150,6 +153,18 @@ class Prestations
     public function setCategoriesPrix(?CategoriesPrix $categoriesPrix): self
     {
         $this->categoriesPrix = $categoriesPrix;
+
+        return $this;
+    }
+
+    public function getDescription2(): ?string
+    {
+        return $this->description2;
+    }
+
+    public function setDescription2(?string $description2): self
+    {
+        $this->description2 = $description2;
 
         return $this;
     }

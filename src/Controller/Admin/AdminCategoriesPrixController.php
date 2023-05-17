@@ -21,7 +21,7 @@ class AdminCategoriesPrixController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_admin_categories_prix_new', methods: ['GET', 'POST'])]
+    #[Route('/ajout', name: 'app_admin_categories_prix_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CategoriesPrixRepository $categoriesPrixRepository): Response
     {
         $categoriesPrix = new CategoriesPrix();
@@ -48,7 +48,7 @@ class AdminCategoriesPrixController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_categories_prix_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}', name: 'app_admin_categories_prix_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, CategoriesPrix $categoriesPrix, CategoriesPrixRepository $categoriesPrixRepository): Response
     {
         $form = $this->createForm(CategoriesPrixType::class, $categoriesPrix);

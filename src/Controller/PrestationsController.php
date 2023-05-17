@@ -2,80 +2,85 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Prestations;
-use App\Form\PrestationsType;
+use App\Entity\Commentaires;
+use App\Form\CommentairesType;
 use App\Repository\PrestationsRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CommentairesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/profile/prestations')]
+#[Route('/prestations')]
 class PrestationsController extends AbstractController
 {
-    #[Route('/', name: 'app_profile_prestations_index', methods: ['GET'])]
+    #[Route('/', name: 'app_prestations_index', methods: ['GET'])]
     public function index(PrestationsRepository $prestationsRepository): Response
     {
-        return $this->render('profile/prestations/index.html.twig', [
+        return $this->render('prestations/index.html.twig', [
             'prestations' => $prestationsRepository->findAll(),
         ]);
     }
-
-    #[Route('/new', name: 'app_profile_prestations_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PrestationsRepository $prestationsRepository): Response
+    
+    #[Route('/{id}', name: 'app_prestations_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Prestations $prestation, CommentairesRepository $commentairesRepository): Response
     {
-        $prestation = new Prestations();
-        $form = $this->createForm(PrestationsType::class, $prestation);
-        $form->handleRequest($request);
+        $commentaire = new Commentaires();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $prestationsRepository->save($prestation, true);
+        $form = $this->createForm(CommentairesType::class,  $commentaire);
+         $form->handleRequest($request);
 
-            return $this->redirectToRoute('app_profile_prestations_index', [], Response::HTTP_SEE_OTHER);
-        }
+         $commentaireparprestation=$commentairesRepository->findBy([
 
-        return $this->renderForm('profile/prestations/new.html.twig', [
-            'prestation' => $prestation,
-            'form' => $form,
+            'prestation'=>$prestation
         ]);
-    }
 
-    #[Route('/{id}', name: 'app_profile_prestations_show', methods: ['GET'])]
-    public function show(Prestations $prestation): Response
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $commentaire->setCreatedAt(new \DateTimeImmutable());
+            
+             // je dois enregistrer les info du user
+            // $this->getUser() me renvoie les infos sur le user 
+            // en cours
+            // avec setuser je stock l'information dans le
+            // commentaire
+            $commentaire->setUsers($this->getUser());
+
+            // je dois enregistrer les infos du produit
+            // je recupere $produit issue du param converter
+            // on a l'ID dans l'URL en mettant l'entité 
+            // dans la fonction on recupere le produit correspondant
+            // et ensuite on set dans l'entité commentaire
+            $commentaire->setPrestation($prestation);
+
+            $commentairesRepository->save( $commentaire , true);
+            return $this->redirectToRoute('app_prestations_show', ['id' => $prestation->getId()], Response::HTTP_SEE_OTHER);
+
+        }
+                // on veut afficher les commentaires 
+        // correspondant aux produit de l'id de l'url.
+        // on utilise le repository qui va chercher avec un critere findby
+        // selon le produits 
+        // $toutlescommenaire=$commentaireRepository->findAll();
+      
+         //cascade = CascadeType.ALL
+        // $produit correspond à l'entité produit de l'identifiant envoyé
+        // en parametre
+        return $this->renderForm('prestations/show.html.twig', [
+            'prestation' => $prestation,
+            'les_commentaires' => $commentaireparprestation,
+            'form' => $form
+         ]);
+    }
+    #[Route('/{id}', name: 'app_commentaires_delete', methods: ['POST'])]
+    public function delete(Request $request, Commentaires $commentaire, CommentairesRepository $commentairesRepository): Response
     {
         
-        return $this->render('profile/prestations/show.html.twig', [
-            'prestation' => $prestation,
-        ]);
-    }
-
-    #[Route('/edit/{id}', name: 'app_profile_prestations_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Prestations $prestation, PrestationsRepository $prestationsRepository): Response
-    {
-        $form = $this->createForm(ProfilesPrestationsType::class, $prestation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $prestationsRepository->save($prestation, true);
-
-            $this->addFlash('message', 'Prestation mis a jour');
-            return $this->redirectToRoute('app_profile_prestations_index', [], Response::HTTP_SEE_OTHER);
+        if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
+            $commentairesRepository->remove($commentaire, true);
         }
 
-        return $this->renderForm('profile/prestations/edit.html.twig', [
-            'prestation' => $prestation,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_profile_prestations_delete', methods: ['POST'])]
-    public function delete(Request $request, Prestations $prestation, PrestationsRepository $prestationsRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$prestation->getId(), $request->request->get('_token'))) {
-            $prestationsRepository->remove($prestation, true);
-        }
-
-        return $this->redirectToRoute('app_profile_prestations_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_prestations_index', [], Response::HTTP_SEE_OTHER);
     }
 }

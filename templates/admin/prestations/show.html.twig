@@ -18,7 +18,12 @@
             {% if prestation.prix %}
             <tr>
                 <th>Prix</th>
-                <td>{{ prestation.prix }} € {% if prestation.categoriesPrix.nom == "mètre carré" %}m²{% elseif prestation.categoriesPrix.nom == "par pièce" %}/pièce{% endif %}</td>
+                <td> {% if prestation.prix %} Prix :
+            {{ prestation.prix }}
+            {% if prestation.prix %} € {% endif %} {% if
+            prestation.categoriesPrix.nom == "mètre carré" %} m² {% elseif
+            prestation.categoriesPrix.nom == "par pièce" %} /pièce {% endif %}
+            {% endif %}</td>
             </tr>
             {% endif %}
             {% if prestation.forfait %}
@@ -33,7 +38,7 @@
             {% endif %}
             <tr>
                 <th>Description</th>
-                <td>{{ prestation.description }}</td>
+                <td>{{ prestation.description }} <br> {{ prestation.description2 }}</td>
             </tr>
         </tbody>
     </table>

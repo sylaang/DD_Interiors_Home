@@ -27,7 +27,8 @@
                 <td>{{ prestation.titre }}</td>
                 <td>{{ prestation.forfait }}</td>
                 <td>{{ prestation.prix }}</td>
-                <td>{{ prestation.description }}</td>
+                <td>{{ prestation.description }} <br>
+                {{ prestation.description2 }}</td>
                 <td>
                     <a href="{{ path('app_admin_prestations_show', {'id': prestation.id}) }}">show</a>
                     <a href="{{ path('app_admin_prestations_edit', {'id': prestation.id}) }}">edit</a>

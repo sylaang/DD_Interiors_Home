@@ -21,20 +21,28 @@ class AdminCommentairesController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_admin_commentaires_new', methods: ['GET', 'POST'])]
+    #[Route('/ajout', name: 'app_admin_commentaires_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CommentairesRepository $commentairesRepository): Response
     {
+        $user = $this->getUser();
         $commentaire = new Commentaires();
+        
+        if ($user) {
+            $commentaire->setUsers($user);
+        }
+        
+
         $form = $this->createForm(CommentairesType::class, $commentaire);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $commentaire->setCreatedAt(new \DateTimeImmutable());
-            $commentairesRepository->save($commentaire, true);
-
-            return $this->redirectToRoute('app_admin_commentaires_index', ['id' => $commentaire->getId()], Response::HTTP_SEE_OTHER);
-        }
-
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                $commentaire->setCreatedAt(new \DateTimeImmutable());
+                $commentairesRepository->save($commentaire, true);
+                
+                return $this->redirectToRoute('app_admin_commentaires_index', ['id' => $commentaire->getId()], Response::HTTP_SEE_OTHER);
+            }
+            
         return $this->renderForm('admin/commentaires/new.html.twig', [
             'commentaire' => $commentaire,
             'form' => $form,
@@ -49,7 +57,7 @@ class AdminCommentairesController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{id}', name: 'app_admin_commentaires_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}', name: 'app_admin_commentaires_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commentaires $commentaire, CommentairesRepository $commentairesRepository): Response
     {
         $form = $this->createForm(CommentairesType::class, $commentaire);

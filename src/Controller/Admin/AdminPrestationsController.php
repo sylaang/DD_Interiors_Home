@@ -22,7 +22,7 @@ class AdminPrestationsController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_admin_prestations_new', methods: ['GET', 'POST'])]
+    #[Route('/ajout', name: 'app_admin_prestations_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PrestationsRepository $prestationsRepository): Response
     {
         $prestation = new Prestations();
@@ -50,7 +50,7 @@ class AdminPrestationsController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{id}', name: 'app_admin_prestations_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}', name: 'app_admin_prestations_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Prestations $prestation, PrestationsRepository $prestationsRepository): Response
     {
         $form = $this->createForm(PrestationsType::class, $prestation);

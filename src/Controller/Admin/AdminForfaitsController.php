@@ -21,7 +21,7 @@ class AdminForfaitsController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_admin_forfaits_new', methods: ['GET', 'POST'])]
+    #[Route('/ajout', name: 'app_admin_forfaits_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ForfaitsRepository $forfaitsRepository): Response
     {
         $forfait = new Forfaits();
@@ -48,7 +48,7 @@ class AdminForfaitsController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{id}', name: 'app_admin_forfaits_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}', name: 'app_admin_forfaits_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Forfaits $forfait, ForfaitsRepository $forfaitsRepository): Response
     {
         $form = $this->createForm(ForfaitsType::class, $forfait);

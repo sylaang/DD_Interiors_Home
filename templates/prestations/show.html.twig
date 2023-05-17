@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DD Interiors Home prestation{% endblock %}
+{% block carousel %}{% endblock %}
+
+{% block body %}
+ <h1>prestation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Titre</th>
+                <td>{{ prestation.titre }}</td>
+            </tr>
+            {% if prestation.prix %}
+            <tr>
+                <th>Prix</th>
+                <td>{{ prestation.prix }} € {% if prestation.categoriesPrix.nom == "mètre carré" %}m²{% elseif prestation.categoriesPrix.nom == "par pièce" %}/pièce{% endif %}</td>
+            </tr>
+            {% endif %}
+            {% if prestation.forfait %}
+            <tr>
+                <th>Forfait</th>
+                <td>{{ prestation.forfait }} € : {{ prestation.forfait.description }}</td>
+            </tr>
+            <tr>
+                <th>Forfait</th>
+                <td>{{ prestation.forfait2 }} € : {{ prestation.forfait2.description }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>Description</th>
+                <td>{{ prestation.description }}</td>
+            </tr>
+        </tbody>
+
+    <a href="{{ path('app_prestations_index') }}">back to list</a>
+
+ <h1>Commentaires</h1>
+{% for uncommentaire in les_commentaires %}
+ <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>  {{uncommentaire.id}}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>  {{uncommentaire.subject}}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>  {{uncommentaire.message}}</td>
+            </tr>
+            <tr>
+                <th>Ecrit par</th>
+                <td>  {{uncommentaire.users.nom}} {{uncommentaire.users.prenom}}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>  {{uncommentaire.createdAt ? uncommentaire.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+{% endfor %}
+{% if is_granted('ROLE_USER') %}
+    <h1>Ajouter un commentaire</h1>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn">
+        {{ button_label|default('Enregistrer le commentaire') }}
+        </button>
+    {{ form_end(form) }}
+
+
+{% endif %} 
+
+{% endblock %}

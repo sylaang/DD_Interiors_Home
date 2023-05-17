@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-use Symfony\Component\Mime\Email;
+
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
 
@@ -16,19 +17,27 @@ class MailService
 		$this->mailer = $mailerInterface;
 	}
 
-	public function sendMail($email, $message)
+	public function sendMail($contact)
 	{
 
-		$email = (new Email())
-			->from($email)
-			->to($email)
+		$mail = "log@ddinteriorshome.com";
+		$message = 'emails/contact.html.twig';
+
+			$email = (new TemplatedEmail())
+			->from($contact->getEmail())
+			->to($mail)
 			//->cc('cc@example.com')
 			//->bcc('bcc@example.com')
-			//->replyTo('fabien@example.com')
+			->replyTo($contact->getEmail())
 			//->priority(Email::PRIORITY_HIGH)
-			->subject('Time for Symfony Mailer!')
-			->text($message)
-			->html($message);
+			->subject($contact->getSubject())
+            // chemin du template de la twig à la vue(view)
+			->htmlTemplate('emails/contact.html.twig')
+            
+            // passer la variable (nom => valeur) au template
+            ->context([
+                'contact' => $contact,
+            ]);
 
 		$this->mailer->send($email);
 	}

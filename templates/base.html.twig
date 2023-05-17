@@ -2,12 +2,12 @@
 <html>
 
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8" lang='fr'>
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
-		<!-- __________________________________________MY___CSS_______________________________________________ -->
+<link data-minify="1" rel="stylesheet" id="monolit-style-css" href="https://www.saphalyadesignstudio.com/wp-content/cache/min/1/wp-content/themes/monolit/style.css?ver=1680861020" type="text/css" media="all">		<!-- __________________________________________MY___CSS_______________________________________________ -->
 		<link	rel="stylesheet" href="{{ asset('css/style.css') }}">
 		<!-- __________________________________________MDB__CSS_______________________________________________ -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 							<li><a href="#">Home</a></li>
 							<li><a href="#">À propos</a></li>
 							<li><a href="#">Portfolio</a></li>
-							<li><a href="#">Nos prestations</a></li>
+							<li><a href="{{ path('app_prestations_index')}}">Nos prestations</a></li>
 							<li><a href="#">Contact</a></li>
 						</ul>
             <ul class="navlinks" style="display: flex; align-items: end;">
@@ -43,10 +43,9 @@
               <li><a href="{{path('app_login')}}">Connexion</a></li>
               {% endif %}
             </ul>
-					
-					
-				  
 			</nav>
+
+      
 		<div class="home"></div>
 			{% block carousel %}
 
@@ -133,6 +132,7 @@
 		{% block body %}{% endblock %}
     </main>
     <footer id="site-footer" class="footer-section">
+    <canvas class="particular footer-canvas" data-color="" width="1700" height="1329" style="display: inline;"></canvas>
         <div class="container">
             <div class="footer-cta pt-5 pb-5">
                 <div class="row">

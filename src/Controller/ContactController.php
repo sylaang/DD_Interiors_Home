@@ -4,18 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use App\Services\MailService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Mailer\MailerInterface;
 
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
-    public function index(MailerInterface $mailer,Request $request, EntityManagerInterface $manager): Response
+    public function index(Request $request, EntityManagerInterface $manager,MailService $mailService): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -23,7 +22,7 @@ class ContactController extends AbstractController
 
         if($form->isSubmitted()&&$form->isValid())
         {
-            $contact=$form->getData();
+            $formdata=$form->getData();
 
             if($this->getUser())
             {
@@ -34,24 +33,21 @@ class ContactController extends AbstractController
 
             $manager->persist($contact);
             $manager->flush();
-
-            $email = (new TemplatedEmail())
-			->from($contact->getEmail())
-			->to('log@ddinteriorshome.com')
-			//->cc('cc@example.com')
-			//->bcc('bcc@example.com')
-			//->replyTo('fabien@example.com')
-			//->priority(Email::PRIORITY_HIGH)
-			->subject($contact->getSubject())
-            // chemin du template de la twig à la vue(view)
-			->htmlTemplate('emails/contact.html.twig')
             
-            // passer la variable (nom => valeur) au template
-            ->context([
-                'contact' => $contact,
-            ]);
 
-		    $mailer->send($email);
+            $email_form=$formdata['email'];
+            $nom_form=$formdata['nom'];
+            $prenom_form=$formdata['prenom'];
+            $subject_form=$formdata['subject'];
+            $message_form=$formdata['message'];
+
+            $mailService->sendMail(
+                $email_form,
+                $formdata['nom'],
+                $formdata['prenom'],
+                $formdata['subject'],
+                $formdata['message'],
+            );
 
             $this->addFlash(
                 'succes',
