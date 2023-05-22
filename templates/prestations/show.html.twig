@@ -33,10 +33,12 @@
                 <td>{{ prestation.description }}</td>
             </tr>
         </tbody>
+        <a href="{{ path('app_cart_add', {'id': prestation.id }) }}"><button type="button" class="btn btn-primary">Ajouter au panier</button></a>
+        </table>
 
     <a href="{{ path('app_prestations_index') }}">back to list</a>
 
- <h1>Commentaires</h1>
+    <h1>Commentaires</h1>
 {% for uncommentaire in les_commentaires %}
  <table class="table">
         <tbody>
