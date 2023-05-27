@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
-use App\Services\MailService;
+use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,18 +35,11 @@ class ContactController extends AbstractController
             $manager->flush();
             
 
-            $email_form=$formdata['email'];
-            $nom_form=$formdata['nom'];
-            $prenom_form=$formdata['prenom'];
-            $subject_form=$formdata['subject'];
-            $message_form=$formdata['message'];
+           
 
             $mailService->sendMail(
-                $email_form,
-                $formdata['nom'],
-                $formdata['prenom'],
-                $formdata['subject'],
-                $formdata['message'],
+                $contact->getEmail(),
+                $formdata->getMessage(),
             );
 
             $this->addFlash(
@@ -57,7 +50,7 @@ class ContactController extends AbstractController
 
         }
 
-
+        dd($form->createView());
         return $this->render('contact/index.html.twig', [
             'form' => $form->createView(),
         ]);

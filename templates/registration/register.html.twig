@@ -5,10 +5,10 @@
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('css/styleForm.css') }}">
 {% endblock %}
-{% block carousel %}{% endblock %}
 
 
 {% block body %}
+<div style="height: 100vh;"></div>
 	{% for flash_error in app.flashes('verify_email_error') %}
 		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
 	{% endfor %}

@@ -40,6 +40,9 @@ class Prestations
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description2 = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imagename = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -165,6 +168,18 @@ class Prestations
     public function setDescription2(?string $description2): self
     {
         $this->description2 = $description2;
+
+        return $this;
+    }
+
+    public function getImagename(): ?string
+    {
+        return $this->imagename;
+    }
+
+    public function setImagename(?string $imagename): self
+    {
+        $this->imagename = $imagename;
 
         return $this;
     }

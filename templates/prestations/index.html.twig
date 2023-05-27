@@ -1,7 +1,10 @@
-{% extends 'base.html.twig' %} {% block title %}DD Interiors Home Nos
-prestations {% endblock %} {% block stylesheets %}
+{% extends 'base.html.twig' %} 
+{% block title %}DD Interiors Home Nos
+prestations {% endblock %} 
+{% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/styleCard.css') }}" />
-{% endblock %} {% block carousel %}{% endblock %} {% block body %}
+{% endblock %}
+ {% block body %}
 <h1>Nos prestations</h1>
 <div class="container-card">
     {% for prestation in prestations %}
