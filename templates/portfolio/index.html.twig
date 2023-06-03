@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArchiProjects index
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/portfolio.css')}}">
+{% endblock %}
+
+{% block portfolio %}
+	{% block body %}
+
+
+		{# <div class="parallax-container parallax-container--center-top"> #}
+		{# <h2 class="parallax parallax-title" data-rellax-speed="2"> #}
+
+
+
+		<section class="pageTop anim" data-scrollama-index="0">
+  <div class="overflow-hidden">
+    <div class="pageTop__bg parallax" data-rellax-speed="-3" style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);"></div>
+    <div class="pageTop__container">
+      <div class="container">
+        <h1 class="pageTop__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+          Portfolio
+          </font></font><span class="reveal_title"></span>
+        </h1>
+        
+      </div>
+    </div>
+</section>
+
+
+           
+                      {% set archi_projectsArray = [] %}
+			{% for archi_project in archi_projects|sort((a, b) => a.pays <=> b.pays) %}
+                         
+                             {% if archi_project.pays  not in archi_projectsArray %}
+                
+                <div class="parallax-container-portfolio parallax-container--center-top-portfolio"> 
+                <h2 class="parallax parallax-title-portfolio" data-rellax-speed="2">
+					{{ archi_project.pays }}
+				</h2>
+			</div>
+              {% set archi_projectsArray = archi_projectsArray|merge([archi_project.pays]) %}
+                        {% endif %}
+                         
+			<div class="product__content scrollTo">
+                {% if loop.index is odd %}
+				<section class="product__mainImg product__mainImg--first section__generic section__generic--fullRight anim in-view" data-scrollama-index="1">
+                {% else %}
+                <section class="product__mainImg product__mainImg--first section__generic section__generic--fullLeft anim in-view" data-scrollama-index="1">
+                {% endif %}
+					<div class="section__generic__imgContainer">
+						<div class="section__generic__imgWrapper parallax" data-rellax-speed="-3" data-rellax-percentage="0.5" style="transform: translate3d(0px, -55px, 0px);">
+							<div class="image" src="/uploads/d_top-722eba485eb36e5118ee90b9fad12ef8.jpg" style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;);"></div>
+							<div class="imgPlaceholder"></div>
+						</div>
+					</div>
+					<div class="section__generic--content">
+						<h2 class="section__generic__title">{{ archi_project.titre }}</h2>
+						<a class="button pelement" style="padding-top: 0;" href="{{ path('app_portfolio_show', {'id': archi_project.id}) }}">SHOW</a>
+					</div>
+				</section>
+			</div>
+		{% endfor %}
+
+
+
+		{# <div style="height: 10vh;"></div>
+		    <h1>ArchiProjects index</h1>
+		
+		    <table class="table">
+		        <thead>
+		            <tr>
+		                <th>image</th>
+		                <th>Titre</th>
+		                <th>Description</th>
+		                <th>actions</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		        {% for archi_project in archi_projects %}
+		            <tr>
+		                {% for image in archi_project.imagesProjects %}                    
+		                <td> <img src="{{ asset('img/portfolio/') ~ image.nom}}" alt="image" width="150"></td>
+		                {% endfor %}
+		                <td>{{ archi_project.titre }}</td>
+		                <td>{{ archi_project.description }}</td>
+		                <td>
+		                    <a href="{{ path('app_portfolio_show', {'id': archi_project.id}) }}">show</a>
+		                </td>
+		            </tr>
+		        {% else %}
+		            <tr>
+		                <td colspan="4">no records found</td>
+		            </tr>
+		        {% endfor %}
+		        </tbody>
+		    </table>
+		    </div>
+		    <div style="height: 50vh;"></div>       #}
+
+	{% endblock %}
+	{% block javascripts %}
+		<script src="{{asset('js/portfolio.js')}}"></script>
+	{% endblock %}
+{% endblock %}

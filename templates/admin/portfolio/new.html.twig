@@ -1,0 +1,11 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}New ArchiProjects{% endblock %}
+
+{% block body %}
+    <h1>Create new ArchiProjects</h1>
+
+    {{ include('admin/portfolio/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_portfolio_index') }}">back to list</a>
+{% endblock %}

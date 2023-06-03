@@ -12194,7 +12194,7 @@
                     nobarba: n
                 }, t=>{
                     t.preventDefault(),
-                    "_blank" === t.data.myTarget ? window.open(t.data.myLink) : void 0 === E.a || t.data.nobarba ? window.location.href = t.data.myLink : r.a.Pjax.goTo(t.data.myLink)
+                    "_blanks" === t.data.myTarget ? window.open(t.data.myLink) : void 0 === E.a || t.data.nobarba ? window.location.href = t.data.myLink : r.a.Pjax.goTo(t.data.myLink) /*chargement*/
                 }
                 )
             })

@@ -1,0 +1,16 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Edit ArchiProjects{% endblock %}
+
+{% block body %}
+    <h1>Edit ArchiProjects</h1>
+
+    {{ include('admin/portfolio/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_portfolio_index') }}">back to list</a>
+
+    {{ include('admin/portfolio/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('js/images.js') }}"></script>
+{% endblock %}

@@ -43,7 +43,7 @@ class AdminPrestationsController extends AbstractController
             if ($imageprestation) {
                 // on utilise le service fileUploader
                 // pour envoyé l'image dans le public/img
-                $imageprestation_nom = $fileUploader->upload($imageprestation);
+                $imageprestation_nom = $fileUploader->uploadPrestation($imageprestation);
                 
                 // envoyé dans l'entité le nom de l'image
                 $prestation->setImagename($imageprestation_nom);
@@ -84,7 +84,7 @@ class AdminPrestationsController extends AbstractController
             if ($imageprestation) {
                 // on utilise le service fileUploader
                 // pour envoyé l'image dans le public/img
-                $imageprestation_nom = $fileUploader->upload($imageprestation);
+                $imageprestation_nom = $fileUploader->uploadPrestation($imageprestation);
                 
                 // envoyé dans l'entité le nom de l'image
                 $prestation->setImagename($imageprestation_nom);

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}ArchiProjects{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{asset('css/portfolio.css')}}">
+{% endblock %}
+
+{% block body %}
+<div style="height: 100vh;">
+    <div class="parallax-container parallax-container--center-top"> <h2 class="parallax parallax-title" data-rellax-speed="2">
+        {{ archi_project.titre }}
+    </h2>
+</div>
+    <h1>ArchiProjects</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ archi_project.id }}</td>
+            </tr>
+            <tr>
+                <th>image</th>
+            {% for image in archi_project.imagesProjects %} 
+                <td> <img src="{{ asset('img/portfolio/') ~ image.nom}}" alt="image" width="150"></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ archi_project.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ archi_project.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_portfolio_index') }}">back to list</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {% block javascripts %}
+ <script src="{{asset('js/portfolio.js')}}"></script>
+{% endblock %}   
+{% endblock %}

@@ -1,49 +1,79 @@
-{% extends 'base.html.twig' %} 
+{% extends 'base.html.twig' %}
 {% block title %}DD Interiors Home Nos
-prestations {% endblock %} 
-{% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('css/styleCard.css') }}" />
+	prestations
 {% endblock %}
- {% block body %}
-<h1>Nos prestations</h1>
-<div class="container-card">
-    {% for prestation in prestations %}
-    <a href="{{path('app_prestations_show', {'id': prestation.id}) }}">
-    <div class="card photo-drop-shadow">
-      <div class="image-card"></div>
-      <!-- {# <img src="https://www.architecture-organique.com/wp-content/uploads/2010/06/maison-architecte-ossature-bois-seine-et-marne-15.jpg" alt=""> #} -->
-      <div class="card-content">
-        <h2>
-          Titre {{ prestation.titre }}
-        </h2>
-        <p>
-          {% if prestation.prix %} Prix :
-          {{ prestation.prix }}
-          {% if prestation.prix %} € {% endif %} {% if
-          prestation.categoriesPrix.nom == "mètre carré" %} m² {% elseif
-          prestation.categoriesPrix.nom == "par pièce" %} /pièce {% endif %} {%
-          endif %}
-        </p>
-        <p>
-          {% if prestation.forfait %} forfait :
-          {{ prestation.forfait }}
-          {% if prestation.forfait %} € {% endif %}
-          <br />
-          forfait :
-          {{ prestation.forfait2 }}
-          {% if prestation.forfait2 %} € {% endif %} {% endif %}
-          <li>
-            {{ prestation.description }}
-            {% if prestation.description2 %}
-            <br />
-            {% endif %}
-            {{ prestation.description2 }}
-          </li>
-        </p>
-        </a>
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/styleCard.css') }}"/>
+{% endblock %}
+{% block body %}
+			<section class="pageTop anim" data-scrollama-index="0">
+  <div class="overflow-hidden">
+    <div class="pageTop__bg parallax" data-rellax-speed="-3" style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);"></div>
+    <div class="pageTop__container">
+      <div class="container">
+        <h1 class="pageTop__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+          Prestation
+          </font></font><span class="reveal_title"></span>
+        </h1>
+        
       </div>
     </div>
+</section>
 
-    {% endfor %}
-  </div>
+	<div class="container-card">
+		{% for prestation in prestations %}
+			<a href="{{path('app_prestations_show', {'id': prestation.id}) }}">
+				<div class="card photo-drop-shadow">
+					<div class="image-card"></div>
+					<!-- {# <img src="https://www.architecture-organique.com/wp-content/uploads/2010/06/maison-architecte-ossature-bois-seine-et-marne-15.jpg" alt=""> #} -->
+					<div class="card-content">
+						<h2>
+							Titre
+							{{ prestation.titre }}
+						</h2>
+						<p>
+							{% if prestation.prix %}
+								Prix :
+								{{ prestation.prix }}
+								{% if prestation.prix %}
+									€
+								{% endif %}
+								{% if
+          prestation.categoriesPrix.nom == "mètre carré" %}
+									m²
+								{% elseif
+          prestation.categoriesPrix.nom == "par pièce" %}
+									/pièce
+								{% endif %}
+							{%
+          endif %}
+						</p>
+						<p>
+							{% if prestation.forfait %}
+								forfait :
+								{{ prestation.forfait }}
+								{% if prestation.forfait %}
+									€
+								{% endif %}
+								<br/>
+								forfait :
+								{{ prestation.forfait2 }}
+								{% if prestation.forfait2 %}
+									€
+								{% endif %}
+							{% endif %}
+							<li>
+								{{ prestation.description }}
+								{% if prestation.description2 %}
+									<br/>
+								{% endif %}
+								{{ prestation.description2 }}
+							</li>
+						</p>
+					</a>
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
 {% endblock %}

@@ -25,7 +25,7 @@
         {% for prestation in prestations %}
             <tr>
                 <td>{{ prestation.id }}</td>
-                <td> <img src="{{ asset('img/') ~ prestation.imagename}}" class="card-img-top" alt="..." style="width: 150px; height: 150px;"></td>
+                <td> <img src="{{ asset('img/prestation/') ~ prestation.imagename}}" class="card-img-top" alt="..." style="width: 150px; height: 150px;"></td>
                 <td>{{ prestation.titre }}</td>
                 <td>{{ prestation.forfait }}</td>
                 <td>{{ prestation.prix }}</td>

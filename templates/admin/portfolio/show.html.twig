@@ -1,0 +1,40 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}ArchiProjects{% endblock %}
+
+{% block body %}
+    <h1>ArchiProjects</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ archi_project.id }}</td>
+            </tr>
+            <tr>
+                <th>image</th>
+            {% for image in archi_project.imagesProjects %} 
+                <td> <img src="{{ asset('img/portfolio/') ~ image.nom}}" alt="image" width="150"></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ archi_project.titre }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ archi_project.pays }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ archi_project.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_portfolio_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_portfolio_edit', {'id': archi_project.id}) }}">edit</a>
+
+    {{ include('admin/portfolio/_delete_form.html.twig') }}
+{% endblock %}

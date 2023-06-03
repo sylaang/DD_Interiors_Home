@@ -76,7 +76,7 @@
 					<a class="button pelement" style="padding-top: 0;" href="#">À propos</a>
 				</li>
 				<li>
-					<a class="button pelement" style="padding-top: 0;" href="#">Portfolio</a>
+					<a class="button pelement" style="padding-top: 0;" href="{{path('app_portfolio_index')}}">Portfolio</a>
 				</li>
 				<li>
 					<a class="button pelement" style="padding-top: 0;" href="{{path('app_prestations_index')}}">Nos prestations</a>
@@ -117,11 +117,12 @@
 	<div class="monolit_sec monolit_page_sec content-page">
 		<div class="vs-section">
 
-			<main id="barba-wrapper" style="background: #1B1B1B;">
+			<main id="barba-wrapper" style="background: url('https://www.biologement.fr/3458-thickbox_default/kit-beton-cire-bleu-azur.jpg')">
 
 				<div class="barba-container">
 
 				{% block body %}{% endblock %}
+				
 
 
 				</div>
@@ -129,7 +130,7 @@
 			</main>
 		</div>
 	</div>
-	<div class="height-emulator" style="height: 1px;"></div>
+	<div class="height-emulator" style="height: 1024px;"></div>
 	<footer class="content-footer">
 		<!--  container  -->
 		<div class="container-footer">

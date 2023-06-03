@@ -43,9 +43,13 @@ class Prestations
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imagename = null;
 
+    #[ORM\OneToMany(mappedBy: 'prestation', targetEntity: Commandes::class)]
+    private Collection $commandes;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,6 +184,33 @@ class Prestations
     public function setImagename(?string $imagename): self
     {
         $this->imagename = $imagename;
+
+        return $this;
+    }
+
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commandes $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->setPrestation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commandes $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getPrestation() === $this) {
+                $commande->setPrestation(null);
+            }
+        }
 
         return $this;
     }
