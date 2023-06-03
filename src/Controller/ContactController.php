@@ -22,7 +22,7 @@ class ContactController extends AbstractController
 
         if($form->isSubmitted()&&$form->isValid())
         {
-            $formdata=$form->getData();
+            $contact=$form->getData();
 
             if($this->getUser())
             {
@@ -30,16 +30,20 @@ class ContactController extends AbstractController
                 $contact->setPrenom($this->getUser()->getPrenom())
                     ->setEmail($this->getUser()->getEmail());
             }
-
             $manager->persist($contact);
             $manager->flush();
             
-
+            $context = [
+                 'contact' => $contact, 
+                ];
            
 
             $mailService->sendMail(
                 $contact->getEmail(),
-                $formdata->getMessage(),
+                'log@ddinteriorshome.com',
+                $contact->getSubject(),
+                'contact',
+                $context
             );
 
             $this->addFlash(
@@ -50,7 +54,6 @@ class ContactController extends AbstractController
 
         }
 
-        dd($form->createView());
         return $this->render('contact/index.html.twig', [
             'form' => $form->createView(),
         ]);
