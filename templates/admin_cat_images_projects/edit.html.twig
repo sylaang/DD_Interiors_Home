@@ -1,0 +1,13 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Edit CatImagesProjects{% endblock %}
+
+{% block body %}
+    <h1>Edit CatImagesProjects</h1>
+
+    {{ include('admin_cat_images_projects/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_cat_images_projects_index') }}">back to list</a>
+
+    {{ include('admin_cat_images_projects/_delete_form.html.twig') }}
+{% endblock %}

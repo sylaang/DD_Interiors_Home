@@ -40,7 +40,7 @@ class ContactController extends AbstractController
 
             $mailService->sendMail(
                 $contact->getEmail(),
-                'log@ddinteriorshome.com',
+                'contact@ddinteriorshome.com',
                 $contact->getSubject(),
                 'contact',
                 $context
@@ -55,7 +55,7 @@ class ContactController extends AbstractController
         }
 
         return $this->render('contact/index.html.twig', [
-            'form' => $form->createView(),
+            'contactForm' => $form->createView(),
         ]);
     }
 }

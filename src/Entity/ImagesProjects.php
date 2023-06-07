@@ -32,7 +32,11 @@ class ImagesProjects
 
     #[ORM\ManyToOne(inversedBy: 'imagesProjects')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?ArchiProjects $archiprojets = null;
+    private ?ArchiProjects $archiprojets = null;    
+
+    #[ORM\ManyToOne(inversedBy: 'imagesProjects')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CatImagesProjects $catImagesProjects = null;
 
     public function getId(): ?int
     {
@@ -61,6 +65,11 @@ class ImagesProjects
         $this->salon = $salon;
 
         return $this;
+    }    
+
+    public function __toString()
+    {
+        return $this->salon;
     }
 
     public function getChambre(): ?string
@@ -107,6 +116,18 @@ class ImagesProjects
     public function setArchiprojets(?ArchiProjects $archiprojets): self
     {
         $this->archiprojets = $archiprojets;
+
+        return $this;
+    }
+
+    public function getCatImagesProjects(): ?CatImagesProjects
+    {
+        return $this->catImagesProjects;
+    }
+
+    public function setCatImagesProjects(?CatImagesProjects $catImagesProjects): self
+    {
+        $this->catImagesProjects = $catImagesProjects;
 
         return $this;
     }

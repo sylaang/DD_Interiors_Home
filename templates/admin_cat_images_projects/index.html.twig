@@ -1,0 +1,35 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}CatImagesProjects index{% endblock %}
+
+{% block body %}
+    <h1>CatImagesProjects index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cat_images_project in cat_images_projects %}
+            <tr>
+                <td>{{ cat_images_project.id }}</td>
+                <td>{{ cat_images_project.nom }}</td>
+                <td>
+                    <a href="{{ path('app_admin_cat_images_projects_show', {'id': cat_images_project.id}) }}">show</a>
+                    <a href="{{ path('app_admin_cat_images_projects_edit', {'id': cat_images_project.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_cat_images_projects_new') }}">Create new</a>
+{% endblock %}

@@ -91,10 +91,7 @@ class CartController extends AbstractController
 
 // // page pour vider notre panier
 #[Route('/removequantite/{id}', name: 'app_cart_removequantite')]
-public function removequantite(
-     $id,
-    CartService $cartService
-): Response
+public function removequantite($id, CartService $cartService): Response
 {
      // supprimer la clé du tableau (le prestations)
     $cartService->remove($id);

@@ -20,15 +20,15 @@ class MailService
 	public function sendMail($from,	$to, $subject, $template, $context): void 
 	{
 		$email = (new TemplatedEmail())
-			->from($from) //$contact->getEmail()
-			->to($to) //$mail
+			->from($from)
+			->to($to)
 			//->cc('cc@example.com')
 			//->bcc('bcc@example.com')
-			->replyTo($from) //$contact->getEmail()
+			->replyTo($from)
 			//->priority(Email::PRIORITY_HIGH)
-			->subject($subject) //$contact->getSubject()
+			->subject($subject)
 			// chemin du template de la twig à la vue(view)
-			->htmlTemplate("emails/$template.html.twig") //contact
+			->htmlTemplate("emails/$template.html.twig")
 
 			// passer la variable (nom => valeur) au template
 			->context($context); // [ 'contact' => $contact, ]

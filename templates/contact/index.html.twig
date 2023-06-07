@@ -1,14 +1,85 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ContactController!{% endblock %}
+{% block title %}Hello ContactController!
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    {% for message in app.flashes('succes') %}
-    <div class="alert alert-succes mt-4">
-        {{message}}
-    </div>
-    {% endfor %}
-    {{ form(form) }}
+
+<section class="pageTop anim" data-scrollama-index="0">
+	<div class="overflow-hidden">
+		<div class="pageTop__bg parallax" data-rellax-speed="-3"
+			style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
+		</div>
+		<div class="pageTop__container">
+			<div class="container">
+				<h1 class="pageTop__title">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">
+							Contact
+						</font>
+					</font>
+					<span class="reveal_title"></span>
+				</h1>
+
+			</div>
+		</div>
+</section>
+<div style="height: 90vh;"></div>
 </div>
+{% for message in app.flashes('succes') %}
+<div class="alert alert-succes mt-4">
+	{{message}}
+</div>
+{% endfor %}
+<div style="display: flex; justify-content: center; margin-left: 400px; position: relative; margin-bottom: 20vh;"> <img
+		style=" height: 750px; width: 950px;"
+		src="https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg" alt="">
+</div>
+
+
+
+
+
+<div class="container"
+	style="position: absolute; top: 115vh; left: 35vw; padding: 100px;width: 750px; height: 550px; background-color: rgba(0, 0, 0, 0.454);">
+	{{ form_start(contactForm) }}
+	<div class="row mb-4">
+		<div class="col">
+			<div class="form-outline">
+				{{ form_widget(contactForm.nom, { 'attr': {'placeholder': 'Nom*'} }) }}
+			</div>
+		</div>
+		<div class="col">
+			<div class="form-outline">
+				{{ form_widget(contactForm.prenom, { 'attr': {'placeholder': 'Prenom*'} }) }}
+			</div>
+		</div>
+	</div>
+	<div class="form-outline mb-4">
+		{{ form_widget(contactForm.email, { 'attr': {'placeholder': 'Adresse email*'} }) }}
+	</div>
+	<div class="form-outline mb-4">
+		{{ form_widget(contactForm.subject, { 'attr': {'placeholder': 'Sujet*'} }) }}
+	</div>
+	<div class="form-outline mb-4">
+		{{ form_widget(contactForm.message, { 'attr': {'placeholder': 'Votre message*'} }) }}
+	</div>
+	<li>
+		<a class="button pelement" type="submit" style="width: 200px; margin-left: 5em;">Envoyer</a>
+	</li>
+
+
+	{{ form_end(contactForm) }}
+</div>
+<style>
+	.form-outline input::placeholder {
+		color: rgb(255, 255, 255) ;
+	}
+
+	.form-outline textarea::placeholder {
+		color: rgb(255, 255, 255) ;
+	}
+</style>
+
+
 {% endblock %}

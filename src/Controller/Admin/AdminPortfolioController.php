@@ -8,6 +8,7 @@ use App\Entity\ImagesProjects;
 use App\Form\ArchiProjectsType;
 use App\Repository\PaysRepository;
 use App\Repository\ArchiProjectsRepository;
+use App\Repository\CatImagesProjectsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +31,7 @@ class AdminPortfolioController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_portfolio_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ArchiProjectsRepository $archiProjectsRepository): Response
+    public function new(Request $request, ArchiProjectsRepository $archiProjectsRepository, CatImagesProjectsRepository $catRepository): Response
     {   
         $archiProject = new ArchiProjects();
         $form = $this->createForm(ArchiProjectsType::class, $archiProject);
@@ -44,40 +45,40 @@ class AdminPortfolioController extends AbstractController
             $salledebain = $form['salledebain']->getData();
             $salleamanger = $form['salleamanger']->getData();
             
-            $images = [
-                $cuisine,
-                $salon,
-                $chambre,
-                $salledebain,
-                $salleamanger,
+            $touteslesimages = [
+                'Cuisine' =>$cuisine,
+                'Salon' => $salon,
+                'Chambre' => $chambre,
+                'Salle de bain' => $salledebain,
+                'Salle a manger' => $salleamanger,
 
             ];
             
             //boucler sur les images
-            foreach ($images as $image) {
-                // génère un nouveau nom de fichier
-                foreach ($image as $cuisine) {
+            foreach ($touteslesimages as $nomDeLaPiece => $imagesdunepiece) {
+                $cat = $catRepository->findOneBy(['nom' => $nomDeLaPiece]);
 
-                    $fichier = md5(uniqid()) . '' . $cuisine->guessExtension();
+                // génère un nouveau nom de fichier
+                foreach ($imagesdunepiece as $picture) {
+
+                    $fichier = md5(uniqid()) . '' . $picture->guessExtension();
+                    $fichier = md5(uniqid()) . '' . $picture->guessExtension();
                 
 
                     // copie le fichier dans le dossier img/portfolio
-                    $cuisine->move(
+                    $picture->move(
                         $this->getParameter('images_directory'),
                         $fichier,
                     );
+                    //stoker l'image dans la BDD (son nom)
+                    $img = new ImagesProjects();
+                    $img->setCatImagesProjects($cat);
+                        $img->setCuisine($fichier);
+                    $archiProject->addImagesProject($img);
                 }
-                //stoker l'image dans la BDD (son nom)
-                $img = new ImagesProjects();
-                $img->setCuisine($fichier);
-                $img->setSalon($fichier);
-                $img->setChambre($fichier);
-                $img->setSalledebain($fichier);
-                $img->setSalleamanger($fichier);
-                $archiProject->addImagesProject($img);
             }
-
             $archiProjectsRepository->save($archiProject, true);
+
 
             return $this->redirectToRoute('app_admin_portfolio_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -125,6 +126,10 @@ class AdminPortfolioController extends AbstractController
                 foreach ($image as $picture) {
 
                     $fichier = md5(uniqid()) . '' . $picture->guessExtension();
+                    $fichier1 = md5(uniqid()) . '' . $picture->guessExtension();
+                    $fichier2 = md5(uniqid()) . '' . $picture->guessExtension();
+                    $fichier3 = md5(uniqid()) . '' . $picture->guessExtension();
+                    $fichier4 = md5(uniqid()) . '' . $picture->guessExtension();
                 
 
                     // copie le fichier dans le dossier img/portfolio

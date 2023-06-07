@@ -81,12 +81,12 @@ class ContactType extends AbstractType
                     new Assert\NotBlank(),
                 ]
             ])
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary mt-4'
-            ],
-            'label' => 'Créer' 
-        ]);
+        //     ->add('submit', SubmitType::class, [
+        //         'attr' => [
+        //             'class' => 'btn btn-primary mt-4'
+        //     ],
+        //     'label' => 'Créer' 
+        // ]);
         ;
     }
 

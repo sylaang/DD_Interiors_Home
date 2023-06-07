@@ -50,7 +50,7 @@ class CartService
 
         //get pour recuperer la session
         // dd($session->getSession()->get("panier"));
-        $panier = $this->session->getSession()->get("panier");
+        $panier = $this->session->getSession()->get("panier", []);
 
         // créé un panier contenant les infos sur le prestations
 

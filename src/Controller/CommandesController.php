@@ -6,8 +6,6 @@ use DateTime;
 use Stripe\Stripe;
 use App\Entity\Facture;
 use App\Entity\Commandes;
-use Stripe\PaymentIntent;
-use Stripe\Checkout\Session;
 use App\Service\CartService;
 use App\Repository\FactureRepository;
 use App\Repository\CommandesRepository;
@@ -21,31 +19,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommandesController extends AbstractController
 {
     #[Route('/commande', name: 'app_commande')]
-    public function index(RequestStack $session, PrestationsRepository $prestationRepository, CartService $cart,
-        FactureRepository $factureRepository,CommandesRepository $commandesRepository): Response
-    {
-        // stocké le user
-        // this->getUser()
-        // stocké la prestation
-        // via le param converter
-        // et la quantité via la session
- 
-         // stocké le user
-        // this->getUser()
-
-        // recuperation du panier
-        //  $panier=$session->getSession()->get("panier");
-        // // boucler sur chaque ligne du panier
-        // foreach ($panier as $key => $value  ){ 
-            
-        //     $commande = new Commandes();
-        //     $commande->getPrestation($this->getUser());
-        //     $commande->setprestation($prestationRepository->find($key));
-        //     $commande->setQuantite($value);
-        //     $commandesRepository->save($commande, true);
-        // }
-
-
+    public function index(CartService $cart): Response
+    {        
         //1. Payer sur STRIPE
         // communiquer avec stripe
 
@@ -107,15 +82,12 @@ class CommandesController extends AbstractController
     }
 
     #[Route('/commande/success', name: 'app_commandes_succes')]
-    public function sucess(
-        FactureRepository $factureRepository,
-        RequestStack $session,
-        PrestationsRepository $prestationsRepository,
-        CommandesRepository $commandesRepository,
-        CartService $cartService
-    ): Response {
+    public function sucess(FactureRepository $factureRepository, RequestStack $session,
+        PrestationsRepository $prestationsRepository,CommandesRepository $commandesRepository,
+        CartService $cartService): Response 
+    {
 
-
+        
 
         // 1. On va stocké une ligne dans la table facture
         // on créé un objet facture issue de l'entité facture

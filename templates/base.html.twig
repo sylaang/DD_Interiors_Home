@@ -82,7 +82,7 @@
 					<a class="button pelement" style="padding-top: 0;" href="{{path('app_prestations_index')}}">Nos prestations</a>
 				</li>
 				<li>
-					<a class="button pelement" style="padding-top: 0;" href="#">Contact</a>
+					<a class="button pelement" style="padding-top: 0;" href="{{path('app_contact')}}">Contact</a>
 				</li>
 			</ul>
 			<ul class="navlinks" style="display: flex; align-items: end;">
@@ -91,11 +91,16 @@
 					<a class="button pelement" style="padding-top: 0;" href="{{path('app_login')}}">Connexion</a>
 				</li>
 				{% endif %}
+				{% if is_granted('ROLE_ADMIN') %}
+				<li>
+					<a class="button pelement" style="padding-top: 0;" href="{{path('app_admin_dashboard')}}">Dashboard</a>
+				</li>
+				{% endif %}
 			</ul>
 		</nav>
 	</header>
 
-	<div class="grid">
+	{# <div class="grid">
 		<div class="grid__col">
 			<div class="grid__fill"></div>
 			<div class="grid__line"></div>
@@ -113,7 +118,7 @@
 			<div class="grid__line"></div>
 		</div>
 		<div class="grid__logo"></div>
-	</div>
+	</div> #}
 	<div class="monolit_sec monolit_page_sec content-page">
 		<div class="vs-section">
 
