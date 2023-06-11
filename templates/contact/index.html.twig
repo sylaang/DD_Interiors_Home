@@ -3,6 +3,10 @@
 {% block title %}Hello ContactController!
 {% endblock %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/contact.css')}}">
+	{% endblock %}
+
 {% block body %}
 
 <section class="pageTop anim" data-scrollama-index="0">
@@ -30,17 +34,18 @@
 <div class="alert alert-succes mt-4">
 	{{message}}
 </div>
+<img src="" alt="">
 {% endfor %}
-<div style="display: flex; justify-content: center; margin-left: 400px; position: relative; margin-bottom: 20vh; box-shadow: 0 10px 30px 5px #000000;">
-		<img style=" height: 750px; width: 950px;"src="https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg" alt="">
+<div class="container-contact-img">
+		<div id="img-contact" class="contact-img"></div>
+		 
 </div>
 
 
 
-
-
-<div class="container"
-	style="position: absolute; top: 110vh; left: 30vw; padding: 100px;width: 750px; height: 550px; background-color: rgba(0, 0, 0, 0.544); box-shadow: 0 5px 15px 3px #000000;">
+<div style="height: 25vh;"></div>
+<div class="container-contact">
+	<h2>Contactez-nous</h2>
 	{{ form_start(contactForm) }}
 	<div class="row mb-4">
 		<div class="col">
@@ -64,21 +69,8 @@
 		{{ form_widget(contactForm.message, { 'attr': {'placeholder': 'Votre message*'} }) }}
 	</div>
 	<li>
-		<a class="button pelement" type="submit" style="width: 200px; margin-left: 5em;">Envoyer</a>
+		<a class="button pelement" type="submit" style="width: 200px; margin-left: 12em;">Envoyer</a>
 	</li>
-
-
 	{{ form_end(contactForm) }}
 </div>
-<style>
-	.form-outline input::placeholder {
-		color: rgb(255, 255, 255) ;
-	}
-
-	.form-outline textarea::placeholder {
-		color: rgb(255, 255, 255) ;
-	}
-</style>
-
-
 {% endblock %}

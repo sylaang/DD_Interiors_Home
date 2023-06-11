@@ -1,0 +1,52 @@
+		/* ______________________________________________________________CONTACT_PAGE__________________________________________________________ */
+
+        #img-contact{
+            background: conic-gradient( #ffffff81,#000000de),
+            url("https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg");
+        }
+    
+        .contact-img{
+            height: 750px;
+            width: 950px;
+        }
+    
+        .container-contact-img {
+            display: flex;
+            justify-content: center;
+            margin-left: 400px;
+            position: relative;
+            margin-bottom: 20vh;
+        }
+    
+        .container-contact {
+            position: absolute;
+            top: 110vh;
+            left: 28vw;
+            padding: 100px;width: 750px;
+            height: 650px;
+            background-color: rgba(255, 255, 255, 0.047);
+            box-shadow: 0 5px 15px 3px #000000;
+        }
+    
+        .form-outline input::placeholder {
+            color: rgb(255, 255, 255); 
+        }
+        .form-outline text{
+            color: white;
+        }
+        .form-outline .form-control {
+            color: white;
+            background: rgba(0, 0, 0, 0.300);
+        }
+        .form-control:focus {
+            color: goldenrod;}
+    
+        .form-outline textarea::placeholder {
+            color: rgb(255, 255, 255);
+        }
+    
+        textarea.form-control {
+            height: 100px;
+        }
+    
+        /* _________________________________________________________________________________________ */

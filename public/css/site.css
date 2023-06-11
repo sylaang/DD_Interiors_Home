@@ -65,7 +65,7 @@
 
 .affix {
     height: 90px;
-    background-color: rgba(0, 0, 0, 0.589);
+    background-color: #0d0d0d89;
 }
 
 /* ______________________END_NAV____________________________ */
@@ -76,7 +76,7 @@
     height: 75vh;
     text-align: right;
     margin-bottom: 50px;
-    background-color: #000;
+    background-color: black;
 }
 
 @media (max-width: 992px) {
@@ -129,7 +129,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.8);
+    background-color: #0D0D0Df0;
 }
 
 .pageTop__container {
@@ -266,7 +266,7 @@
     src: url(../fonts/Butler_Regular.otf) format("opentype");
     font-weight: 400;
     font-style: normal;
-    font-display: swap
+    font-display: swap;
 }
 
 *,:after,:before {
@@ -299,7 +299,7 @@ html {
 body {
     font-size: 16px;
     color: #fff;
-    background-color: #272727;
+    background-color: black;
 }
 
 a {
@@ -577,12 +577,7 @@ a:hover {
     overflow: hidden;
     opacity: .9
 }
-*, :after, :before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    cursor: none!important;
-}
+
 feuille de style user-agent
 section {
     display: block;
@@ -857,7 +852,7 @@ section {
 
 .scroll-hint__label {
     font-size: 12px;
-    padding-left: 20px
+    padding-left: 20px;
 }
 
 .cookie {
@@ -900,7 +895,7 @@ section {
 }
 
 a.cookie__info {
-    color: #fab162
+    color: #fab162;
 }
 
 .cookie__ok {
@@ -909,7 +904,7 @@ a.cookie__info {
     position: absolute;
     top: 9px;
     right: 25px;
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 @media (max-width: 992px) {
@@ -1726,7 +1721,7 @@ a.cookie__info {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: #0d0d0df0;
 }
 
 .slide__container {

@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+
+
 use App\Entity\Prestations;
 use App\Entity\Commentaires;
 use App\Form\CommentairesType;
+use App\Form\ConceptionDesignType;
 use App\Repository\PrestationsRepository;
 use App\Repository\CommentairesRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +26,7 @@ class PrestationsController extends AbstractController
         ]);
     }
     
-    #[Route('/{id}', name: 'app_prestations_show', methods: ['GET', 'POST'])]
+    #[Route('//{id}', name: 'app_prestations_show', methods: ['GET', 'POST'])]
     public function show(Request $request, Prestations $prestation, CommentairesRepository $commentairesRepository): Response
     {
         $commentaire = new Commentaires();
