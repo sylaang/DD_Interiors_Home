@@ -82,7 +82,7 @@
 					<a class="button pelement" style="padding-top: 0;" href="{{path('app_prestations_index')}}">Nos prestations</a>
 				</li>
 				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{path('app_contact')}}">Contact</a>
+					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_contact') }}">Contact</a>
 				</li>
 			</ul>
 			<ul class="navlinks" style="display: flex; align-items: end;">
@@ -100,7 +100,7 @@
 		</nav>
 	</header>
 
-	{# <div class="grid">
+	<div class="grid">
 		<div class="grid__col">
 			<div class="grid__fill"></div>
 			<div class="grid__line"></div>
@@ -118,7 +118,7 @@
 			<div class="grid__line"></div>
 		</div>
 		<div class="grid__logo"></div>
-	</div> #}
+	</div>
 	<div class="monolit_sec monolit_page_sec content-page">
 		<div class="vs-section">
 
@@ -221,6 +221,8 @@
 
 	{# _________________________________GSAP_JS_____________________________ #}
 	<script src="{{ asset('js/gsap.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.1/dist/gsap.min.js"></script>
+
 
 	<script src="{{ asset('js/nav.js') }}"></script>
 	{# _______________________________________FOOTER____________________________
@@ -238,6 +240,30 @@
 
 	<!-- ____________________________________MDB _______________________________-->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"></script>
+	
+
+	<script>
+// Sélectionnez tous les liens <a href>
+	var links = document.querySelectorAll("a");
+
+// Parcourez tous les liens et ajoutez un gestionnaire d'événements de clic
+links.forEach(function(link) {
+  link.addEventListener("click", function(event) {
+    // Vérifiez si la touche Shift est enfoncée pour ouvrir le lien dans un nouvel onglet
+    if (!event.shiftKey) {
+      // Empêchez le comportement de lien par défaut
+      event.preventDefault();
+      
+      // Naviguez vers la nouvelle page en utilisant l'attribut href du lien
+      var href = this.getAttribute("href");
+      history.pushState({}, "", href);
+      
+      // Rechargez la page de manière discrète
+      location.reload();
+    }
+  });
+});
+	</script>
 
 	{% block javascripts %}
 	{{ encore_entry_script_tags("app") }}

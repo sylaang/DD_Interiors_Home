@@ -1952,11 +1952,11 @@
                 getContainer: function(t) {
                     if (t || (t = document.body),
                     !t)
-                        throw new Error("Barba.js: DOM not ready!");
+                        throw new Error("gsap.js: DOM not ready!");
                     var e = this.parseContainer(t);
                     if (e && e.jquery && (e = e[0]),
                     !e)
-                        throw new Error("Barba.js: no container found");
+                        throw new Error("gsap.js: no container found");
                     return e
                 },
                 getNamespace: function(t) {
@@ -6474,7 +6474,6 @@
                 if (this.vars.current += (this.vars.target - this.vars.current) * this.vars.ease,
                 this.vars.current < .1 && (this.vars.current = 0),
                 this.requestAnimationFrame(),
-                this.extends || (this.dom.section.style[this.prefix] = this.getTransform(-this.vars.current.toFixed(2))),
                 !this.vars.native && !this.options.noscrollbar) {
                     const t = this.dom.scrollbar.drag.height
                       , e = "vertical" === this.vars.direction ? this.vars.height : this.vars.width
