@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DD Interiors Home prestation{% endblock %}
+
+
+{% block body %}
+<div style="height: 100vh;"><div>
+    <h1>Résultat de la conception</h1>
+
+    <p>Surface saisie : {{ surface }} m²</p>
+    <p>Nouveau prix : {{ prix }} €</p>
+
+    <a href="{{ path('app_cart_add', {'id': prestation.id }) }}"><button type="button" class="btn btn-primary">Ajouter au panier</button></a>
+
+{% endblock %}

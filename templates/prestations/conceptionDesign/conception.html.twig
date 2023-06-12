@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DD Interiors Home prestation{% endblock %}
+
+
+{% block body %}
+    <h1>Conception de la prestation "{{ prestation.titre }}"</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.surface) }}
+    {{ form_end(form) }}
+{% endblock %}
