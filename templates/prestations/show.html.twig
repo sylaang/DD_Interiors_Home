@@ -4,6 +4,7 @@
 {% block carousel %}{% endblock %}
 
 {% block body %}
+<div style="height: 100vh;"><div>
  <h1>prestation</h1>
 
     <table class="table">
@@ -34,8 +35,15 @@
             </tr>
         </tbody>
         <a href="{{ path('app_cart_add', {'id': prestation.id }) }}"><button type="button" class="btn btn-primary">Ajouter au panier</button></a>
+        
         </table>
+        {% if prestation.categoriesPrix.nom == "mètre carré" %}
+        <a class="button " href="{{ path('app_M2', { 'id': prestation.id }) }}" style="color: black;">Formulaire M2</a>
+        {% endif %}
 
+        {% if prestation.forfait %}
+        <a class="button " href="{{ path('app_piece', { 'id': prestation.id }) }}" style="color: black;">Formulaire Piece</a>
+        {% endif %}
     <a href="{{ path('app_prestations_index') }}">back to list</a>
 
     <h1>Commentaires</h1>
