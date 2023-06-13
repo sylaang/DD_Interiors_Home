@@ -3,34 +3,27 @@
     {{ form_widget(form) }}
 
     {% if app.request.attributes.get('_route') == 'app_admin_portfolio_edit' %}
-    <h2>Images</h2>
-    {% for image in archi_project.imagesProjects %}
-        <div>
-        <div>
-        cuisine :
-            <img src="{{ asset('img/portfolio/') ~ image.cuisine}}" alt="image" width="100">
-        </div>
-        <div>
-            salon :
-            <img src="{{ asset('img/portfolio/') ~ image.salon}}" alt="image" width="100">
-        </div> 
-        <div>
-        chambre :
-            <img src="{{ asset('img/portfolio/') ~ image.chambre}}" alt="image" width="100">
-        </div>
-        <div>
-            salledebain:
-            <img src="{{ asset('img/portfolio/') ~ image.salledebain}}" alt="image" width="100">
-        </div>
-        <div>
-            salleamanger:
-            <img src="{{ asset('img/portfolio/') ~ image.salleamanger}}" alt="image" width="100">
-        </div>
-            <a href="{{ path('app_admin_portfolio_delete_images', {id: image.id}) }}"
-            data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">
-            SUPPRIMER</a>
-        </div>
-    {% endfor %}
+<h2>Images</h2>
+{% for image in archi_project.imagesProjects %}
+    <div>
+        {% if image.getCatImagesProjects().getNom() == 'Cuisine' %}
+            Cuisine:
+            <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100">
+        {% elseif image.getCatImagesProjects().getNom() == 'Salon' %}
+            Salon:
+            <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100">
+        {% elseif image.getCatImagesProjects().getNom() == 'Chambre' %}
+            Chambre:
+            <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100">
+        {% elseif image.getCatImagesProjects().getNom() == 'Salle de bain' %}
+            Salle de bain:
+            <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100">
+        {% elseif image.getCatImagesProjects().getNom() == 'Salle a manger' %}
+            Salle à manger:
+            <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100">
+        {% endif %}
+    </div>
+{% endfor %}
     {% endif %}
 
     <button class="btn">{{ button_label|default('Save') }}</button>

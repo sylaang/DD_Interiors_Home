@@ -61,8 +61,7 @@ class AdminPortfolioController extends AbstractController
                 // génère un nouveau nom de fichier
                 foreach ($imagesdunepiece as $picture) {
 
-                    $fichier = md5(uniqid()) . '' . $picture->guessExtension();
-                    $fichier = md5(uniqid()) . '' . $picture->guessExtension();
+                    $fichier = md5(uniqid()) . '.' . $picture->guessExtension();
                 
 
                     // copie le fichier dans le dossier img/portfolio
@@ -73,7 +72,7 @@ class AdminPortfolioController extends AbstractController
                     //stoker l'image dans la BDD (son nom)
                     $img = new ImagesProjects();
                     $img->setCatImagesProjects($cat);
-                        $img->setCuisine($fichier);
+                    $img->setFile($fichier);
                     $archiProject->addImagesProject($img);
                 }
             }
@@ -98,7 +97,7 @@ class AdminPortfolioController extends AbstractController
     }
 
     #[Route('edit/{id}/', name: 'app_admin_portfolio_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ArchiProjects $archiProject, ArchiProjectsRepository $archiProjectsRepository): Response
+    public function edit(Request $request, ArchiProjects $archiProject, ArchiProjectsRepository $archiProjectsRepository, CatImagesProjectsRepository $catRepository): Response
     {
         $form = $this->createForm(ArchiProjectsType::class, $archiProject);
         $form->handleRequest($request);
@@ -110,42 +109,37 @@ class AdminPortfolioController extends AbstractController
             $chambre = $form['chambre']->getData();
             $salledebain = $form['salledebain']->getData();
             $salleamanger = $form['salleamanger']->getData();
-
-            $images = [
-                $cuisine,
-                $salon,
-                $chambre,
-                $salledebain,
-                $salleamanger,
+            
+            $touteslesimages = [
+                'Cuisine' =>$cuisine,
+                'Salon' => $salon,
+                'Chambre' => $chambre,
+                'Salle de bain' => $salledebain,
+                'Salle a manger' => $salleamanger,
 
             ];
             
             //boucler sur les images
-            foreach ($images as $image) {
-                // génère un nouveau nom de fichier
-                foreach ($image as $picture) {
+            foreach ($touteslesimages as $nomDeLaPiece => $imagesdunepiece) {
+                $cat = $catRepository->findOneBy(['nom' => $nomDeLaPiece]);
 
-                    $fichier = md5(uniqid()) . '' . $picture->guessExtension();
-                    $fichier1 = md5(uniqid()) . '' . $picture->guessExtension();
-                    $fichier2 = md5(uniqid()) . '' . $picture->guessExtension();
-                    $fichier3 = md5(uniqid()) . '' . $picture->guessExtension();
-                    $fichier4 = md5(uniqid()) . '' . $picture->guessExtension();
+                // génère un nouveau nom de fichier
+                foreach ($imagesdunepiece as $picture) {
+
+                    $fichier = md5(uniqid()) . '.' . $picture->guessExtension();
                 
 
                     // copie le fichier dans le dossier img/portfolio
                     $picture->move(
                         $this->getParameter('images_directory'),
-                        $fichier
+                        $fichier,
                     );
+                    //stoker l'image dans la BDD (son nom)
+                    $img = new ImagesProjects();
+                    $img->setCatImagesProjects($cat);
+                    $img->setFile($fichier);
+                    $archiProject->addImagesProject($img);
                 }
-                //stoker l'image dans la BDD (son nom)
-                $img = new ImagesProjects();
-                $img->setCuisine($fichier);
-                $img->setSalon($fichier);
-                $img->setChambre($fichier);
-                $img->setSalledebain($fichier);
-                $img->setSalleamanger($fichier);
-                $archiProject->addImagesProject($img);
             }
             $archiProjectsRepository->save($archiProject, true);
 
@@ -169,31 +163,29 @@ class AdminPortfolioController extends AbstractController
     }
 
     #[Route('/supprime/images/{id}', name: 'app_admin_portfolio_delete_images', methods: ['DELETE'])]
-    public function deleteImage(Request $request, ImagesProjects $image)
+    public function deleteImage(Request $request, ImagesProjects $image, ArchiProjectsRepository $archiProjectsRepository, ArchiProjects $archiProject)
     {
         $data = json_decode($request->getContent(), true);
 
         // vérifie si le token est valide
-        if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])){
-            // récupère le nom de l'image
-            $nom = $image->getCuisine();
-            $nom = $image->getSalon();
-            $nom = $image->getChambre();
-            $nom = $image->getSalledebain();
-            $nom = $image->getSalleamanger();
-            // supprime le fichier
-            unlink($this->getParameter('images_directory').'/'.$nom);
-
-            // supprime l'entrée de la base
-            $em=$this->getDoctrine()->getManager();
-            $em->remove($image);
-            $em->flush();
-
-            // réponse en json
-            return new JsonResponse(['success' => 1]);
+        if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
+            // Récupère le nom du fichier de l'image
+            $nomFichier = $image->getFile();
+    
+            // Supprime le fichier s'il existe physiquement
+            $cheminFichier = $this->getParameter('images_directory') . '/' . $nomFichier;
+            if (file_exists($cheminFichier)) {
+                unlink($cheminFichier);
+            }
+    
+            // Supprime l'entrée de l'image de la base de données
+            $archiProjectsRepository->save($archiProject, true);
+    
+            // Réponse en JSON indiquant le succès de la suppression
+            return new JsonResponse(['success' => true]);
         } else {
-            return new JsonResponse(['serror' => 'Token Invalide'], 400);
+            // Réponse en JSON indiquant une erreur de token invalide
+            return new JsonResponse(['error' => 'Token invalide'], 400);
         }
-
     }
 }
