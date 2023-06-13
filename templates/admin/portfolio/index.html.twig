@@ -20,9 +20,22 @@
         {% for archi_project in archi_projects %}
             <tr>
                 <td>{{ archi_project.id }}</td>
-                {% for image in archi_project.imagesProjects %}                    
-                <td> <img src="{{ asset('img/portfolio/') ~ image.salon}}" alt="image" width="150"></td>
-                {% endfor %}
+                           {% for image in archi_project.imagesProjects %}
+                {% if image.getCatImagesProjects() is not null %}
+                    {% set category = image.getCatImagesProjects().getNom() %}
+                    {% if category == 'Cuisine' %}
+                        <td>Cuisine: <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="150"></td>
+                    {% elseif category == 'Salon' %}
+                        <td>Salon: <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="150"></td>
+                    {% elseif category == 'Chambre' %}
+                        <td>Chambre: <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="150"></td>
+                    {% elseif category == 'Salle de bain' %}
+                        <td>Salle de bain: <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="150"></td>
+                    {% elseif category == 'Salle a manger' %}
+                        <td>Salle a manger: <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="150"></td>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
                 <td>{{ archi_project.titre }}</td>
                 <td>{{ archi_project.pays }}</td>
                 <td>{{ archi_project.description }}</td>

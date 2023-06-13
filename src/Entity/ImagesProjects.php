@@ -15,21 +15,6 @@ class ImagesProjects
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $cuisine = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $salon = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $chambre = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $salledebain = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $salleamanger = null;
-
     #[ORM\ManyToOne(inversedBy: 'imagesProjects')]
     #[ORM\JoinColumn(nullable: false)]
     private ?ArchiProjects $archiprojets = null;    
@@ -38,74 +23,12 @@ class ImagesProjects
     #[ORM\JoinColumn(nullable: false)]
     private ?CatImagesProjects $catImagesProjects = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $file = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCuisine(): ?string
-    {
-        return $this->cuisine;
-    }
-
-    public function setCuisine(string $cuisine): self
-    {
-        $this->cuisine = $cuisine;
-
-        return $this;
-    }
-
-    public function getSalon(): ?string
-    {
-        return $this->salon;
-    }
-
-    public function setSalon(string $salon): self
-    {
-        $this->salon = $salon;
-
-        return $this;
-    }    
-
-    public function __toString()
-    {
-        return $this->salon;
-    }
-
-    public function getChambre(): ?string
-    {
-        return $this->chambre;
-    }
-
-    public function setChambre(string $chambre): self
-    {
-        $this->chambre = $chambre;
-
-        return $this;
-    }
-
-    public function getSalledebain(): ?string
-    {
-        return $this->salledebain;
-    }
-
-    public function setSalledebain(string $salledebain): self
-    {
-        $this->salledebain = $salledebain;
-
-        return $this;
-    }
-
-    public function getSalleamanger(): ?string
-    {
-        return $this->salleamanger;
-    }
-
-    public function setSalleamanger(string $salleamanger): self
-    {
-        $this->salleamanger = $salleamanger;
-
-        return $this;
     }
 
     public function getArchiprojets(): ?ArchiProjects
@@ -128,6 +51,18 @@ class ImagesProjects
     public function setCatImagesProjects(?CatImagesProjects $catImagesProjects): self
     {
         $this->catImagesProjects = $catImagesProjects;
+
+        return $this;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(string $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }
