@@ -163,11 +163,11 @@ class AdminPortfolioController extends AbstractController
     }
 
     #[Route('/supprime/images/{id}', name: 'app_admin_portfolio_delete_images', methods: ['DELETE'])]
-    public function deleteImage(Request $request, ImagesProjects $image, ArchiProjectsRepository $archiProjectsRepository, ArchiProjects $archiProject)
+    public function deleteImage(Request $request, ImagesProjects $image)
     {
         $data = json_decode($request->getContent(), true);
-
-        // vérifie si le token est valide
+    
+        // Vérifie si le token est valide
         if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
             // Récupère le nom du fichier de l'image
             $nomFichier = $image->getFile();
@@ -179,7 +179,9 @@ class AdminPortfolioController extends AbstractController
             }
     
             // Supprime l'entrée de l'image de la base de données
-            $archiProjectsRepository->save($archiProject, true);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($image);
+            $entityManager->flush();
     
             // Réponse en JSON indiquant le succès de la suppression
             return new JsonResponse(['success' => true]);
