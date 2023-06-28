@@ -3,6 +3,7 @@
 {% block title %}Hello CartController!{% endblock %}
 
 {% block body %}
+<div style="height: 50vh;"></div>
 <h1>Mon panier</h1>
 
 
@@ -16,22 +17,27 @@
                 <th>prix</th>
                 <th>Quantite</th>
                 <th>Total</th>
-                <th>Suprrimer</th>
+                <th>Supprimer</th>
             </tr>
         </thead>
         <tbody>
             {% for monpanier in panier %}
             <tr>
+            {% if monpanier.prestation %}
                 <td>{{ monpanier.prestation.id}}</td>
                 {# <td><img src="{{ asset('img/') ~monpanier.prestation.imagename}}" class="w-25" ></td> #}
                 <td>{{ monpanier.prestation.titre }}</td>
                 <td>{{ monpanier.prestation.description }}</td>
                 <td>{{ monpanier.prestation.prix }}€</td>
+            
                 <td>
                     <a href="{{ path('app_cart_add', {'id': monpanier.prestation.id}) }}">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </a>
+                    {% if not monpanier.prestation %}
                     {{ monpanier.quantite }}
+                    {% endif %}
+                    
                     <a href="{{ path('app_cart_removequantite', {'id': monpanier.prestation.id}) }}">
                         <i class="fa fa-minus" aria-hidden="true"></i>
                     </a>
@@ -45,6 +51,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="4">no records found</td>

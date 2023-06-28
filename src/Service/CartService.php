@@ -13,81 +13,80 @@ class CartService
     private $session;
     private $PrestationsRepository;
 
-
-    public function __construct(
-        RequestStack $requestStack,
-        PrestationsRepository $PrestationsRepository
-    ) {
+    public function __construct(RequestStack $requestStack, PrestationsRepository $PrestationsRepository) 
+    {
         $this->session = $requestStack;
         $this->PrestationsRepository = $PrestationsRepository;
     }
 
-    public function add($id)
+    public function add($id, $surface = null, $nombrePieces = null)
     {
         $panier = $this->session->getSession()->get("panier", []);
-
-        // dans le cas ou la clé n'a jamais été alimenté
-        // on a beoin de la créé avec une valeur
-        if (empty($panier[$id])) {
-            // si le $panier[7] n'existe pas à la met à 0.
-            $panier[$id] = 0;
+            
+        if ($nombrePieces !== null){
+            $panier[$id] = ['nombrePieces' => $nombrePieces];
         }
-        // dans le tableau de mon panier j'ai
-        ///cart/add/7
-        // $panier[7] je lui rajoute 1 dans sa veleur
-        $panier[$id]++;
-
-        // ici on modifie à chaque passage la variable panier
-        // au niveau de la session
-        // [7]=>1
+        elseif ($surface !== null) {
+            $panier[$id] = ['surface' => $surface];
+        } else {
+            if (empty($panier[$id])) {
+                $panier[$id] = 0;
+            }
+            $panier[$id]++;
+        }
+        
         $this->session->getSession()->set("panier", $panier);
     }
 
-
-
     public function show()
     {
-
-        //get pour recuperer la session
-        // dd($session->getSession()->get("panier"));
         $panier = $this->session->getSession()->get("panier", []);
-
-        // créé un panier contenant les infos sur le prestations
-
         $panier_complet = [];
-
-        // je boucle sur la cle et la valeur
-        // du panier
-        // clé de 7 sa valeur est la quantité
+    
         foreach ($panier as $key => $value) {
             $prestation_encours = $this->PrestationsRepository->find($key);
-
+            
+            if ($prestation_encours !== null) {
+            if ($prestation_encours->getForfait() !== null) {
+                $prixReel = $prestation_encours->getPrixReel($value['nombrePieces']);
+                $total = $prixReel;
+                $prestation_encours->setPrix($total);
+            } else {
+                $total = $prestation_encours->getPrix() * ($value['surface'] ?? 1);
+            }
+    
             $panier_complet[] = [
                 'prestation' => $prestation_encours,
                 'quantite' => $value,
-                'total' => ($prestation_encours->getPrix() * $value),
+                'total' => $total,
             ];
-            // accumule la variable total avec chacun des prix
-
         }
-        // dd($panier_complet);
-
+    }
+    
         return $panier_complet;
     }
 
     public function getTotalAll()
     {
-        // on recupere le panier en session
         $panier = $this->session->getSession()->get("panier");
         $total = 0;
+    
         foreach ($panier as $key => $value) {
-            // total accumule précedent + prix du prestation en cours * quantité
-            $total =  $total + ($this->PrestationsRepository->find($key)->getPrix() * $value);
-
-
-            // accumule la variable total avec chacun des prix
-
+            $prestation_encours = $this->PrestationsRepository->find($key);
+            $subTotal = 0;
+            
+            if ($prestation_encours !== null) {
+            if ($prestation_encours->getForfait() !== null) {
+                $nombrePieces = $value['nombrePieces'] ?? null;
+                $forfait = $prestation_encours->getPrixReel($nombrePieces);
+                $subTotal = $forfait !== null ? $forfait : 0;
+            } else {
+                $total = $prestation_encours->getPrix() * ($value['surface'] ?? 1);
+            }     
+            $total += $subTotal;
         }
+    }
+    
         return $total;
     }
 

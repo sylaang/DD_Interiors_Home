@@ -4,84 +4,61 @@ namespace App\Controller;
 
 
 use App\Service\CartService;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
-
-/*
-
-Clé = Valeur
-[clé] = valeur
-
-[
-    [clé]=>[valeur]
-]
-/cart/add/7
-/cart/add/8
-/cart/add/8
-
-
-    [7]=>1
-    [8]=>2
-
-
-
-
-*/
-
 #[Route('/cart')]
 class CartController extends AbstractController
 {
-    // page d'ajout de prestations
-    #[Route('/add/{id}', name: 'app_cart_add')]
-    public function index
-    ($id,
-    CartService $cartService
-    ):  Response
-    {      
-        $cartService->add($id);
-        // redirection vers la page des prestationss
-         return $this->redirectToRoute("app_cart_show",[], Response::HTTP_SEE_OTHER);
+    private $cartService;
 
+    public function __construct(CartService $cartService) 
+    {
+        $this->cartService = $cartService;
     }
+
+    #[Route('/add/{id}', name: 'app_cart_add')]
+    public function addF($id, Request $request): Response
+    {
+        $surface = $request->query->get('surface');
+        $nombrePieces = $request->query->get('nombrePieces');
+        $this->cartService->add($id, $surface, $nombrePieces);
+        // redirection vers la page des prestations
+        return $this->redirectToRoute("app_cart_show", [], Response::HTTP_SEE_OTHER);
+    }
+    
+
 
     // page pour visualiser notre panier
     #[Route('/show', name: 'app_cart_show')]
-    public function show(
-      CartService $cartService
-        ): Response
+    public function show(): Response
     {
         
         return $this->render('cart/index.html.twig', [
-            'panier' => $cartService->show(),
-            'totalcomplet'=> $cartService->getTotalAll()
+            'panier' => $this->cartService->show(),
+            'totalcomplet'=> $this->cartService->getTotalAll(),
         ]);
     }
 
     // page pour vider notre panier
     #[Route('/clear', name: 'app_cart_clear')]
-    public function clear(
-        CartService $cartService
-    ): Response
+    public function clear(): Response
     {
-        $cartService->clear();
+        $this->cartService->clear();
         
         // redirection vers la page des prestationss
         return $this->redirectToRoute("app_prestations_index",[], Response::HTTP_SEE_OTHER);
 
     }
 
-//        // page pour vider notre panier
+       // page pour vider notre panier
        #[Route('/remove/{id}', name: 'app_cart_remove')]
-       public function remove_all(
-            $id,
-           CartService $cartService
-       ): Response
+       public function remove_all($id): Response
        {
             // supprimer la clé du tableau (le prestations)
-           $cartService->remove_all($id);
+           $this->cartService->remove_all($id);
            
            // redirection vers la page des prestationss
            return $this->redirectToRoute("app_cart_show",[], Response::HTTP_SEE_OTHER);
@@ -89,16 +66,16 @@ class CartController extends AbstractController
        }
 
 
-// // page pour vider notre panier
-#[Route('/removequantite/{id}', name: 'app_cart_removequantite')]
-public function removequantite($id, CartService $cartService): Response
-{
-     // supprimer la clé du tableau (le prestations)
-    $cartService->remove($id);
-    
-    // redirection vers la page des prestationss
-    return $this->redirectToRoute("app_cart_show",[], Response::HTTP_SEE_OTHER);
+    // // page pour vider notre panier
+    #[Route('/removequantite/{id}', name: 'app_cart_removequantite')]
+    public function removequantite($id): Response
+    {
+        // supprimer la clé du tableau (le prestations)
+        $this->cartService->remove($id);
+        
+        // redirection vers la page des prestationss
+        return $this->redirectToRoute("app_cart_show",[], Response::HTTP_SEE_OTHER);
 
-}
+    }
 
-}
+    }

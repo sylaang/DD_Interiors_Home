@@ -125,6 +125,27 @@ class Prestations
         return $this->commentaires;
     }
 
+    public function getPrixReel(int $nombrePieces): ?string
+    {
+        $prix = $this->getForfait()->getPrix();
+        $prix2 = $this->getForfait2()->getPrix();
+        $prixReel = $prix;
+
+        if (is_int($nombrePieces)) {
+        if ($nombrePieces <= 2) {
+            $prixReel = $prix;
+        } elseif ($nombrePieces === 3) {
+            $prixReel = $prix + 120;
+        } elseif ($nombrePieces > 3 && $nombrePieces <= 4) {
+            $prixReel = $prix2;
+        } elseif ($nombrePieces > 4) {
+            $prixReel = $prix2 + ($nombrePieces - 4) * 120;
+        }
+    }
+
+        return $prixReel;
+    }
+
     public function __toString()
     {
         return $this->titre;
