@@ -32,35 +32,29 @@
 							{{ prestation.titre }}
 						</h2>
 						<p>
-							{% if prestation.prix %}
+							{% if not prestation.forfait %}
 								Prix :
 								{{ prestation.prix }}
 								{% if prestation.prix %}
 									€
 								{% endif %}
 								{% if
-          prestation.categoriesPrix.nom == "mètre carré" %}
+          							prestation.categoriesPrix.nom == "mètre carré" %}
 									m²
-								{% elseif
-          prestation.categoriesPrix.nom == "par pièce" %}
+								{% elseif prestation.categoriesPrix.nom == "par pièce" %}
 									/pièce
 								{% endif %}
-							{%
-          endif %}
+							{% endif %}
 						</p>
 						<p>
 							{% if prestation.forfait %}
 								forfait :
 								{{ prestation.forfait }}
-								{% if prestation.forfait %}
 									€
-								{% endif %}
-								<br/>
+									<br>
 								forfait :
 								{{ prestation.forfait2 }}
-								{% if prestation.forfait2 %}
 									€
-								{% endif %}
 							{% endif %}
 							<li>
 								{{ prestation.description }}

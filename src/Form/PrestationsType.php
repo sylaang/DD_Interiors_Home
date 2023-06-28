@@ -29,15 +29,15 @@ class PrestationsType extends AbstractType
             ->add('imagename', FileType::class, [
                 'label' => 'Choissiez une image pour votre prestation',
 
-                // unmapped means that this field is not associated to any entity property
+                // "unmapped" signifie que ce champ n'est associé à aucune propriété de l'entité.
                 'mapped' => false,
 
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
+                // Rendez-le facultatif afin de ne pas avoir à réuploader le fichier PDF
+                // à chaque fois que vous modifiez les détails du produit.
                 'required' => false,
 
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
+                // Les champs non mappés ne peuvent pas définir leur validation à l'aide d'annotations
+                // dans l'entité associée, vous pouvez donc utiliser les classes de contraintes PHP.
                 'constraints' => [
                     new File([
                         'maxSize' => '2000k',
