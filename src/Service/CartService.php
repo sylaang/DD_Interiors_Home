@@ -13,7 +13,7 @@ class CartService
     private $session;
     private $PrestationsRepository;
 
-    public function __construct(RequestStack $requestStack, PrestationsRepository $PrestationsRepository) 
+    public function __construct(RequestStack $requestStack, PrestationsRepository $PrestationsRepository)
     {
         $this->session = $requestStack;
         $this->PrestationsRepository = $PrestationsRepository;
@@ -22,11 +22,10 @@ class CartService
     public function add($id, $surface = null, $nombrePieces = null)
     {
         $panier = $this->session->getSession()->get("panier", []);
-            
-        if ($nombrePieces !== null){
+
+        if ($nombrePieces !== null) {
             $panier[$id] = ['nombrePieces' => $nombrePieces];
-        }
-        elseif ($surface !== null) {
+        } elseif ($surface !== null) {
             $panier[$id] = ['surface' => $surface];
         } else {
             if (empty($panier[$id])) {
@@ -34,7 +33,7 @@ class CartService
             }
             $panier[$id]++;
         }
-        
+
         $this->session->getSession()->set("panier", $panier);
     }
 
@@ -42,27 +41,29 @@ class CartService
     {
         $panier = $this->session->getSession()->get("panier", []);
         $panier_complet = [];
-    
-        foreach ($panier as $key => $value) {
-            $prestation_encours = $this->PrestationsRepository->find($key);
-            
-            if ($prestation_encours !== null) {
-            if ($prestation_encours->getForfait() !== null) {
-                $prixReel = $prestation_encours->getPrixReel($value['nombrePieces']);
-                $total = $prixReel;
-                $prestation_encours->setPrix($total);
-            } else {
-                $total = $prestation_encours->getPrix() * ($value['surface'] ?? 1);
+
+        if (!empty($panier)) {
+            foreach ($panier as $key => $value) {
+                $prestation_encours = $this->PrestationsRepository->find($key);
+
+                if ($prestation_encours !== null) {
+                    if ($prestation_encours->getForfait() !== null) {
+                        $prixReel = $prestation_encours->getPrixReel($value['nombrePieces']);
+                        $total = $prixReel;
+                        $prestation_encours->setPrix($total);
+                    } else {
+                        $total = $prestation_encours->getPrix() * ($value['surface'] ?? 1);
+                    }
+
+                    $panier_complet[] = [
+                        'prestation' => $prestation_encours,
+                        'quantite' => $value,
+                        'total' => $total,
+                    ];
+                }
             }
-    
-            $panier_complet[] = [
-                'prestation' => $prestation_encours,
-                'quantite' => $value,
-                'total' => $total,
-            ];
         }
-    }
-    
+
         return $panier_complet;
     }
 
@@ -70,23 +71,25 @@ class CartService
     {
         $panier = $this->session->getSession()->get("panier");
         $total = 0;
-    
-        foreach ($panier as $key => $value) {
-            $prestation_encours = $this->PrestationsRepository->find($key);
-            $subTotal = 0;
-            
-            if ($prestation_encours !== null) {
-            if ($prestation_encours->getForfait() !== null) {
-                $nombrePieces = $value['nombrePieces'] ?? null;
-                $forfait = $prestation_encours->getPrixReel($nombrePieces);
-                $subTotal = $forfait !== null ? $forfait : 0;
-            } else {
-                $total = $prestation_encours->getPrix() * ($value['surface'] ?? 1);
-            }     
-            $total += $subTotal;
+
+        if (!empty($panier)) {
+            foreach ($panier as $key => $value) {
+                $prestation_encours = $this->PrestationsRepository->find($key);
+                $subTotal = 0;
+
+                if ($prestation_encours !== null) {
+                    if ($prestation_encours->getForfait() !== null) {
+                        $nombrePieces = $value['nombrePieces'] ?? null;
+                        $forfait = $prestation_encours->getPrixReel($nombrePieces);
+                        $subTotal = $forfait !== null ? $forfait : 0;
+                    } else {
+                        $total = $prestation_encours->getPrix() * ($value['surface'] ?? 1);
+                    }
+                    $total += $subTotal;
+                }
+            }
         }
-    }
-    
+
         return $total;
     }
 

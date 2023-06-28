@@ -84,6 +84,11 @@
 				<li>
 					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_contact') }}">Contact</a>
 				</li>
+				<li>
+					<a class="text-reset me-3" href="{{path('app_cart_show')}}">
+              			<i class="fas fa-shopping-cart"></i>
+            		</a>
+				</li>
 			</ul>
 			<ul class="navlinks" style="display: flex; align-items: end;">
 				{% if is_granted('ROLE_USER')==false %}
