@@ -7,9 +7,10 @@
 <div style="height: 100vh;"><div>
     <h1>Résultat de la conception</h1>
 
-    <p>Surface saisie : {{ surface }} m²</p>
-    <p>Nouveau prix : {{ prix }} €</p>
+    <p style="color: black;">Surface saisie : {{ surface }} m²</p>
 
-    <a href="{{ path('app_cart_add', {'id': prestation.id }) }}"><button type="button" class="btn btn-primary">Ajouter au panier</button></a>
+    <a href="{{ path('app_cart_add', {'id': prestation.id, 'surface': surface }) }}">
+        <button type="button" class="btn btn-primary">Ajouter au panier</button>
+    </a>
 
 {% endblock %}
