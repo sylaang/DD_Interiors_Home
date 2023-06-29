@@ -1,0 +1,38 @@
+  {% extends 'base_admin.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+  
+  <h2>Résultats de la recherche</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-4">
+                <div class="card-header">Résultats de la recherche</div>
+                <div class="card-body">
+                    <form action="{{ path('app_admin_search') }}" method="GET" class="d-flex mb-3">
+                        <input class="form-control me-2" name="search" type="search" placeholder="Rechercher" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">Rechercher</button>
+                    </form>
+
+                    {% if resultats %}
+                        <h2>Résultats</h2>
+                        <ul class="list-group">
+                            {% for search in resultats %}
+                                <li class="list-group-item">
+                                    <a href="{{ path('app_admin_profile_show', { 'id': search.id }) }}">email: {{ search.email }} nom: {{ search.nom }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Aucun résultat trouvé.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

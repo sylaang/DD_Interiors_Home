@@ -18,6 +18,10 @@
 <main class="main">
   <aside class="sidebar">
     <nav class="nav">
+                       <form action="{{ path('app_admin_search') }}" method="GET" class="d-flex mb-3">
+                        <input class="form-control me-2" name="search" type="search" placeholder="Rechercher" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">Rechercher</button>
+                    </form>
       <ul>
         <li class="active"><a href="{{path('app_admin_profiles_index')}}">Utilisateurs</a></li>
         <li class="active"><a href="{{path('app_admin_portfolio_index')}}">Portfolio</a></li>

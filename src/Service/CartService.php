@@ -63,7 +63,6 @@ class CartService
                 }
             }
         }
-
         return $panier_complet;
     }
 
@@ -89,7 +88,6 @@ class CartService
                 }
             }
         }
-
         return $total;
     }
 
