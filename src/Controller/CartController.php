@@ -20,7 +20,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/add/{id}', name: 'app_cart_add')]
-    public function addF($id, Request $request): Response
+    public function add($id, Request $request): Response
     {
         $surface = $request->query->get('surface');
         $nombrePieces = $request->query->get('nombrePieces');

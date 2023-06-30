@@ -123,11 +123,20 @@ class CommandesController extends AbstractController
         $panier = $session->getSession()->get("panier");
 
         foreach ($panier as $key => $value) {
-
             // création d'un objet commande
             $commandes = new Commandes();
             // affectation de la propriété quantité issue du tableau panier
-            $commandes->setQuantite($value);
+            if (is_array($value)) {
+                // affectation de la propriété quantité en fonction de la clé présente dans le tableau
+                if (array_key_exists('nombrePieces', $value)) {
+                    $commandes->setQuantite($value['nombrePieces']);
+                } elseif (array_key_exists('surface', $value)) {
+                    $commandes->setQuantite($value['surface']);
+                }
+            } else {
+                // affectation de la propriété quantité directement si $value n'est pas un tableau
+                $commandes->setQuantite($value);
+            }
             // affectation de la propriété prestation
             // grace au repo du prestation
             $commandes->setPrestation($prestationsRepository->find($key));

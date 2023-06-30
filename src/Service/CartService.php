@@ -33,6 +33,7 @@ class CartService
             }
             $panier[$id]++;
         }
+        
 
         $this->session->getSession()->set("panier", $panier);
     }
@@ -45,19 +46,20 @@ class CartService
         if (!empty($panier)) {
             foreach ($panier as $key => $value) {
                 $prestation_encours = $this->PrestationsRepository->find($key);
-
+    
                 if ($prestation_encours !== null) {
                     if ($prestation_encours->getForfait() !== null) {
-                        $prixReel = $prestation_encours->getPrixReel($value['nombrePieces']);
-                        $total = $prixReel;
+                        $nombrePieces = is_array($value) ? $value['nombrePieces'] : null;
+                        $prixReel = $prestation_encours->getPrixReel($nombrePieces);
+                        $total = $prixReel !== null ? $prixReel : 0;
                         $prestation_encours->setPrix($total);
                     } else {
                         $total = $prestation_encours->getPrix() * ($value['surface'] ?? 1);
                     }
-
+    
                     $panier_complet[] = [
                         'prestation' => $prestation_encours,
-                        'quantite' => $value,
+                        'quantite' => is_array($value) ? $value : 1,
                         'total' => $total,
                     ];
                 }

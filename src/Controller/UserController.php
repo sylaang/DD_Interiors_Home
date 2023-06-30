@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Form\EditProfileType;
 use App\Repository\UserRepository;
+use App\Repository\FactureRepository;
+use App\Repository\CommandesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,4 +44,20 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/historique', name: 'app_profil_historique')]
+    public function index( CommandesRepository $commandeRepository, FactureRepository $factureRepository): Response
+    {   
+        $user = $this->getUser();
+        $facture = $factureRepository->findBy(['users' => $this->getUser()->getId()]);
+        $commande = $commandeRepository->findAll();
+    
+        return $this->render('user/historique.html.twig', [
+            'user' => $user,
+            'facture' => $facture,
+            'commandes' => $commande,
+           
+        ]);
+    }
+
 }

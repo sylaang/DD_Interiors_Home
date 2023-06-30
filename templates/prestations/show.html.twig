@@ -35,18 +35,6 @@
             </tr>
         </tbody>
 
-        {% if prestation.forfait %}
-        <a href="{{ path('app_cart_add', {'id': prestation.id}) }}">
-            <button type="button" class="btn btn-primary">Ajouter au panier - Forfait</button>
-        </a>
-        {% endif %}
-        <br>
-        {% if prestation.forfait2 %}
-        <a href="{{ path('app_cart_add', {'id': prestation.id}) }}">
-            <button type="button" class="btn btn-primary">Ajouter au panier - Forfait 2</button>
-        </a>
-        {% endif %}
-
         {% if not prestation.forfait and not prestation.forfait2 %}
         <a href="{{ path('app_cart_add', {'id': prestation.id }) }}"><button type="button" class="btn btn-primary">Ajouter au panier</button></a>        
         {% endif %}        
@@ -57,7 +45,7 @@
         {% endif %}
         
         {% if prestation.forfait %}
-        <a class="button " href="{{ path('app_piece', { 'id': prestation.id }) }}" style="color: black;">Forf</a>
+        <a class="button " href="{{ path('app_forfaits', { 'id': prestation.id }) }}" style="color: black;">Forf</a>
         {% endif %}
     <a href="{{ path('app_prestations_index') }}">back to list</a>
 

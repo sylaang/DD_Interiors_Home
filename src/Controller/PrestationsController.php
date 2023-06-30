@@ -108,7 +108,7 @@ class PrestationsController extends AbstractController
         ]);
     }
 
-    #[Route('/Formulairepiece/{id}', name: 'app_piece', methods: ['GET', 'POST'])]
+    #[Route('/Formulairepiece/{id}', name: 'app_forfaits', methods: ['GET', 'POST'])]
     public function parPiecePlanEtudeAgencement(Request $request, Prestations $prestation): Response
     {
         $form = $this->createForm(PrestationsParPieceType::class);
@@ -132,5 +132,4 @@ class PrestationsController extends AbstractController
             'prestation' => $prestation,
         ]);
     }
-
 }
