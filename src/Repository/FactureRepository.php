@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
+use DateTimeInterface;
 use App\Entity\Facture;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Facture>
@@ -38,6 +40,17 @@ class FactureRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findByDateAndUser(DateTimeInterface $date, User $user): array
+{
+    return $this->createQueryBuilder('f')
+        ->andWhere('f.datecrea = :date')
+        ->andWhere('f.users = :user')
+        ->setParameter('date', $date)
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+}
 
 //    /**
 //     * @return Facture[] Returns an array of Facture objects

@@ -1,0 +1,377 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User
+{% endblock %}
+
+{% block body %}
+
+<div style="margin: 20vh 0;">
+
+	<div class="row gap-5 d-flex justify-content-center">
+		<h2 style="text-align:center;">Mes Factures</h2>
+
+		{% for factures in facture %}
+
+		<div class="facture-card">
+			<div class="card-body">
+
+				<div class="facture-caractFacture">
+					<h5 class="facture-number">Facture n°{{factures.id}}</h5>
+					<h5 class="card-title">
+						{{ factures.datecrea|date("d/m/Y") }}</h5>
+				</div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-6">
+							<strong class="facture-number">Émetteur</strong>
+							<ul>
+								<li><span class="text-facture">Société :</span> DD INTERIORS HOME</li>
+								<li><span class="text-facture">Votre contact :</span> Déborah KASSEYET</li>
+								<li><span class="text-facture">Adresse :</span> 242 boulevard voltaire 75011 Paris</li>
+							</ul>
+						</div>
+						<div class="col-6">
+							<strong class="facture-number">Destinataire</strong>
+							<ul>
+								<li><span class="text-facture">Nom/Prénom :</span> {{user.nom}} {{user.prenom}}</li>
+								<li><span class="text-facture">Adresse email :</span> {{user.email}}</li>
+								<li><span class="text-facture">Numéro de téléphone :</span> {{user.phone}}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+				<div class="container-fluid">
+					<div class="col-6" style="margin-top: 40px;">
+						<strong class="facture-number">Détail</strong>
+					</div>
+					{% for commande in commandes %}
+					{% if factures.id == commande.factures.id %}
+
+
+					<h4 class="facture-titre">{{commande.prestation.titre}}</h4>
+					<p>{{commande.prestation.description}}</p>
+
+
+					{% if commande.prestation.categoriesPrix.nom == "par pièce" and (commande.prestation.forfait and
+					commande.prestation.forfait2) == null %}
+					{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+					<p>Prestation sur place :
+						{{commande.prestation.fraisdedeplacement}} €
+					</p>
+					<p>Prix:
+						{{commande.prestation.prix}} € /pièce
+					</p>
+					<p>Nombre de pièces:
+						{{commande.quantite|number_format(0, '.', '') }}
+					</p>
+					<div class="facture-prixTotal">
+						<p class="facture-p-prixTotal">Prix Total:
+							{{ ((commande.prestation.prix * commande.quantite) +
+							commande.prestation.fraisdedeplacement)|number_format(2, '.', '') }} €
+						</p>
+					</div>
+					{% elseif commande.factures.FraisDeDeplacement == null %}
+					<p>Prestation par téléphone</p>
+					<p>Prix:
+						{{commande.prestation.prix}} € /m²
+					</p>
+					<p>Nombre de pièces:
+						{{commande.quantite|number_format(0, '.', '') }}
+					</p>
+					<div class="facture-prixTotal">
+						<p class="facture-p-prixTotal">Prix Total:
+							{{ (commande.prestation.prix * commande.quantite)|number_format(2, '.', '') }} €
+						</p>
+					</div>
+					{% endif %}
+
+					{% endif %}
+
+					{% if commande.prestation.categoriesPrix.nom == "mètre carré" %}
+					{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+					<p>Prestation sur place :
+						{{commande.prestation.fraisdedeplacement}} €
+					</p>
+					<p>Prix:
+						{{commande.prestation.prix}} € /m²
+					</p>
+					<p>Mètre carré:
+						{{commande.quantite|number_format(0, '.', '') }}
+					</p>
+					<div class="facture-prixTotal">
+						<p class="facture-p-prixTotal">Prix Total:
+							{{ ((commande.prestation.prix * commande.quantite) +
+							commande.prestation.fraisdedeplacement)|number_format(2, '.', '') }} €
+						</p>
+					</div>
+					{% elseif commande.factures.FraisDeDeplacement == null %}
+					<p>Prestation par téléphone</p>
+					<p>Prix:
+						{{commande.prestation.prix}} € /m²
+					</p>
+					<p>Mètre carré:
+						{{commande.quantite|number_format(0, '.', '') }}
+					</p>
+					<div class="facture-prixTotal">
+						<p class="facture-p-prixTotal">Prix Total:
+							{{ (commande.prestation.prix * commande.quantite)|number_format(2, '.', '') }} €
+						</p>
+					</div>
+					{% endif %}
+
+					{% endif %}
+
+
+					{% if commande.prestation.forfait and commande.prestation.forfait2 is defined %}
+					{% if commande.quantite <= 2 %} <p>{{commande.prestation.forfait.description}}</p>
+						{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+						<p>Prestation sur place :
+							{{commande.prestation.fraisdedeplacement}}
+							€</p>
+						{% elseif commande.factures.FraisDeDeplacement == null %}
+						<p>Prestation par téléphone</p>
+						{% endif %}
+						<p>Forfait:
+							{{ commande.prestation.forfait.prix|number_format(0, '.', '') }} €
+						</p>
+						<p>Nombre de pièce:
+							{{commande.quantite|number_format(0, '.', '') }}</p>
+						{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+						<div class="facture-prixTotal">
+							<p class="facture-p-prixTotal">Prix Total:
+								{{commande.prestation.forfait.prix + commande.prestation.fraisdedeplacement }} €
+							</p>
+						</div>
+						{% elseif commande.factures.FraisDeDeplacement == null %}
+						<div class="facture-prixTotal">
+							<p class="facture-p-prixTotal">Prix Total:
+								{{commande.prestation.forfait.prix}}
+								€
+							</p>
+						</div>
+						{% endif %}
+
+						{% elseif commande.quantite == 3 %}
+						<p>{{commande.prestation.forfait.description}}</p>
+						{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+						<p>Prestation sur place :
+							{{commande.prestation.fraisdedeplacement}}
+							€</p>
+						{% elseif commande.factures.FraisDeDeplacement == null %}
+						<p>Prestation par téléphone</p>
+						{% endif %}
+						<p>Forfait:
+							{{ commande.prestation.forfait.prix|number_format(0, '.', '') }} €
+						</p>
+						<p>Nombre de pièce:
+							{{commande.quantite|number_format(0, '.', '') }}</p>
+						<p>Pièce en plus :
+							{{ commande.quantite - 2}}
+						</p>
+						{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+						<div class="facture-prixTotal">
+							<p class="facture-p-prixTotal">Prix Total:
+								{{ (commande.prestation.forfait.prix + commande.prestation.fraisdedeplacement +
+								120)|number_format(2, '.', '') }} €
+							</p>
+						</div>
+
+						{% elseif commande.factures.FraisDeDeplacement == null %}
+						<div class="facture-prixTotal">
+							<p class="facture-p-prixTotal">Prix Total:
+								{{ (commande.prestation.forfait.prix + 120)|number_format(2, '.', '') }} €
+							</p>
+						</div>
+
+						{% endif %}
+
+						{% elseif commande.quantite > 3 and commande.quantite <= 4 %} <p>
+							{{commande.prestation.forfait2.description}}</p>
+							{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+							<p>Prestation sur place :
+								{{commande.prestation.fraisdedeplacement}}
+								€</p>
+							{% elseif commande.factures.FraisDeDeplacement == null %}
+							<p>Prestation par téléphone</p>
+							{% endif %}
+							<p>Forfait:
+								{{ commande.prestation.forfait2.prix|number_format(0, '.', '') }}
+								€</p>
+							<p>Nombre de pièce:
+								{{commande.quantite|number_format(0, '.', '') }}</p>
+							<p>Rendez-vous sur place :
+								{{commande.prestation.fraisdedeplacement}}
+								€</p>
+							{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+							<div class="facture-prixTotal">
+								<p class="facture-p-prixTotal">Prix Total:
+									{{commande.prestation.forfait2.prix + commande.prestation.fraisdedeplacement}} €
+								</p>
+							</div>
+
+							{% elseif commande.factures.FraisDeDeplacement == null %}
+							<div class="facture-prixTotal">
+								<p class="facture-p-prixTotal">Prix Total:
+									{{commande.prestation.forfait2.prix}} €
+								</p>
+							</div>
+
+							{% endif %}
+
+
+							{% elseif commande.quantite > 4 %}
+							<p>{{commande.prestation.forfait2.description}}</p>
+							{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+							<p>Prestation sur place :
+								{{commande.prestation.fraisdedeplacement}}
+								€</p>
+							{% elseif commande.factures.FraisDeDeplacement == null %}
+							<p>Prestation par téléphone</p>
+							{% endif %}
+							<p>Forfait:
+								{{ commande.prestation.forfait2.prix|number_format(0, '.', '') }}
+								€</p>
+							<p>Nombre de pièce:
+								{{commande.quantite|number_format(0, '.', '') }}</p>
+							<p>Pièce en plus :
+								{{ commande.quantite - 4}}
+							</p>
+							{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+							<div class="facture-prixTotal">
+								<p class="facture-p-prixTotal">Prix Total:
+									{{ (commande.prestation.forfait2.prix + commande.prestation.fraisdedeplacement +(120
+									*
+									(commande.quantite - 4)))|number_format(2, '.', '') }} €
+								</p>
+							</div>
+
+							{% elseif commande.factures.FraisDeDeplacement == null %}
+							<div class="facture-prixTotal">
+								<p class="facture-p-prixTotal">Prix Total:
+									{{ (commande.prestation.forfait2.prix + (120 * (commande.quantite -
+									4)))|number_format(2, '.', '') }} €
+								</p>
+							</div>
+
+							{% endif %}
+
+
+							{% endif %}
+
+							{% endif %}
+
+
+
+
+							{% endif %}
+							{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		{% endfor %}
+	</div>
+</div>
+
+<style>
+	* {
+		color: whitesmoke;
+	}
+
+	.facture-number {
+		color: rgba(250, 177, 98, .7);
+	}
+
+	h2 {
+		color: white;
+	}
+
+	.facture-titre {
+		margin-top: 10px;
+		background: rgba(250, 177, 98, .7);
+		color: black;
+		padding: 10px 40px;
+	}
+
+	.text-facture {
+		color: rgb(158, 140, 140);
+	}
+
+	.facture-card{
+		min-width: 50vw;
+		max-width: 50vw;
+		min-height: 50vh;
+		max-height: 50vh;
+		background-color: rgba(255, 255, 255, 0.047);
+		box-shadow: 0 5px 15px 3px #000000;
+	}
+
+	.facture-titreBy {}
+
+	.facture-caractFacture {}
+
+	.facture-prixTotal {}
+
+	.facture-p-prixTotal {
+		margin-top: 10px;
+	}
+
+	.card-title {
+		margin-bottom: 50px;
+	}
+	/* Pour les appareils mobiles */
+@media (max-width: 767px) {
+  /* Styles spécifiques pour les appareils mobiles */
+  .facture-caractFacture {
+    text-align: center;
+  }
+  
+  .col-6 {
+    width: 100%;
+  }
+  body {
+	font-size: 5px;
+  }
+  .facture-titre {
+	font-size: 100%;
+	padding: 5px 10px;
+  }
+  .facture-card {
+	min-width: 300px;
+		max-width: 300px;
+		min-height: 450px;
+		max-height: 450px;
+  }
+}
+
+/* Pour les tablettes et les appareils de taille moyenne */
+@media (min-width: 768px) and (max-width: 1200px) {
+  /* Styles spécifiques pour les tablettes et les appareils de taille moyenne */
+  .col-6 {
+    width: 50%;
+  }
+  .facture-titre {
+	font-size: 7px;
+	padding: 1px 2px;
+  }
+  .facture-card {
+	min-width: 700px;
+		max-width: 700px;
+		min-height: 650px;
+		max-height: 650px;
+  }
+}
+
+
+
+</style>
+
+{% endblock %}

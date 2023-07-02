@@ -44,7 +44,7 @@ class PrestationsController extends AbstractController
             $commentaire->setCreatedAt(new \DateTimeImmutable());
             
              // je dois enregistrer les info du user
-            // $this->getUser() me renvoie les infos sur le user 
+            // $this->getUser() me renvoie les infos sur le user
             // en cours
             // avec setuser je stock l'information dans le
             // commentaire

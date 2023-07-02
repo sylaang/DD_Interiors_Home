@@ -45,7 +45,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/historique', name: 'app_user_profile_historique')]
+    #[Route('/facture', name: 'app_user_profile_historique')]
     public function facture( CommandesRepository $commandeRepository, FactureRepository $factureRepository): Response
     {   
         
@@ -53,7 +53,7 @@ class UserController extends AbstractController
         $facture = $factureRepository->findBy(['users' => $this->getUser()->getId()]);
         $commande = $commandeRepository->findAll();
     
-        return $this->render('user/historique.html.twig', [
+        return $this->render('user/facture.html.twig', [
             'user' => $user,
             'facture' => $facture,
             'commandes' => $commande,
