@@ -1,92 +1,112 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DD Interiors Home prestation{% endblock %}
+{% block title %}DD Interiors Home prestation
+{% endblock %}
 {% block carousel %}{% endblock %}
 
 {% block body %}
-<div style="height: 100vh;"><div>
- <h1>prestation</h1>
+	<div style="height: 100vh;">
+		<div>
+			<h1>prestation</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Titre</th>
-                <td>{{ prestation.titre }}</td>
-            </tr>
-            {% if prestation.prix %}
-            <tr>
-                <th>Prix</th>
-                <td>{{ prestation.prix }} € {% if prestation.categoriesPrix.nom == "mètre carré" %}m²{% elseif prestation.categoriesPrix.nom == "par pièce" %}/pièce{% endif %}</td>
-            </tr>
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>Titre</th>
+						<td>{{ prestation.titre }}</td>
+					</tr>
+					{% if prestation.prix %}
+						<tr>
+							<th>Prix</th>
+							<td>{{ prestation.prix }}
+								€
+								{% if prestation.categoriesPrix.nom == "mètre carré" %}m²{% elseif prestation.categoriesPrix.nom == "par pièce" %}/pièce
+								{% endif %}
+							</td>
+						</tr>
+					{% endif %}
+					{% if prestation.forfait %}
+						<tr>
+							<th>Forfait</th>
+							<td>{{ prestation.forfait }}
+								€ :
+								{{ prestation.forfait.description }}</td>
+						</tr>
+						<tr>
+							<th>Forfait</th>
+							<td>{{ prestation.forfait2 }}
+								€ :
+								{{ prestation.forfait2.description }}</td>
+						</tr>
+					{% endif %}
+					<tr>
+						<th>Description</th>
+						<td>{{ prestation.description }}</td>
+					</tr>
+				</tbody>
+
+				{% if not prestation.forfait and not prestation.forfait2 %}
+					<a href="{{ path('app_cart_add', {'id': prestation.id }) }}">
+						<button type="button" class="btn btn-primary">Ajouter au panier</button>
+					</a>
+				{% endif %}
+
+			</table>
+			{% if prestation.categoriesPrix.nom == "mètre carré" %}
+				<a class="button " href="{{ path('app_M2', { 'id': prestation.id }) }}" style="color: black;">Formulaire M2</a>
+			{% endif %}
+            {% if prestation.categoriesPrix.nom == "par pièce"  and not  prestation.forfait%}
+                <a class="button " href="{{ path('app_piece', { 'id': prestation.id }) }}" style="color: black;">Forf</a>
             {% endif %}
-            {% if prestation.forfait %}
-            <tr>
-                <th>Forfait</th>
-                <td>{{ prestation.forfait }} € : {{ prestation.forfait.description }}</td>
-            </tr>
-            <tr>
-                <th>Forfait</th>
-                <td>{{ prestation.forfait2 }} € : {{ prestation.forfait2.description }}</td>
-            </tr>
-            {% endif %}
-            <tr>
-                <th>Description</th>
-                <td>{{ prestation.description }}</td>
-            </tr>
-        </tbody>
+			{% if prestation.forfait %}
+				<a class="button " href="{{ path('app_forfaits', { 'id': prestation.id }) }}" style="color: black;">Forf</a>
+			{% endif %}
+			<a href="{{ path('app_prestations_index') }}">back to list</a>
 
-        {% if not prestation.forfait and not prestation.forfait2 %}
-        <a href="{{ path('app_cart_add', {'id': prestation.id }) }}"><button type="button" class="btn btn-primary">Ajouter au panier</button></a>        
-        {% endif %}        
-        
-        </table>
-        {% if prestation.categoriesPrix.nom == "mètre carré" %}
-        <a class="button " href="{{ path('app_M2', { 'id': prestation.id }) }}" style="color: black;">Formulaire M2</a>
-        {% endif %}
-        
-        {% if prestation.forfait %}
-        <a class="button " href="{{ path('app_forfaits', { 'id': prestation.id }) }}" style="color: black;">Forf</a>
-        {% endif %}
-    <a href="{{ path('app_prestations_index') }}">back to list</a>
+			<h1>Commentaires</h1>
+			{% for uncommentaire in les_commentaires %}
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Id</th>
+							<td>
+								{{uncommentaire.id}}</td>
+						</tr>
+						<tr>
+							<th>Titre</th>
+							<td>
+								{{uncommentaire.subject}}</td>
+						</tr>
+						<tr>
+							<th>Description</th>
+							<td>
+								{{uncommentaire.message}}</td>
+						</tr>
+						<tr>
+							<th>Ecrit par</th>
+							<td>
+								{{uncommentaire.users.nom}}
+								{{uncommentaire.users.prenom}}</td>
+						</tr>
+						<tr>
+							<th>CreatedAt</th>
+							<td>
+								{{uncommentaire.createdAt ? uncommentaire.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+						</tr>
+					</tbody>
+				</table>
 
-    <h1>Commentaires</h1>
-{% for uncommentaire in les_commentaires %}
- <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>  {{uncommentaire.id}}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>  {{uncommentaire.subject}}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>  {{uncommentaire.message}}</td>
-            </tr>
-            <tr>
-                <th>Ecrit par</th>
-                <td>  {{uncommentaire.users.nom}} {{uncommentaire.users.prenom}}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>  {{uncommentaire.createdAt ? uncommentaire.createdAt|date('d-m-Y H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-    
-{% endfor %}
-{% if is_granted('ROLE_USER') %}
-    <h1>Ajouter un commentaire</h1>
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn">
-        {{ button_label|default('Enregistrer le commentaire') }}
-        </button>
-    {{ form_end(form) }}
+			{% endfor %}
+			{% if is_granted('ROLE_USER') %}
+				<h1>Ajouter un commentaire</h1>
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				<button class="btn">
+					{{ button_label|default('Enregistrer le commentaire') }}
+				</button>
+				{{ form_end(form) }}
 
 
-{% endif %} 
+			{% endif %}
 
-{% endblock %}
+		{% endblock %}

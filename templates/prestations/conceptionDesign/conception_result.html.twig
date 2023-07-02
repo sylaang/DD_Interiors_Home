@@ -7,9 +7,18 @@
 <div style="height: 100vh;"><div>
     <h1>Résultat de la conception</h1>
 
-    <p style="color: black;">Surface saisie : {{ surface }} m²</p>
 
-    <a href="{{ path('app_cart_add', {'id': prestation.id, 'surface': surface }) }}">
+    <p style="color: black;">Surface saisie : {{ surface }} m²</p>
+    <p style="color: black;">Prix au mêtre carré : {{ prestation.prix }} /m²</p>
+    {% if fraisdedeplacement == 'sur place' %}
+    Prestation sur place : 70 euros
+    <p style="color: black;">prix total : {{prestation.prix * surface + prestation.fraisdedeplacement }} €</p>
+    {% else %}
+    Prestation par télephone        
+    <p style="color: black;">prix total : {{prestation.prix * surface }} €</p>
+    {% endif %}
+
+    <a href="{{ path('app_cart_add', {'id': prestation.id, 'surface': surface, 'fraisdedeplacement': fraisdedeplacement }) }}">
         <button type="button" class="btn btn-primary">Ajouter au panier</button>
     </a>
 

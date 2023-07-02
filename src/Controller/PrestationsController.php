@@ -95,9 +95,11 @@ class PrestationsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $surface = $form->get('surface')->getData();
-
+            $fraisdedeplacement = $form->get('fraisdedeplacement')->getData();
+            
             return $this->render('prestations/conceptionDesign/conception_result.html.twig', [
                 'surface' => $surface,
+                'fraisdedeplacement' => $fraisdedeplacement,
                 'prestation' => $prestation,
             ]);
         }
@@ -133,6 +135,38 @@ class PrestationsController extends AbstractController
             ]);
         }
     
+        return $this->render('prestations/PlanEtudeAgencement/parPiece.html.twig', [
+            'form' => $form->createView(),
+            'prestation' => $prestation,
+        ]);
+    }
+
+    #[Route('/Formulaires/{id}', name: 'app_piece',  methods: ['GET', 'POST'])]
+    public function piece(Request $request, Prestations $prestation): Response
+    {
+        $form = $this->createForm(PrestationsParPieceType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $nombrePieces = $data['nombrePieces'];
+            $fraisdedeplacement = $form->get('fraisdedeplacement')->getData();
+            
+            if ($fraisdedeplacement === 'sur place') {
+                $prixReel = ($prestation->getPrix() * $data['nombrePieces']+ $prestation->getFraisdedeplacement()) ;
+            } elseif ($fraisdedeplacement === 'par_telephone') {
+                $prixReel = ($prestation->getPrix() * $data['nombrePieces']);
+
+            }
+            
+            return $this->render('prestations/PlanEtudeAgencement/parPiece_result.html.twig', [
+                'nombrePieces' => $nombrePieces,
+                'fraisdedeplacement' => $fraisdedeplacement,
+                'prix' => $prixReel,
+                'prestation' => $prestation,
+            ]);
+        }
+
         return $this->render('prestations/PlanEtudeAgencement/parPiece.html.twig', [
             'form' => $form->createView(),
             'prestation' => $prestation,

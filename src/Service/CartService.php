@@ -22,7 +22,7 @@ class CartService
     public function add($id, $surface = null, $nombrePieces = null, $fraisdedeplacement)
     {
         $panier = $this->session->getSession()->get("panier", []);
-    
+        
         if ($nombrePieces !== null && $fraisdedeplacement === 'sur place') {
             $panier[$id] = [
                 'nombrePieces' => $nombrePieces,
@@ -33,45 +33,56 @@ class CartService
                 'nombrePieces' => $nombrePieces,
                 'fraisdedeplacement' => 'par_telephone'
             ];
-        } elseif ($surface !== null) {
-            $panier[$id] = ['surface' => $surface];
+        } elseif ($surface !== null && $fraisdedeplacement === 'sur place') {
+            $panier[$id] = [
+                'surface' => $surface,
+                'fraisdedeplacement' => 'sur place',
+            ];
+        } elseif ($surface !== null && $fraisdedeplacement === 'par_telephone') {
+            $panier[$id] = [
+                'surface' => $surface,
+                'fraisdedeplacement' => 'par_telephone',
+            ];
         } else {
             if (!isset($panier[$id])) {
                 $panier[$id] = 0;
             }
             $panier[$id]++;
         }
-    
         $this->session->getSession()->set("panier", $panier);
     }
-    
+
     public function show()
     {
         $panier = $this->session->getSession()->get("panier", []);
         $panier_complet = [];
-    
+
         if (!empty($panier)) {
             foreach ($panier as $key => $value) {
                 $prestation_encours = $this->PrestationsRepository->find($key);
-    
                 if ($prestation_encours !== null) {
+                    $fraisdedeplacement = isset($value['fraisdedeplacement']) ? $value['fraisdedeplacement'] : null;
                     if ($prestation_encours->getForfait() !== null) {
                         $nombrePieces = isset($value['nombrePieces']) ? $value['nombrePieces'] : null;
-                        $fraisdedeplacement = isset($value['fraisdedeplacement']) ? $value['fraisdedeplacement'] : null;
-    
+
                         $prixReel = $prestation_encours->getPrixReel($nombrePieces, $fraisdedeplacement);
                         $total = $prixReel !== null ? $prixReel : 0;
                         $prestation_encours->setPrix($total);
+                        
+                        if ($fraisdedeplacement === 'sur place') {
+                            $prixReel = $prestation_encours->getPrixReel($nombrePieces, $fraisdedeplacement);
+                            $total = $prixReel !== null ? $prixReel : 0;
+                            $prestation_encours->setPrix($total);
+                        }
+                    } elseif ($fraisdedeplacement === 'sur place') {
+                        $total = $prestation_encours->getPrix() * (isset($value['surface']) ? $value['surface'] : (isset($value['nombrePieces']) ? $value['nombrePieces'] : 1)) + $prestation_encours->getFraisdedeplacement();
+
+                        
                     } else {
-                        $total = $prestation_encours->getPrix() * ($value['surface'] ?? 1);
-                    }
-    
-                    if ($fraisdedeplacement === 'sur place') {
-                        $prixReel = $prestation_encours->getPrixReel($nombrePieces, $fraisdedeplacement);
-                        $total = $prixReel !== null ? $prixReel : 0;
-                        $prestation_encours->setPrix($total);
+                        $total = $prestation_encours->getPrix() * (($value['surface'] ?? $value['nombrePieces']) ?? 1);
                     }
                     
+
                     $panier_complet[] = [
                         'prestation' => $prestation_encours,
                         'quantite' => is_array($value) ? $value : 1,
@@ -80,38 +91,39 @@ class CartService
                 }
             }
         }
-    
+
         return $panier_complet;
     }
-    
+
     public function getTotalAll()
     {
         $panier = $this->session->getSession()->get("panier");
         $total = 0;
-    
         if (!empty($panier)) {
             foreach ($panier as $key => $value) {
                 $prestation_encours = $this->PrestationsRepository->find($key);
-    
+                
                 if ($prestation_encours !== null) {
+                    $fraisdedeplacement = isset($value['fraisdedeplacement']) ? $value['fraisdedeplacement'] : 'sur place';
                     if ($prestation_encours->getForfait() !== null) {
                         $nombrePieces = isset($value['nombrePieces']) ? $value['nombrePieces'] : null;
-                        $fraisdedeplacement = isset($value['fraisdedeplacement']) ? $value['fraisdedeplacement'] : 'sur place';
-    
+                        
                         // Assurez-vous que $fraisdedeplacement est défini correctement
                         $fraisdedeplacement = ($fraisdedeplacement === 'par_telephone') ? 'par_telephone' : 'sur place';
-    
+                        
                         $prixReel = $prestation_encours->getPrixReel($nombrePieces, $fraisdedeplacement);
                         $subTotal = $prixReel !== null ? $prixReel : 0;
+                    } elseif ($fraisdedeplacement === 'sur place') {
+                        $subTotal = $prestation_encours->getPrix() * (isset($value['surface']) ? $value['surface'] : (isset($value['nombrePieces']) ? $value['nombrePieces'] : 1)) + $prestation_encours->getFraisdedeplacement();
                     } else {
-                        $subTotal = $prestation_encours->getPrix() * ($value['surface'] ?? 1);
+                        $subTotal = $prestation_encours->getPrix() * (($value['surface'] ?? $value['nombrePieces']) ?? 1);
                     }
-    
+                    
                     $total += $subTotal;
                 }
             }
         }
-    
+
         return $total;
     }
 
@@ -150,16 +162,16 @@ class CartService
     {
         $panier = $this->session->getSession()->get("panier", []);
         $fraisdedeplacement = null;
-    
-        
-            foreach ($panier as $key => $value) {
-                $prestation_encours = $this->PrestationsRepository->find($key);
-    
-                if ($prestation_encours !== null) {
-                    $fraisdedeplacement = isset($value['fraisdedeplacement']) ? $value['fraisdedeplacement'] : 'sur place';
-                }
+
+
+        foreach ($panier as $key => $value) {
+            $prestation_encours = $this->PrestationsRepository->find($key);
+
+            if ($prestation_encours !== null) {
+                $fraisdedeplacement = isset($value['fraisdedeplacement']) ? $value['fraisdedeplacement'] : 'sur place';
             }
-    
+        }
+
         return $fraisdedeplacement;
     }
 }

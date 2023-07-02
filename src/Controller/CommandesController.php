@@ -97,12 +97,8 @@ class CommandesController extends AbstractController
         $facture->setUsers($this->getUser());
         // on va lui affecté la propriété correspondant à la date en cours
         // avec un datatime
-        
         $facture->setDatecrea(new DateTime());
-        if (isset($value['fraisdedeplacement']) && $value['fraisdedeplacement'] === 'sur place') {
-            $fraisDeDeplacement = 'sur place';
-            $facture->setFraisDeDeplacement($fraisDeDeplacement);
-        }
+
 
 
 

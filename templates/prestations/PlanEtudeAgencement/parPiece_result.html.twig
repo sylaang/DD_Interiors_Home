@@ -7,9 +7,10 @@
     </div>
         <div style="color: black">
             <h1>Résultat de la conception par pièce "{{ prestation.titre }}"</h1>
-
+            
             <p>Nombre de pièces sélectionné : {{ nombrePieces }}</p>
             <p>Nouveau prix : {{ prix }} €</p>
+            
             
             <a href="{{ path('app_cart_add', {'id': prestation.id, 'prixReel': prix, 'nombrePieces': nombrePieces, 'fraisdedeplacement': fraisdedeplacement }) }}">
                 <button type="button" class="btn btn-primary">Ajouter au panier</button>
