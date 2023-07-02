@@ -1,91 +1,192 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Edit User
+{% endblock %}
 
 {% block body %}
-<div style="height: 100vh; margin-top: 20vh;">
 
-<div class="row gap-5 d-flex justify-content-center">
-<h2 style="text-align:center;">Mes Factures</h2>
-{% for factures in facture %}
+	<div style="height: 100vh; margin-top: 20vh;">
 
-<div class="col-4 card" style="width: 18rem;min-height: 330px;">
-<div class="card-body">
-<h5 class="card-title">Numéro defacture n°{{factures.id}}</h5>
-<h5 class="card-title">Date de création : {{ factures.datecrea|date("d/m/Y") }}</h5>
+		<div class="row gap-5 d-flex justify-content-center">
+			<h2 style="text-align:center;">Mes Factures</h2>
 
+			{% for factures in facture %}
 
-{% for commande in commandes  %}
-{% if factures.id == commande.factures.id %}
-
-
-<p>Nom de la prestation: {{commande.prestation.titre}}</p>
-<p>{{commande.prestation.description}}</p>
+				<div class="col-4 card" style="width: 25rem;min-height: 330px;">
+					<div class="card-body">
+						<h5 class="card-title">Numéro defacture n°{{factures.id}}</h5>
+						<h5 class="card-title">Date de création :
+							{{ factures.datecrea|date("d/m/Y") }}</h5>
 
 
-
-{% if commande.prestation.categoriesPrix.nom == "mètre carré" %}
-<p>Prix: {{commande.prestation.prix}} € /m² </p>
-<p>Mètre carré: {{commande.quantite|number_format(0, '.', '') }} </p>
-{% endif %}
+						{% for commande in commandes  %}
+							{% if factures.id == commande.factures.id %}
 
 
+								<p>Nom de la prestation:
+									{{commande.prestation.titre}}</p>
+								<p>{{commande.prestation.description}}</p>
 
 
-    {% if commande.prestation.forfait and commande.prestation.forfait2 is defined  %}
-        {% if commande.quantite <= 2 %}
-            <p>{{commande.prestation.forfait.description}}</p>
-            <p>Nombre de pièce: {{commande.quantite|number_format(0, '.', '') }}</p>
-            <p>Forfait: {{ commande.prestation.forfait.prix|number_format(0, '.', '') }} €</p>
-            <p>Prix Total: {{commande.prestation.forfait.prix}} € </p>
-
-        {% elseif commande.quantite == 3 %}
-            <p>{{commande.prestation.forfait.description}}</p>
-            <p>Nombre de pièce: {{commande.quantite|number_format(0, '.', '') }}</p>
-            <p>Forfait: {{ commande.prestation.forfait.prix|number_format(0, '.', '') }} €</p>
-            <p>Pièce en plus : {{ commande.quantite - 2}} </p>
-            <p>Prix Total: {{ (commande.prestation.forfait.prix + 120)|number_format(2, '.', '') }} € </p>
-
-        {% elseif commande.quantite > 3 and commande.quantite <= 4 %}
-            <p>{{commande.prestation.forfait2.description}}</p>
-            <p>Nombre de pièce: {{commande.quantite|number_format(0, '.', '') }}</p>
-            <p>Forfait: {{ commande.prestation.forfait2.prix|number_format(0, '.', '') }} €</p>
-            <p>Prix Total: {{commande.prestation.forfait2.prix}} € </p>
+								{% if commande.prestation.categoriesPrix.nom == "mètre carré" %}
+									<p>Prix:
+										{{commande.prestation.prix}}
+										€ /m²
+									</p>
+									<p>Mètre carré:
+										{{commande.quantite|number_format(0, '.', '') }}
+									</p>
+								{% endif %}
 
 
-        {% elseif commande.quantite > 4 %}
-            <p>{{commande.prestation.forfait2.description}}</p>
-            <p>Nombre de pièce: {{commande.quantite|number_format(0, '.', '') }}</p>
-            <p>Forfait: {{ commande.prestation.forfait2.prix|number_format(0, '.', '') }} €</p>
-            <p>Pièce en plus : {{ commande.quantite - 4}} </p>
-            <p>Prix Total: {{ (commande.prestation.forfait2.prix + (120 * (commande.quantite - 4)))|number_format(2, '.', '') }} € </p>
+								{% if commande.prestation.forfait and commande.prestation.forfait2 is defined  %}
+									{% if commande.quantite <= 2 %}
+										<p>{{commande.prestation.forfait.description}}</p>
+										{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+											<p>Prestation sur place :
+												{{commande.prestation.fraisdedeplacement}}
+												€</p>
+										{% elseif commande.factures.FraisDeDeplacement == null %}
+											<p>Prestation par téléphone :
+											</p>
+										{% endif %}
+										<p>Forfait:
+											{{ commande.prestation.forfait.prix|number_format(0, '.', '') }}
+											€</p>
+										<p>Nombre de pièce:
+											{{commande.quantite|number_format(0, '.', '') }}</p>
+										{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+											<p>Prix Total:
+												{{commande.prestation.forfait.prix + commande.prestation.fraisdedeplacement }}
+												€
+											</p>
+										{% elseif commande.factures.FraisDeDeplacement == null %}
+											<p>Prix Total:
+												{{commande.prestation.forfait.prix}}
+												€
+											</p>
+										{% endif %}
 
-        {% endif %}
-    
+									{% elseif commande.quantite == 3 %}
+										<p>{{commande.prestation.forfait.description}}</p>
+										{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+											<p>Prestation sur place :
+												{{commande.prestation.fraisdedeplacement}}
+												€</p>
+										{% elseif commande.factures.FraisDeDeplacement == null %}
+											<p>Prestation par téléphone :
+											</p>
+										{% endif %}
+										<p>Forfait:
+											{{ commande.prestation.forfait.prix|number_format(0, '.', '') }}
+											€</p>
+										<p>Nombre de pièce:
+											{{commande.quantite|number_format(0, '.', '') }}</p>
+										<p>Pièce en plus :
+											{{ commande.quantite - 2}}
+										</p>
+										{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+											<p>Prix Total:
+												{{ (commande.prestation.forfait.prix + commande.prestation.fraisdedeplacement + 120)|number_format(2, '.', '') }}
+												€
+											</p>
+										{% elseif commande.factures.FraisDeDeplacement == null %}
+											<p>Prix Total:
+												{{ (commande.prestation.forfait.prix + 120)|number_format(2, '.', '') }}
+												€
+											</p>
+										{% endif %}
+
+									{% elseif commande.quantite > 3 and commande.quantite <= 4 %}
+										<p>{{commande.prestation.forfait2.description}}</p>
+										{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+											<p>Prestation sur place :
+												{{commande.prestation.fraisdedeplacement}}
+												€</p>
+										{% elseif commande.factures.FraisDeDeplacement == null %}
+											<p>Prestation par téléphone :
+											</p>
+										{% endif %}
+										<p>Forfait:
+											{{ commande.prestation.forfait2.prix|number_format(0, '.', '') }}
+											€</p>
+										<p>Nombre de pièce:
+											{{commande.quantite|number_format(0, '.', '') }}</p>
+										<p>Rendez-vous sur place :
+											{{commande.prestation.fraisdedeplacement}}
+											€</p>
+										{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+											<p>Prix Total:
+												{{commande.prestation.forfait2.prix + commande.prestation.fraisdedeplacement}}
+												€
+											</p>
+										{% elseif commande.factures.FraisDeDeplacement == null %}
+											<p>Prix Total:
+												{{commande.prestation.forfait2.prix}}
+												€
+											</p>
+										{% endif %}
 
 
-    {% endif %}
+									{% elseif commande.quantite > 4 %}
+										<p>{{commande.prestation.forfait2.description}}</p>
+										{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+											<p>Prestation sur place :
+												{{commande.prestation.fraisdedeplacement}}
+												€</p>
+										{% elseif commande.factures.FraisDeDeplacement == null %}
+											<p>Prestation par téléphone :
+											</p>
+										{% endif %}
+										<p>Forfait:
+											{{ commande.prestation.forfait2.prix|number_format(0, '.', '') }}
+											€</p>
+										<p>Nombre de pièce:
+											{{commande.quantite|number_format(0, '.', '') }}</p>
+										<p>Pièce en plus :
+											{{ commande.quantite - 4}}
+										</p>
+										{% if commande.factures.FraisDeDeplacement == 'sur place' %}
+											<p>Prix Total:
+												{{ (commande.prestation.forfait2.prix + commande.prestation.fraisdedeplacement +(120 * (commande.quantite - 4)))|number_format(2, '.', '') }}
+												€
+											</p>
+										{% elseif commande.factures.FraisDeDeplacement == null %}
+											<p>Prix Total:
+												{{ (commande.prestation.forfait2.prix + (120 * (commande.quantite - 4)))|number_format(2, '.', '') }}
+												€
+											</p>
+										{% endif %}
 
 
-{{commande.quantite}}
-{% if not commande.prestation.forfait and commande.prestation.forfait2 is defined  %}
-<p>Prix Total: {{ (commande.prestation.prix * commande.quantite)|number_format(2, '.', '') }} € </p>
-{% endif %}
+									{% endif %}
 
-{% endif %}
-{% endfor %}
-</div>
-</div>
+								{% endif %}
 
-{% endfor %} 
-</div>
-</div>
-<style>
-    *{
-        color: black;
-    }
-    h2 {
-        color: white;
-    }
-</style>
+
+								{{commande.quantite}}
+								{% if not commande.prestation.forfait and commande.prestation.forfait2 is defined  %}
+									<p>Prix Total:
+										{{ (commande.prestation.prix * commande.quantite)|number_format(2, '.', '') }}
+										€
+									</p>
+								{% endif %}
+
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
+	</div>
+	<style>
+		* {
+			color: black;
+		}
+		h2 {
+			color: white;
+		}
+	</style>
+
 {% endblock %}

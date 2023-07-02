@@ -117,11 +117,17 @@ class PrestationsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $nombrePieces = $data['nombrePieces'];
-    
-            $prixReel = $prestation->getPrixReel($nombrePieces);
+            $fraisdedeplacement = $data['fraisdedeplacement'];
+            if ($fraisdedeplacement === 'sur place') {
+                $prixReel = $prestation->getPrixReel($nombrePieces, 'sur place');
+            } elseif ($fraisdedeplacement === 'par_telephone') {
+                $prixReel = $prestation->getPrixReel($nombrePieces, 'par_telephone');
+
+            }
     
             return $this->render('prestations/PlanEtudeAgencement/parPiece_result.html.twig', [
                 'nombrePieces' => $nombrePieces,
+                'fraisdedeplacement' => $fraisdedeplacement,
                 'prix' => $prixReel,
                 'prestation' => $prestation,
             ]);

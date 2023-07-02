@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Blank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class PrestationsType extends AbstractType
 {
@@ -26,6 +27,9 @@ class PrestationsType extends AbstractType
             ->add('description2')
             ->add('forfait')
             ->add('forfait2')
+            ->add('fraisdedeplacement', NumberType::class, [
+                'required' => false,
+            ])
             ->add('imagename', FileType::class, [
                 'label' => 'Choissiez une image pour votre prestation',
 

@@ -46,6 +46,9 @@ class Prestations
     #[ORM\OneToMany(mappedBy: 'prestation', targetEntity: Commandes::class)]
     private Collection $commandes;
 
+    #[ORM\Column(length: 3, nullable: true)]
+    private ?string $fraisdedeplacement = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -125,24 +128,28 @@ class Prestations
         return $this->commentaires;
     }
 
-    public function getPrixReel(int $nombrePieces): ?string
+    public function getPrixReel(int $nombrePieces, ?string $fraisdedeplacement): ?string
     {
         $prix = $this->getForfait()->getPrix();
         $prix2 = $this->getForfait2()->getPrix();
         $prixReel = $prix;
-
+    
         if (is_int($nombrePieces)) {
-        if ($nombrePieces <= 2) {
-            $prixReel = $prix;
-        } elseif ($nombrePieces === 3) {
-            $prixReel = $prix + 120;
-        } elseif ($nombrePieces > 3 && $nombrePieces <= 4) {
-            $prixReel = $prix2;
-        } elseif ($nombrePieces > 4) {
-            $prixReel = $prix2 + ($nombrePieces - 4) * 120;
+            if ($nombrePieces <= 2) {
+                $prixReel = $prix;
+            } elseif ($nombrePieces === 3) {
+                $prixReel = $prix + 120;
+            } elseif ($nombrePieces > 3 && $nombrePieces <= 4) {
+                $prixReel = $prix2;
+            } elseif ($nombrePieces > 4) {
+                $prixReel = $prix2 + ($nombrePieces - 4) * 120;
+            }
         }
-    }
-
+    
+        if ($fraisdedeplacement == 'sur place' && $this->getFraisdedeplacement() !== null) {
+            $prixReel += $this->getFraisdedeplacement();
+        }
+    
         return $prixReel;
     }
 
@@ -232,6 +239,18 @@ class Prestations
                 $commande->setPrestation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFraisdedeplacement(): ?int
+    {
+        return $this->fraisdedeplacement;
+    }
+
+    public function setFraisdedeplacement(?string $fraisdedeplacement): self
+    {
+        $this->fraisdedeplacement = $fraisdedeplacement;
 
         return $this;
     }

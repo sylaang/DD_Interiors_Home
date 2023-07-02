@@ -24,8 +24,14 @@ class CartController extends AbstractController
     {
         $surface = $request->query->get('surface');
         $nombrePieces = $request->query->get('nombrePieces');
-        $this->cartService->add($id, $surface, $nombrePieces);
-        // redirection vers la page des prestations
+        $fraisdedeplacement = $request->query->get('fraisdedeplacement');
+        if ($fraisdedeplacement === 'sur place') {
+            $this->cartService->add($id, $surface, $nombrePieces, 'sur place');
+        } elseif ($fraisdedeplacement === 'par_telephone') {
+            $this->cartService->add($id, $surface, $nombrePieces, 'par_telephone');
+        }
+        
+        // Redirection vers la page des prestations
         return $this->redirectToRoute("app_cart_show", [], Response::HTTP_SEE_OTHER);
     }
     
@@ -77,5 +83,4 @@ class CartController extends AbstractController
         return $this->redirectToRoute("app_cart_show",[], Response::HTTP_SEE_OTHER);
 
     }
-
-    }
+}

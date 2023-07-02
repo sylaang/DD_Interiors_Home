@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/profile')]
 class CommandesController extends AbstractController
@@ -82,12 +83,12 @@ class CommandesController extends AbstractController
     }
 
     #[Route('/commande/success', name: 'app_commandes_succes')]
-    public function sucess(FactureRepository $factureRepository, RequestStack $session,
+    public function success(FactureRepository $factureRepository, RequestStack $session,
         PrestationsRepository $prestationsRepository,CommandesRepository $commandesRepository,
-        CartService $cartService): Response 
+        CartService $cartService, Request $request): Response 
     {
 
-        
+        $panier = $session->getSession()->get("panier");
 
         // 1. On va stocké une ligne dans la table facture
         // on créé un objet facture issue de l'entité facture
@@ -96,7 +97,12 @@ class CommandesController extends AbstractController
         $facture->setUsers($this->getUser());
         // on va lui affecté la propriété correspondant à la date en cours
         // avec un datatime
+        
         $facture->setDatecrea(new DateTime());
+        if (isset($value['fraisdedeplacement']) && $value['fraisdedeplacement'] === 'sur place') {
+            $fraisDeDeplacement = 'sur place';
+            $facture->setFraisDeDeplacement($fraisDeDeplacement);
+        }
 
 
 
@@ -120,31 +126,49 @@ class CommandesController extends AbstractController
             $commande->setQuantite($value);
             $commandeRepository->save($commande, true);
         }*/
-        $panier = $session->getSession()->get("panier");
 
         foreach ($panier as $key => $value) {
             // création d'un objet commande
             $commandes = new Commandes();
-            // affectation de la propriété quantité issue du tableau panier
-            if (is_array($value)) {
-                // affectation de la propriété quantité en fonction de la clé présente dans le tableau
-                if (array_key_exists('nombrePieces', $value)) {
-                    $commandes->setQuantite($value['nombrePieces']);
-                } elseif (array_key_exists('surface', $value)) {
-                    $commandes->setQuantite($value['surface']);
+        
+            // récupération de la prestation à partir du repository des prestations
+            $prestation = $prestationsRepository->find($key);
+            if ($prestation !== null) {
+                // affectation de la propriété prestation
+                $commandes->setPrestation($prestation);
+        
+                // affectation de la propriété quantité issue du tableau panier
+                if (is_array($value)) {
+                    // affectation de la propriété quantité en fonction de la clé présente dans le tableau
+                    if (array_key_exists('nombrePieces', $value)) {
+                        $commandes->setQuantite($value['nombrePieces']);
+                    } elseif (array_key_exists('surface', $value)) {
+                        $commandes->setQuantite($value['surface']);
+                    }
+                } else {
+                    // affectation de la propriété quantité directement si $value n'est pas un tableau
+                    $commandes->setQuantite($value);
                 }
-            } else {
-                // affectation de la propriété quantité directement si $value n'est pas un tableau
-                $commandes->setQuantite($value);
+        
+                // affectation de la propriété facture issue du de la facture créée au-dessus
+                $commandes->setFactures($facture);
+        
+                // enregistrement de l'entité Commandes
+                $commandesRepository->save($commandes, true);
             }
-            // affectation de la propriété prestation
-            // grace au repo du prestation
-            $commandes->setPrestation($prestationsRepository->find($key));
-            // affectation de la propriété facture issue du 
-            // de la facture créé au dessus
-            $commandes->setFactures($facture);
-            $commandesRepository->save($commandes, true);
         }
+        if (isset($value['fraisdedeplacement']) && $value['fraisdedeplacement'] === 'sur place') {
+            $fraisDeDeplacement = 'sur place';
+            $facture->setFraisDeDeplacement($fraisDeDeplacement);
+        }
+
+
+
+        // on utilise le repo de la facture pour enregistrer
+        // les repository des entity de servent qu'a lire (méthode find)
+        // il y a une personnalisation du repo qui appelle l'entity manager
+        // c'est la classe d'écriture de symfony
+        $factureRepository->save($facture, true);
 
 
 

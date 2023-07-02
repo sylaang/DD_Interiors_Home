@@ -45,9 +45,10 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/historique', name: 'app_profil_historique')]
-    public function index( CommandesRepository $commandeRepository, FactureRepository $factureRepository): Response
+    #[Route('/historique', name: 'app_user_profile_historique')]
+    public function facture( CommandesRepository $commandeRepository, FactureRepository $factureRepository): Response
     {   
+        
         $user = $this->getUser();
         $facture = $factureRepository->findBy(['users' => $this->getUser()->getId()]);
         $commande = $commandeRepository->findAll();

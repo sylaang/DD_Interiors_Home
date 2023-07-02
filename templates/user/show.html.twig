@@ -3,7 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <h1>Profil de : {{user.nom}} {{user.prenom}} </h1>
+    <h1 style="margin-top: 20vh">Profil de : {{user.nom}} {{user.prenom}} </h1>
 
     <table class="table">
         {% for message in app.flashes('message') %}
@@ -25,19 +25,21 @@
                 <td>{{ user.prenom }}</td>
             </tr>
             <tr>
-                <th>Phone</th>
+                <th>numéro de téléphone</th>
                 <td>{{ user.phone }}</td>
             </tr>
             <tr>
                 <th>CreatedAt</th>
                 <td>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</td>
-            </tr>
-            
+            </tr>            
             <tr>
                 <th>UpdatedAt</th>
                 <td>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
+    
+    <a href="{{ path('app_user_profile_historique', {'id': user.id}) }}">Historique de facture</a>
+
     <a href="{{ path('app_user_profile_edit', {'id': user.id}) }}">edit</a>
 {% endblock %}

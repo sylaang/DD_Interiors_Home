@@ -27,6 +27,9 @@ class Facture
     #[ORM\OneToMany(mappedBy: 'factures', targetEntity: Commandes::class)]
     private Collection $commandes;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $fraisDeDeplacement = null;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -60,7 +63,7 @@ class Facture
 
         return $this;
     }
-
+    
     /**
      * @return Collection<int, Commandes>
      */
@@ -87,6 +90,18 @@ class Facture
                 $commande->setFactures(null);
             }
         }
+
+        return $this;
+    }
+    
+    public function getFraisDeDeplacement(): ?string
+    {
+        return $this->fraisDeDeplacement;
+    }
+
+    public function setFraisDeDeplacement(?string $fraisDeDeplacement): self
+    {
+        $this->fraisDeDeplacement = $fraisDeDeplacement;
 
         return $this;
     }
