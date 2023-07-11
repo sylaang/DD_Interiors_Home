@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-#[Route('/profile')]
+#[Route('/profil')]
 class CommandesController extends AbstractController
 {
     #[Route('/commande', name: 'app_commande')]
@@ -39,10 +39,11 @@ class CommandesController extends AbstractController
         // avec les variable global PHP de sorte de pouvoir gérer
         // tout les environnements possible
 
-        if (isset($_SERVER['HTTPS'])){
-            $protocol="https://";
-        } 
-        $protocol="http://";
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
+            $protocol = "https://";
+        } else {
+            $protocol = "http://";
+        }
         // on définit le nom du serveur de connexion 
         // avec les variable global PHP de sorte de pouvoir gérer
         // tout les environnements possible
