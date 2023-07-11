@@ -1,11 +1,10 @@
 /* ___________________________________________________________________________________________________________________________ */
 
-/* html {
-    height: 100%;
+ html {
     overflow-x: hidden !important
 }
 
-body {
+/*body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
@@ -82,7 +81,7 @@ section {
 }
 
 .height-emulator {
-    float: left;
+    top: 0;
     width: 100%;
     position: relative;
     z-index: 1;
@@ -93,7 +92,10 @@ section {
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 90px 20px 90px 80px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #0D0D0D;
     z-index: 2;
 }
@@ -157,11 +159,6 @@ section {
     height: 40px;
     cursor: pointer;
     text-align: right;
-}
-
-* {
-    text-decoration: none;
-    list-style: none;
 }
 
 @media screen and (max-width:782px) {

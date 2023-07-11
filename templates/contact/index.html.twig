@@ -5,72 +5,67 @@
 
 {% block stylesheets %}
 	<link data-minify="1" rel="stylesheet" href="{{asset('css/contact.css')}}">
-	{% endblock %}
+{% endblock %}
 
 {% block body %}
-
-<section id="contact-section" class="pageTop anim" data-scrollama-index="0">
-	<div class="overflow-hidden">
-		<div class="pageTop__bg parallax" data-rellax-speed="-3"
-			style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
-		</div>
-		<div class="pageTop__container">
-			<div class="container">
-				<h1 class="pageTop__title">
-					<font style="vertical-align: inherit;">
+	<section id="contact-section" class="pageTop anim" data-scrollama-index="0">
+		<div class="overflow-hidden">
+			<div class="pageTop__bg parallax" data-rellax-speed="-3" style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);"></div>
+			<div class="pageTop__container">
+				<div class="container">
+					<h1 class="pageTop__title">
 						<font style="vertical-align: inherit;">
-							Contact
+							<font style="vertical-align: inherit;">
+								Contact
+							</font>
 						</font>
-					</font>
-					<span class="reveal_title"></span>
-				</h1>
+						<span class="reveal_title"></span>
+					</h1>
 
+				</div>
 			</div>
+		</section>
+		<div style="height: 90vh;"></div>
+	</div>
+	{% for message in app.flashes('succes') %}
+		<div class="alert alert-succes mt-4">
+			{{message}}
 		</div>
-</section>
-<div style="height: 90vh;"></div>
-</div>
-{% for message in app.flashes('succes') %}
-<div class="alert alert-succes mt-4">
-	{{message}}
-</div>
-<img src="" alt="">
-{% endfor %}
-<div class="container-contact-img">
+		<img src="" alt="">
+	{% endfor %}
+	<div class="container-contact-img">
 		<div id="img-contact" class="contact-img"></div>
-		 
-</div>
 
+	</div>
 
-
-<div style="height: 25vh;"></div>
-<div class="container-contact">
-	<h2>Contactez-nous</h2>
-	{{ form_start(contactForm) }}
-	<div class="row mb-4">
-		<div class="col">
-			<div class="form-outline">
-				{{ form_widget(contactForm.nom, { 'attr': {'placeholder': 'Nom*'} }) }}
+	<div style="height: 25vh;"></div>
+	<div class="container-contact">
+		<h2>Contactez-nous</h2>
+		{{ form_start(contactForm) }}
+		<div class="row mb-4">
+			<div class="col-sm-6">
+				<div class="form-outline">
+					{{ form_widget(contactForm.nom, { 'attr': {'placeholder': 'Nom*'} }) }}
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-outline">
+					{{ form_widget(contactForm.prenom, { 'attr': {'placeholder': 'Prenom*'} }) }}
+				</div>
 			</div>
 		</div>
-		<div class="col">
-			<div class="form-outline">
-				{{ form_widget(contactForm.prenom, { 'attr': {'placeholder': 'Prenom*'} }) }}
-			</div>
+		<div class="form-outline mb-4">
+			{{ form_widget(contactForm.email, { 'attr': {'placeholder': 'Adresse email*'} }) }}
 		</div>
+		<div class="form-outline mb-4">
+			{{ form_widget(contactForm.subject, { 'attr': {'placeholder': 'Sujet*'} }) }}
+		</div>
+		<div class="form-outline mb-4">
+			{{ form_widget(contactForm.message, { 'attr': {'placeholder': 'Votre message*'} }) }}
+		</div>
+		<li>
+			<a class="button pelement" type="submit" style="width: 200px; margin-left: 12em;">Envoyer</a>
+		</li>
+		{{ form_end(contactForm) }}
 	</div>
-	<div class="form-outline mb-4">
-		{{ form_widget(contactForm.email, { 'attr': {'placeholder': 'Adresse email*'} }) }}
-	</div>
-	<div class="form-outline mb-4">
-		{{ form_widget(contactForm.subject, { 'attr': {'placeholder': 'Sujet*'} }) }}
-	</div>
-	<div class="form-outline mb-4">
-		{{ form_widget(contactForm.message, { 'attr': {'placeholder': 'Votre message*'} }) }}
-	</div>
-	<li>
-		<a class="button pelement" type="submit" style="width: 200px; margin-left: 12em;">Envoyer</a>
-	</li>
-	{{ form_end(contactForm) }}
-</div>
 {% endblock %}

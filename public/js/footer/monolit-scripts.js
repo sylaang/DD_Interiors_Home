@@ -941,13 +941,15 @@
           jQuery(".particular.footer-canvas").fadeIn(1);
         else jQuery(".particular.footer-canvas").fadeOut(1);
       });
+      var windowWidth = window.innerWidth;
+      var radius = (windowWidth < 768) ? 150 : 350;
       var cscl = jQuery(".particular").data("color")
         ? jQuery(".particular").data("color")
         : "rgba(255, 255, 255, .5)";
       jQuery(".particular").constellation({
         star: { width: 1 },
         line: { color: cscl },
-        radius: 350,
+        radius: radius,
       });
     }
     var bgImage = jQuery(".bg");

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="fr" dir="ltr">
 <meta charset="UTF-8" lang='fr'>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <title>
 	{% block title %}Welcome!
@@ -26,7 +26,11 @@
 	{#_______________________________________________________________FOOTER________________________________________________#}
 	<link data-minify="1" rel="stylesheet" id="monolit-style-css" href="{{ asset('css/footer/style.css') }}"
 		type="text/css" media="all" />
-		
+
+
+
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 	{% block stylesheets %}
 	{{ encore_entry_link_tags("app") }}
 	{% endblock %}
@@ -44,7 +48,7 @@
 		gtag("config", "UA-46667632-1", { anonymize_ip: true });
 	</script> #}
 	{# fin de la premiere chose importante #}
-	
+
 	{#___________________________________________________________________SCRIPT_STRIPE_______________________________________________#}
 	<script src="https://js.stripe.com/v3/"></script>
 
@@ -63,47 +67,52 @@
 	<div class="cursor-follower"></div>
 	<header>
 		<nav class="nav">
-			<div class="logo">
-				<a href="#">
-					<h1>
-						<strong>YOUR LOGO</strong>
-					</h1>
-				</a>
+			<div class="header__burger">
+				<div id="menu-toggle" class="hamburger">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
 			</div>
-			<ul class="navlinks" style="display: flex; align-items: center;">
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{path('app_home')}}">Home</a>
-				</li>
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="#">À propos</a>
-				</li>
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{path('app_portfolio_index')}}">Portfolio</a>
-				</li>
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{path('app_prestations_index')}}">Nos prestations</a>
-				</li>
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_contact') }}">Contact</a>
-				</li>
-				<li>
-					<a class="text-reset me-3" href="{{path('app_cart_show')}}">
-              			<i class="fas fa-shopping-cart"></i>
-            		</a>
-				</li>
-			</ul>
-			<ul class="navlinks" style="display: flex; align-items: end;">
-				{% if is_granted('ROLE_USER')==false %}
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{path('app_login')}}">Connexion</a>
-				</li>
-				{% endif %}
-				{% if is_granted('ROLE_ADMIN') %}
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{path('app_admin_dashboard')}}">Dashboard</a>
-				</li>
-				{% endif %}
-			</ul>
+			<div class="header__logo">
+				<li><a href="{{path('app_home')}}"></a></li>
+				
+			</div>
+			<div class="burger-menu">
+				<div data-aos="fade-right" data-aos-duration="3000">
+				<ul class="navlinks">
+					<li>
+						<a class="button pelement" style="padding-top: 0;" href="{{ path('app_home') }}">Home</a>
+					</li>
+					<li>
+						<a class="button pelement" style="padding-top: 0;" href="#">À propos</a>
+					</li>
+					<li>
+						<a class="button pelement" style="padding-top: 0;"
+							href="{{ path('app_portfolio_index') }}">Portfolio</a>
+					</li>
+						<li>
+							<a class="button pelement" style="padding-top: 0;"
+								href="{{ path('app_prestations_index') }}">Nos prestations</a>
+						</li>
+						<li>
+							<a class="button pelement" style="padding-top: 0;" href="{{ path('app_contact') }}">Contact</a>
+						</li>
+						<li>
+					</li>
+					{% if is_granted('ROLE_USER') == false %}
+					<li>
+						<a class="button pelement" style="padding-top: 0;" href="{{ path('app_login') }}">Connexion</a>
+					</li>
+					{% endif %}
+					{% if is_granted('ROLE_ADMIN') %}
+					<li>
+						<a class="button pelement" style="padding-top: 0;"
+						href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
 		</nav>
 	</header>
 
@@ -133,8 +142,8 @@
 
 				<div class="barba-container">
 
-				{% block body %}{% endblock %}
-				
+					{% block body %}{% endblock %}
+
 
 
 				</div>
@@ -150,10 +159,10 @@
 				<div class="col-md-6">
 					<!-- Footer logo -->
 					<div class="footer-item footer-logo">
-						<a href="https://www.saphalyadesignstudio.com/" class="ajax"><img width="134" height="50"
-								src="https://www.saphalyadesignstudio.com/wp-content/uploads/2022/10/Web-Logo.png"
+						<a href="{{path('app_home')}}" class="ajax"><img width="134" height="50"
+								src="url({{asset('img/logo/Logo.svg')}})"
 								alt="footer logo"
-								data-lazy-src="https://www.saphalyadesignstudio.com/wp-content/uploads/2022/10/Web-Logo.png"
+								data-lazy-src="https://1000logos.net/wp-content/uploads/2017/06/Shell-Logo-500x421.png"
 								data-ll-status="loaded" class="entered lazyloaded"><noscript><img width="134"
 									height="50"
 									src="https://www.saphalyadesignstudio.com/wp-content/uploads/2022/10/Web-Logo.png"
@@ -180,7 +189,7 @@
 					</div>
 				</div>
 				<!-- Footer info end-->
-				
+
 				<!-- Footer info end-->
 				<div class="col-md-2">
 					<div class="footer-item">
@@ -207,8 +216,9 @@
 						<br>
 						<span class="copyright">
 							© Freepik. Powered by
-							<a href="https://fr.freepik.com/photos-gratuite/mur-texture-beton-bleu-marine-massif_17119118.htm#query=fond%20bleu%20fonce&position=1&from_view=keyword&track=ais" style="color:#fff;font-weight:bold">
-								Image de rawpixel.com</a> 
+							<a href="https://fr.freepik.com/photos-gratuite/mur-texture-beton-bleu-marine-massif_17119118.htm#query=fond%20bleu%20fonce&position=1&from_view=keyword&track=ais"
+								style="color:#fff;font-weight:bold">
+								Image de rawpixel.com</a>
 						</span>
 						<span class="to-top">To Top</span>
 					</div>
@@ -247,29 +257,45 @@
 
 	<!-- ____________________________________MDB _______________________________-->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"></script>
-	
+
+
+
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<script>
+
+
+		// Sélectionnez tous les liens <a href>
+		var links = document.querySelectorAll("a");
+
+		// Parcourez tous les liens et ajoutez un gestionnaire d'événements de clic
+		links.forEach(function (link) {
+			link.addEventListener("click", function (event) {
+				// Vérifiez si la touche Shift est enfoncée pour ouvrir le lien dans un nouvel onglet
+				if (!event.shiftKey) {
+					// Empêchez le comportement de lien par défaut
+					event.preventDefault();
+
+					// Naviguez vers la nouvelle page en utilisant l'attribut href du lien
+					var href = this.getAttribute("href");
+					history.pushState({}, "", href);
+
+					// Rechargez la page de manière discrète
+					location.reload();
+				}
+			});
+		});
+	</script>
+	<script>
+		AOS.init();
+	</script>
 
 	<script>
-// Sélectionnez tous les liens <a href>
-	var links = document.querySelectorAll("a");
+		const menuToggle = document.getElementById('menu-toggle');
+		const burgerMenu = document.querySelector('.burger-menu');
 
-// Parcourez tous les liens et ajoutez un gestionnaire d'événements de clic
-links.forEach(function(link) {
-  link.addEventListener("click", function(event) {
-    // Vérifiez si la touche Shift est enfoncée pour ouvrir le lien dans un nouvel onglet
-    if (!event.shiftKey) {
-      // Empêchez le comportement de lien par défaut
-      event.preventDefault();
-      
-      // Naviguez vers la nouvelle page en utilisant l'attribut href du lien
-      var href = this.getAttribute("href");
-      history.pushState({}, "", href);
-      
-      // Rechargez la page de manière discrète
-      location.reload();
-    }
-  });
-});
+		menuToggle.addEventListener('click', function () {
+			burgerMenu.classList.toggle('open');
+		});
 	</script>
 
 	{% block javascripts %}

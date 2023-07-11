@@ -1,13 +1,9 @@
 .parallax-container-portfolio {
     position: relative;
     z-index: 0;
-    margin-left: 1000px;
-}
-
-.parallax-container--center-top-portfolio {
-    top: 20vh;
-    left: 30%;
-    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .parallax-title-portfolio {
@@ -17,18 +13,17 @@
     font-weight: 900;
     line-height: 1em;
     color: #fab06249;
-    /* white-space: nowrap; */
     margin-top: 0;
 }
 
 @media (max-width: 1200px) {
     .parallax-title-portfolio {
-        font-size:150px
+        font-size: 150px;
     }
 }
 
 @media (max-width: 767px) {
     .parallax-title-portfolio {
-        font-size:60px
+        font-size: 60px;
     }
 }
