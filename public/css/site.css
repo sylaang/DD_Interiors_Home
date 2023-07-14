@@ -4,6 +4,8 @@
     margin: 0;
     letter-spacing: 1px;
     box-sizing: border-box;
+    font-family: "Palatino Linotype", serif;
+
 }
 body {
 font-family: "Palatino Linotype", serif;
@@ -845,14 +847,14 @@ feuille de style user-agent section {
     left: 0;
     z-index: 9999;
     width: 100%;
-    text-align: center
+    text-align: center;
+    height: 10vh;
+    padding-top: 2.5vh;
 }
 
-.cookie__inner {
-    margin: 0;
-    padding: 5px;
-    padding-right: 160px
-}
+/* .cookie__inner {
+    height: 10vh;
+} */
 
 @media (max-width: 992px) {
     .cookie__inner {
@@ -867,7 +869,7 @@ feuille de style user-agent section {
 }
 
 .cookie__msg {
-    font-size: 10px
+    font-size: 15px;
 }
 
 @media (max-width: 992px) {
@@ -888,6 +890,14 @@ a.cookie__info {
     right: 25px;
     white-space: nowrap;
 }
+.cookie__no {
+    background-color: transparent;
+    padding: 12px 30px;
+    position: absolute;
+    top: 9px;
+    right: 150px;
+    white-space: nowrap;
+}
 
 @media (max-width: 992px) {
     .cookie__ok {
@@ -895,6 +905,13 @@ a.cookie__info {
         display: block;
         top: 0;
         right: 0;
+        margin: 0 auto
+    }
+    .cookie__no {
+        position: relative;
+        display: block;
+        top: 0;
+        right: 25px;
         margin: 0 auto
     }
 }

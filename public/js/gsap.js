@@ -12253,20 +12253,35 @@
                 }
             })
         },
-        manageCookie: ()=>{
+        manageCookie: () => {
             if (!oe.a.get("cookie")) {
-                const t = '\n        <div class="cookie">\n          <div class="cookie__inner">\n            <span class="cookie__msg">\n            chris,hassan,booba,lakdar\n              <a href="/privacy.html" target="_blank" class="cookie__info">(Cliquer ici)</a>\n              <button type="button" class="cookie__ok button circleCursor">Accepter</button>\n            </span>\n          </div>\n        </div>\n      ';
-                $("body").prepend(t),
-                $(".cookie__ok").on("click", ()=>{
-                    $("body>.cookie").remove(),
-                    oe.a.set("cookie", "accepted", {
-                        expires: 99999,
-                        path: "/"
-                    })
-                }
-                )
+              const t = `
+                <div class="cookie">
+                  <div class="cookie__inner">
+                    <span class="cookie__msg">
+                      Ce site utilise des cookies. Pour en savoir plus,
+                      <a href="cookies" target="_blank" class="cookie__info">(Cliquez ici)</a>
+                      <button type="button" class="cookie__no button circleCursor">Refuser</button>
+                      <button type="button" class="cookie__ok button circleCursor">Accepter</button>
+                    </span>
+                  </div>
+                </div>
+              `;
+              $("body").prepend(t);
+          
+              $(".cookie__no").on("click", () => {
+                window.location.href = "https://www.google.fr";
+              });
+          
+              $(".cookie__ok").on("click", () => {
+                $("body > .cookie").remove();
+                oe.a.set("cookie", "accepted", {
+                  expires: 99999,
+                  path: "/",
+                });
+              });
             }
-        }
+          }
         ,
         manageScrollHint() {
             const t = $(".scroll-hint");

@@ -1,124 +1,145 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DD Interiors Home prestation
+{% block title %}DD Interiors Home prestation {{ prestation.titre }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{asset('css/prestation.css')}}">
 {% endblock %}
+
 {% block carousel %}{% endblock %}
 
 {% block body %}
-			<section class="pageTop anim" data-scrollama-index="0">
-  <div class="overflow-hidden">
-    <div class="pageTop__bg parallax" data-rellax-speed="-3" style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);"></div>
-    <div class="pageTop__container">
-      <div class="container">
-        <h1 class="pageTop__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-          {{ prestation.titre }}
-          </font></font><span class="reveal_title"></span>
-        </h1>
-        
-      </div>
-    </div>
+<section class="pageTop anim" data-scrollama-index="0">
+	<div class="overflow-hidden">
+		<div class="pageTop__bg parallax" data-rellax-speed="-3"
+			style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
+		</div>
+		<div class="pageTop__container">
+			<div class="container">
+				<h1 class="pageTop__title">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">
+							{{ prestation.titre }}
+						</font>
+					</font><span class="reveal_title"></span>
+				</h1>
+
+			</div>
+		</div>
 </section>
-	
-			<h1>prestation</h1>
+<div class="bg">
 
-			<table class="table">
-				<tbody>
-					<tr>
-						<th>Titre</th>
-						<td>{{ prestation.titre }}</td>
-					</tr>
-					{% if prestation.prix %}
-						<tr>
-							<th>Prix</th>
-							<td>{{ prestation.prix }}
-								€
-								{% if prestation.categoriesPrix.nom == "mètre carré" %}m²{% elseif prestation.categoriesPrix.nom == "par pièce" %}/pièce
-								{% endif %}
-							</td>
-						</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Titre</th>
+				<td>{{ prestation.titre }}</td>
+			</tr>
+			{% if prestation.prix %}
+			<tr>
+				<th>Prix</th>
+				<td>{{ prestation.prix }}
+					€
+					{% if prestation.categoriesPrix.nom == "mètre carré" %}m²{% elseif prestation.categoriesPrix.nom ==
+					"par
+					pièce" %}/pièce
 					{% endif %}
-					{% if prestation.forfait %}
-						<tr>
-							<th>Forfait</th>
-							<td>{{ prestation.forfait }}
-								€ :
-								{{ prestation.forfait.description }}</td>
-						</tr>
-						<tr>
-							<th>Forfait</th>
-							<td>{{ prestation.forfait2 }}
-								€ :
-								{{ prestation.forfait2.description }}</td>
-						</tr>
-					{% endif %}
-					<tr>
-						<th>Description</th>
-						<td>{{ prestation.description }}</td>
-					</tr>
-				</tbody>
-
-				{% if not prestation.forfait and not prestation.forfait2 %}
-					<a href="{{ path('app_cart_add', {'id': prestation.id }) }}">
-						<button type="button" class="btn btn-primary">Ajouter au panier</button>
-					</a>
-				{% endif %}
-
-			</table>
-			{% if prestation.categoriesPrix.nom == "mètre carré" %}
-				<a class="button " href="{{ path('app_M2', { 'id': prestation.id }) }}" style="color: black;">Formulaire M2</a>
+				</td>
+			</tr>
 			{% endif %}
-            {% if prestation.categoriesPrix.nom == "par pièce"  and not  prestation.forfait%}
-                <a class="button " href="{{ path('app_piece', { 'id': prestation.id }) }}" style="color: black;">Forf</a>
-            {% endif %}
 			{% if prestation.forfait %}
-				<a class="button " href="{{ path('app_forfaits', { 'id': prestation.id }) }}" style="color: black;">Forf</a>
+			<tr>
+				<th>Forfait</th>
+				<td>{{ prestation.forfait }}
+					€ :
+					{{ prestation.forfait.description }}</td>
+			</tr>
+			<tr>
+				<th>Forfait</th>
+				<td>{{ prestation.forfait2 }}
+					€ :
+					{{ prestation.forfait2.description }}</td>
+			</tr>
 			{% endif %}
-			<a href="{{ path('app_prestations_index') }}">back to list</a>
+			<tr>
+				<th>Description</th>
+				<td>{{ prestation.description }}</td>
+			</tr>
+		</tbody>
 
-			<h1>Commentaires</h1>
-			{% for uncommentaire in les_commentaires %}
-				<table class="table">
-					<tbody>
-						<tr>
-							<th>Id</th>
-							<td>
-								{{uncommentaire.id}}</td>
-						</tr>
-						<tr>
-							<th>Titre</th>
-							<td>
-								{{uncommentaire.subject}}</td>
-						</tr>
-						<tr>
-							<th>Description</th>
-							<td>
-								{{uncommentaire.message}}</td>
-						</tr>
-						<tr>
-							<th>Ecrit par</th>
-							<td>
-								{{uncommentaire.users.nom}}
-								{{uncommentaire.users.prenom}}</td>
-						</tr>
-						<tr>
-							<th>CreatedAt</th>
-							<td>
-								{{uncommentaire.createdAt ? uncommentaire.createdAt|date('d-m-Y H:i:s') : '' }}</td>
-						</tr>
-					</tbody>
-				</table>
+		{% if not prestation.forfait and not prestation.forfait2 %}
+		<a href="{{ path('app_cart_add', {'id': prestation.id }) }}">
+			<button type="button" class="btn btn-primary">Ajouter au panier</button>
+		</a>
+		{% endif %}
 
-			{% endfor %}
-			{% if is_granted('ROLE_USER') %}
-				<h1>Ajouter un commentaire</h1>
-				{{ form_start(form) }}
-				{{ form_widget(form) }}
-				<button class="btn">
-					{{ button_label|default('Enregistrer le commentaire') }}
-				</button>
-				{{ form_end(form) }}
+	</table>
 
 
-			{% endif %}
+	{% if prestation.categoriesPrix.nom == "mètre carré" %}
+	<a class="button pelement" href="{{ path('app_M2', { 'id': prestation.id }) }}">Formulaire M2</a>
+	{% endif %}
+	{% if prestation.categoriesPrix.nom == "par pièce" and not prestation.forfait%}
+	<a class="button pelement" href="{{ path('app_piece', { 'id': prestation.id }) }}">Forf</a>
+	{% endif %}
+	{% if prestation.forfait %}
+	<a class="button pelement" href="{{ path('app_forfaits', { 'id': prestation.id }) }}">Forf</a>
+	{% endif %}
+	<a href="{{ path('app_prestations_index') }}">back to list</a>
 
-		{% endblock %}
+	<h1>Commentaires</h1>
+	{% for uncommentaire in les_commentaires %}
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Titre</th>
+				<td>
+					{{uncommentaire.subject}}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>
+					{{uncommentaire.message}}</td>
+			</tr>
+			<tr>
+				<th>Ecrit par</th>
+				<td>
+					{{uncommentaire.users.nom}}
+					{{uncommentaire.users.prenom}}</td>
+			</tr>
+			<tr>
+				<th>CreatedAt</th>
+				<td>
+					{{uncommentaire.createdAt ? uncommentaire.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	{% endfor %}
+	{% if is_granted('ROLE_USER') %}
+	<h1>Ajouter un commentaire</h1>
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	<button class="btn">
+		{{ button_label|default('Enregistrer le commentaire') }}
+	</button>
+	{{ form_end(form) }}
+
+	{% endif %}
+</div>
+
+{% endblock %}

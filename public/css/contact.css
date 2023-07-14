@@ -1,4 +1,8 @@
 /* ______________________________________________________________CONTACT_PAGE__________________________________________________________ */
+*{
+    font-family: "Palatino Linotype", serif;
+}
+
 #img-contact {
     background: conic-gradient(#ffffff81, #000000de),
         url("https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg");

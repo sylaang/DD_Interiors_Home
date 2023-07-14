@@ -21,7 +21,7 @@
     transition: opacity 0.2s ease-out;
     background-image: url("https://www.architecture-organique.com/wp-content/uploads/2010/06/maison-architecte-ossature-bois-seine-et-marne-15.jpg");
     background-repeat: no-repeat;
-	 background-position: left top;
+	background-position: left top;
 }
 .card h2 {
     position: absolute;
