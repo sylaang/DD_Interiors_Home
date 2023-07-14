@@ -1,3 +1,7 @@
+body{
+    font-family: "Palatino Linotype", serif;
+}
+
 .parallax-container-portfolio {
     position: relative;
     z-index: 0;
@@ -8,12 +12,13 @@
 
 .parallax-title-portfolio {
     position: relative;
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     font-size: 200px;
     font-weight: 900;
     line-height: 1em;
     color: #fab06249;
     margin-top: 0;
+    height: 10px;
 }
 
 @media (max-width: 1200px) {

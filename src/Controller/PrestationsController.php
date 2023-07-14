@@ -76,6 +76,7 @@ class PrestationsController extends AbstractController
             'form' => $form
          ]);
     }
+    
     #[Route('/{id}', name: 'app_commentaires_delete', methods: ['POST'])]
     public function delete(Request $request, Commentaires $commentaire, CommentairesRepository $commentairesRepository): Response
     {

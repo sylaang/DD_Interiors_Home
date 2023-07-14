@@ -2,9 +2,11 @@
     text-decoration: none;
     list-style: none;
     margin: 0;
-    font-family: Poppins, sans-serif;
     letter-spacing: 1px;
     box-sizing: border-box;
+}
+body {
+font-family: "Palatino Linotype", serif;
 }
 
 
@@ -201,15 +203,15 @@
 }
 
 @font-face {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     src: url(../fonts/Butler_Ultra_Light.otf) format("opentype");
     font-weight: 200;
     font-style: normal;
-    font-display: swap
+    font-display: swap;
 }
 
 @font-face {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     src: url(../fonts/Butler_Medium.otf) format("opentype");
     font-weight: 500;
     font-style: normal;
@@ -217,39 +219,39 @@
 }
 
 @font-face {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     src: url(../fonts/Butler_Light.otf) format("opentype");
     font-weight: 300;
     font-style: normal;
-    font-display: swap
+    font-display: swap;
 }
 
 @font-face {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     src: url(../fonts/Butler_Black.otf) format("opentype");
     font-weight: 900;
     font-style: normal;
-    font-display: swap
+    font-display: swap;
 }
 
 @font-face {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     src: url(../fonts/Butler_Bold.otf) format("opentype");
     font-weight: 700;
     font-style: normal;
-    font-display: swap
+    font-display: swap;
 }
 
 @font-face {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     src: url(../fonts/Butler_ExtraBold.otf) format("opentype");
     font-weight: 800;
     font-style: normal;
-    font-display: swap
+    font-display: swap;
 }
 
 @font-face {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     src: url(../fonts/Butler_Regular.otf) format("opentype");
     font-weight: 400;
     font-style: normal;
@@ -384,7 +386,7 @@ a:hover {
 
 .parallax-title {
     position: relative;
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     font-size: 200px;
     font-weight: 900;
     line-height: 1em;
@@ -421,7 +423,8 @@ a:hover {
     font-weight: 400;
     white-space: nowrap;
     vertical-align: middle;
-    border: 1px solid transparent
+    border: 1px solid transparent;
+    font-family: "Palatino Linotype", serif;
 }
 
 @media (max-width: 992px) {
@@ -1137,7 +1140,7 @@ a.cookie__info {
     top: 0;
     width: 100%;
     height: 100%;
-    background: black;
+    background: rgba(88, 87, 87, 0.5);
     background-size: cover;
     transform-origin: center right;
     transition: all .6s cubic-bezier(.42, 0, 1, 1)
@@ -1148,7 +1151,7 @@ a.cookie__info {
     right: 0;
     width: 1px;
     height: 100%;
-    background-color: #00000023;
+    background-color: black;
     transform: scaleY(0);
     transform-origin: center top;
     transition: all .6s cubic-bezier(.42, 0, 1, 1)
@@ -1340,13 +1343,13 @@ a.cookie__info {
 }
 
 .header__menu__left a {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     font-size: 95px;
     line-height: 1em;
     font-weight: 600;
     letter-spacing: -1px;
     transition: all .4s;
-    color: #474343
+    color: #474343;
 }
 
 .header__menu__left a:hover {
@@ -1409,13 +1412,13 @@ a.cookie__info {
 }
 
 .header__menu__label {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     font-size: 24px;
     font-weight: 900;
     margin-bottom: 10px;
     margin-top: 60px;
     color: #fab162;
-    text-transform: uppercase
+    text-transform: uppercase;
 }
 
 @media (max-width: 767px) {
@@ -1426,10 +1429,10 @@ a.cookie__info {
 }
 
 .header__menu__text {
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     font-size: 25px;
     font-weight: 400;
-    letter-spacing: -1px
+    letter-spacing: -1px;
 }
 
 @media (max-width: 767px) {
@@ -1703,7 +1706,7 @@ a.cookie__info {
 
 .slide__title {
     position: relative;
-    font-family: Butler;
+    font-family: "Palatino Linotype", serif;
     font-size: 94px;
     font-weight: 900;
     color: #fab162;
@@ -1713,7 +1716,7 @@ a.cookie__info {
     transform: translate(-20px);
     transition: all .4s .4s;
     opacity: 0;
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 @media (max-width: 1200px) {
@@ -2100,11 +2103,16 @@ a.cookie__info {
         height: 150px;
         top: -28px;
         left: 10vh;
-        left: -2vh
+        left: -2vh;
     }
 }
 @media (min-width: 1280px) and (max-width: 1280px)  {
     .header__logo {
-        left: -5vh
+        left: -5vh;
+    } 
+}
+@media (min-width: 1024px) and (max-width: 1270px)  {
+    .header__logo {
+        left: 0vh;
     } 
 }

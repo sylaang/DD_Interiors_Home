@@ -16,12 +16,8 @@
             <div class="pageTop__container">
                 <div class="container">
                     <h1 class="pageTop__title">
-                        <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">
-                                Portfolio
-                            </font>
-                        </font>
-                        <span class="reveal_title"></span>
+                        Portfolio
+                        <span class="reveal_title">Porfolio</span>
                     </h1>
                 </div>
             </div>
@@ -31,27 +27,17 @@
     {% set archi_projectsArray = [] %}
     {% for archi_project in archi_projects|sort((a, b) => a.pays <=> b.pays) %}
         {% if archi_project.pays not in archi_projectsArray %}
-            {% if loop.index is odd %}
-			<div data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
 					<h2 class="parallax-title-portfolio" data-rellax-speed="2">
 						{{ archi_project.pays }}
 					</h2>
-				</div>
-            {% else %}
-			<div data-aos="fade-left" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="500">
-					<h2 class="parallax-title-portfolio" data-rellax-speed="2">
-						{{ archi_project.pays }}
-					</h2>
-				</div>
-            {% endif %}
 
             {% set archi_projectsArray = archi_projectsArray|merge([archi_project.pays]) %}
         {% endif %}
 
         <div class="product__content scrollTo">
             {% if loop.index is odd %}
-                <div data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine" data-aos-delay="8000">
-                    <section class="product__mainImg product__mainImg--first section__generic section__generic--fullRight anim in-view" data-scrollama-index="1">
+            <section class="product__mainImg product__mainImg--first section__generic section__generic--fullRight anim in-view" data-scrollama-index="1">
+                        <div data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine" data-aos-delay="8000">
                         <div class="section__generic__imgContainer">
                             <div class="section__generic__imgWrapper parallax" data-rellax-speed="-3"
                                 data-rellax-percentage="0.5" style="transform: translate3d(0px, -55px, 0px);">
@@ -64,14 +50,13 @@
                         <div class="section__generic--content">
                             <h2 class="section__generic__title">{{ archi_project.titre }}</h2>
                             <a class="button pelement" style="padding-top: 0;"
-                                href="{{ path('app_portfolio_show', {'id': archi_project.id}) }}">SHOW</a>
+                                href="{{ path('app_portfolio_show', {'id': archi_project.id}) }}">Voir</a>
                         </div>
+                    </div>
                     </section>
-                </div>
             {% else %}
-                <div data-aos="fade-left" data-aos-offset="500" data-aos-easing="ease-in-sine">
-                    <section class="product__mainImg product__mainImg--first section__generic section__generic--fullLeft anim in-view"
-                        data-scrollama-index="1">
+            <section class="product__mainImg product__mainImg--first section__generic section__generic--fullLeft anim in-view" data-scrollama-index="1">
+                        <div data-aos="fade-left" data-aos-offset="500" data-aos-easing="ease-in-sine">
                         <div class="section__generic__imgContainer">
                             <div class="section__generic__imgWrapper parallax" data-rellax-speed="-3"
                                 data-rellax-percentage="0.5" style="transform: translate3d(0px, -55px, 0px);">
@@ -84,10 +69,10 @@
                         <div class="section__generic--content">
                             <h2 class="section__generic__title">{{ archi_project.titre }}</h2>
                             <a class="button pelement" style="padding-top: 0;"
-                                href="{{ path('app_portfolio_show', {'id': archi_project.id}) }}">SHOW</a>
+                                href="{{ path('app_portfolio_show', {'id': archi_project.id}) }}">Voir</a>
                         </div>
+                    </div>
                     </section>
-                </div>
             {% endif %}
         </div>
     {% endfor %}

@@ -131,7 +131,9 @@ section {
 }
 
 .footer-logo img {
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    min-height: 250px;
+    min-width: 300px;
 }
 
 .footer-logo p {
