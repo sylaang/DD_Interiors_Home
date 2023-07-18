@@ -32,22 +32,16 @@
 	{{ encore_entry_link_tags("app") }}
 	{% endblock %}
 
-	{# important a faire avec deb #}
-	{#
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46667632-1"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T6JKXC5Z4H"></script>
 	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() {
-			dataLayer.push(arguments);
-		}
-		gtag("js", new Date());
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-T6JKXC5Z4H');
+	</script>
 
-		gtag("config", "UA-46667632-1", { anonymize_ip: true });
-	</script> #}
-	{# fin de la premiere chose importante #}
 
-	{#___________________________________________________________________SCRIPT_STRIPE_______________________________________________#}
-	<script src="https://js.stripe.com/v3/"></script>
 
 
 </head>
@@ -166,13 +160,9 @@
 									src="{{asset('img/logo/Logo.svg')}}"
 									alt="footer logo"></noscript>
 						</a>
-						<p class="text-footer">DD Interiors Home is a design studio based in Ahmedabad, Gujarat India. The firm
-							focuses
-							primarily
-							on
-							realistic 3d visualization and best execution of project. The cost savvy company has
-							technical and sound skills of virtual imagination with coordination in
-							implementation.
+						<p class="text-footer">
+							DD Interiors Home est une agence d'architecture d'intérieur basée à Paris. L'agence est spécialisée dans la conception et l’agencement intérieur, 
+							propose différentes solutions pour les particuliers et professionnels.
 						</p>
 					</div>
 					<!-- Footer logo end -->

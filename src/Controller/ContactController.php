@@ -30,6 +30,7 @@ class ContactController extends AbstractController
                 $contact->setPrenom($this->getUser()->getPrenom())
                     ->setEmail($this->getUser()->getEmail());
             }
+            
             $manager->persist($contact);
             $manager->flush();
             

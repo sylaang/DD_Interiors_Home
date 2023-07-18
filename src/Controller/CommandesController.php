@@ -67,8 +67,8 @@ class CommandesController extends AbstractController
               'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . '/profile/commande/success',
-            'cancel_url' => $YOUR_DOMAIN . '/profile/commande/cancel',
+            'success_url' => $YOUR_DOMAIN . '/profil/commande/success',
+            'cancel_url' => $YOUR_DOMAIN . '/profil/commande/cancel',
 
         ]);
  
@@ -86,7 +86,7 @@ class CommandesController extends AbstractController
     #[Route('/commande/success', name: 'app_commandes_succes')]
     public function success(FactureRepository $factureRepository, RequestStack $session,
         PrestationsRepository $prestationsRepository,CommandesRepository $commandesRepository,
-        CartService $cartService, Request $request): Response 
+        CartService $cartService, Request $request): Response
     {
 
         $panier = $session->getSession()->get("panier");

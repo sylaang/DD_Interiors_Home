@@ -8,38 +8,61 @@
 {% endblock %}
 
 {% block body %}
-<div style="height: 100vh;">
-    <div class="parallax-container parallax-container--center-top"> <h2 class="parallax parallax-title" data-rellax-speed="2">
-        {{ archi_project.titre }}
+<section class="pageTop anim" data-scrollama-index="0">
+    <div class="overflow-hidden">
+        <div class="pageTop__bg parallax" data-rellax-speed="-3"
+            style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);"
+            style="margin-bottom: 100vh;"></div>
+        <div class="pageTop__container">
+            <div class="container">
+                <h1 class="pageTop__title">
+                    {{archi_project.titre}}
+                    <span class="reveal_title">{{archi_project.titre}}</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% for image in archi_project.imagesProjects %}
+{% if image.getCatImagesProjects().getNom() == 'Cuisine' %}
+
+        <div class="parallax-container parallax-container--center-top">
+            <h2 class="parallax-title-portfolio" data-rellax-speed="2">
+                {{image.getCatImagesProjects().getNom()}}
+            </h2>
+        </div>
+<img src="{{ asset('img/portfolio/') ~ image.getFile}}" id="full-screen" alt="image-porfolio Cuisine" style="width: 700px; height: 500px">
+
+
+    {% elseif image.getCatImagesProjects().getNom() == 'Salon' %}
+    <div class="parallax-container parallax-container--center-top">
+        <h2 class="parallax-title-portfolio" data-rellax-speed="2">
+            {{image.getCatImagesProjects().getNom()}}
+        </h2>
+    </div>
+    <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" id="full-screen" alt="image-porfolio Salon" style="width: 700px; height: 500px">
+    {% elseif image.getCatImagesProjects().getNom() == 'Chambre' %}
+    <div class="parallax-container parallax-container--center-top">
+        <h2 class="parallax parallax-title-portfolio" data-rellax-speed="2">
+            {{image.getCatImagesProjects().getNom()}}
+        </h2>
+    </div>
+    <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" id="full-screen" alt="image-porfolio Chambre" style="width: 700px; height: 500px">
+    {% elseif image.getCatImagesProjects().getNom() == 'Salle de bain' %}
+    <h2 class="parallax parallax-title-portfolio" data-rellax-speed="2">
+        {{image.getCatImagesProjects().getNom()}}
     </h2>
-</div>
-    <h1>ArchiProjects</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ archi_project.id }}</td>
-            </tr>
-            <tr>
-                <th>image</th>
-            {% for image in archi_project.imagesProjects %} 
-                <td> <img src="{{ asset('img/portfolio/') ~ image.nom}}" alt="image" width="150"></td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ archi_project.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ archi_project.description }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_portfolio_index') }}">back to list</a>
-</div>
+    <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" id="full-screen" alt="image-porfolio Salle de bain" style="width: 700px; height: 500px">
+    {% elseif image.getCatImagesProjects().getNom() == 'Salle a manger' %}
+    <h2 class="parallax parallax-title-portfolio" data-rellax-speed="2">
+        {{image.getCatImagesProjects().getNom()}}
+    </h2>
+    <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" id="full-screen" alt="image-porfolio Salle à manger" style="width: 700px; height: 500px">
+    {% endif %}
+    {% endfor %}
 
 
 
@@ -49,6 +72,45 @@
 
 
 
+<!-- <table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ archi_project.id }}</td>
+        </tr>
+        <tr>
+            <th>image</th>
+            {% for image in archi_project.imagesProjects %}
+            {% if image.getCatImagesProjects().getNom() == 'Cuisine' %}
+            <th>Cuisine :</th>
+            <td> <img src="{{ asset('img/portfolio/') ~ image.getFile}}" alt="image" width="150"></td>
+            {% elseif image.getCatImagesProjects().getNom() == 'Salon' %}
+            <th>Salon:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100"></td>
+            {% elseif image.getCatImagesProjects().getNom() == 'Chambre' %}
+            <th>Chambre:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100"></td>
+            {% elseif image.getCatImagesProjects().getNom() == 'Salle de bain' %}
+            <th>Salle de bain:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100"></td>
+            {% elseif image.getCatImagesProjects().getNom() == 'Salle a manger' %}
+            <th>Salle à manger:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100"></td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>Titre</th>
+            <td>{{ archi_project.titre }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ archi_project.description }}</td>
+        </tr>
+    </tbody>
+</table> -->
+
+<!-- <a href="{{ path('app_portfolio_index') }}">back to list</a> -->
 
 
 
@@ -67,7 +129,17 @@
 
 
 
- {% block javascripts %}
- <script src="{{asset('js/portfolio.js')}}"></script>
-{% endblock %}   
+
+
+
+
+
+
+
+
+
+
+{% block javascripts %}
+<script src="{{asset('js/portfolio.js')}}"></script>
+{% endblock %}
 {% endblock %}

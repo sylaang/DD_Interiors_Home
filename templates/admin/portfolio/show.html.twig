@@ -14,7 +14,22 @@
             <tr>
                 <th>image</th>
             {% for image in archi_project.imagesProjects %} 
-                <td> <img src="{{ asset('img/portfolio/') ~ image.nom}}" alt="image" width="150"></td>
+                        {% if image.getCatImagesProjects().getNom() == 'Cuisine' %}
+            <th>Cuisine:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100"></td>
+        {% elseif image.getCatImagesProjects().getNom() == 'Salon' %}
+             <th>Salon:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100"></td>
+        {% elseif image.getCatImagesProjects().getNom() == 'Chambre' %}
+             <th>Chambre:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100"></td>
+        {% elseif image.getCatImagesProjects().getNom() == 'Salle de bain' %}
+             <th>Salle de bain:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100"></td>
+        {% elseif image.getCatImagesProjects().getNom() == 'Salle a manger' %}
+             <th>Salle à manger:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image" width="100"></td>
+        {% endif %}
                 {% endfor %}
             </tr>
             <tr>
