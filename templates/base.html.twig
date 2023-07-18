@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html class="no-js" lang="fr" dir="ltr">
-<meta charset="UTF-8" lang='fr'>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 
+
+<head>
+<meta charset="UTF-8" lang='fr'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>
 	{% block title %}
+	DDInteriorsHome: Acceuil
 	{% endblock %}
 </title>
 
-<head>
-	<title>DDInteriorsHome: Acceuil</title>
-
 	{#_______________________________________________________________FONT_AWESOME________________________________________________#}
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
 	{#_______________________________________________________________GOOGLE_FONTS________________________________________________#}
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
 
 	{#___________________________________________________________________MDB________________________________________________#}
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.css" rel="stylesheet"/>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.css" rel="stylesheet">
 
 	{#_______________________________________________________________HEADER_MAIN_SITE________________________________________________#}
 	<link href="{{ asset('css/site.css') }}" rel="stylesheet">
 
 	{#_______________________________________________________________FOOTER________________________________________________#}
-	<link data-minify="1" rel="stylesheet" id="monolit-style-css" href="{{ asset('css/footer/style.css') }}" type="text/css" media="all"/>
+	<link data-minify="1" rel="stylesheet" id="monolit-style-css" href="{{ asset('css/footer/style.css') }}" type="text/css" media="all">
 
 	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -57,55 +57,53 @@
 	<div class="cursor"></div>
 	<div class="cursor-follower"></div>
 	<header>
-		<nav class="nav">
-			<div class="header__burger">
-				<div id="menu-toggle" class="hamburger">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-			</div>
-			<div class="header__logo">
-				<li><a href="{{path('app_home')}}"></a></li>
-				
-			</div>
-			<div class="burger-menu">
-				<div data-aos="fade-right" data-aos-duration="3000">
-				<ul class="navlinks">
-					<li>
-						<a class="button pelement" style="padding-top: 0;" href="{{ path('app_home') }}">Home</a>
-					</li>
-					<li>
-						<a class="button pelement" style="padding-top: 0;" href="#">À propos</a>
-					</li>
-					<li>
-						<a class="button pelement" style="padding-top: 0;"
-							href="{{ path('app_portfolio_index') }}">Portfolio</a>
-					</li>
-						<li>
-							<a class="button pelement" style="padding-top: 0;"
-								href="{{ path('app_prestations_index') }}">Nos prestations</a>
-						</li>
-						<li>
-							<a class="button pelement" style="padding-top: 0;" href="{{ path('app_contact') }}">Contact</a>
-						</li>
-						<li>
-					</li>
-					{% if is_granted('ROLE_USER') == false %}
-					<li>
-						<a class="button pelement" style="padding-top: 0;" href="{{ path('app_login') }}">Connexion</a>
-					</li>
-					{% endif %}
-					{% if is_granted('ROLE_ADMIN') %}
-					<li>
-						<a class="button pelement" style="padding-top: 0;"
-						href="{{ path('app_admin_dashboard') }}">Dashboard</a>
-					</li>
-					{% endif %}
-				</ul>
-			</div>
-
-		</nav>
+<nav class="nav">
+	<div class="header__burger">
+		<div id="menu-toggle" class="hamburger">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div class="header__logo">
+		<ul>
+			<li>
+				<a href="{{path('app_home')}}"></a>
+			</li>
+		</ul>
+	</div>
+	<div class="burger-menu">
+		<div data-aos="fade-right" data-aos-duration="3000">
+			<ul class="navlinks">
+				<li>
+					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_home') }}">Home</a>
+				</li>
+				<li>
+					<a class="button pelement" style="padding-top: 0;" href="#">À propos</a>
+				</li>
+				<li>
+					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_portfolio_index') }}">Portfolio</a>
+				</li>
+				<li>
+					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_prestations_index') }}">Nos prestations</a>
+				</li>
+				<li>
+					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_contact') }}">Contact</a>
+				</li>
+				{% if is_granted('ROLE_USER') == false %}
+				<li>
+					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_login') }}">Connexion</a>
+				</li>
+				{% endif %}
+				{% if is_granted('ROLE_ADMIN') %}
+				<li>
+					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+				</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</nav>
 	</header>
 
 	<div class="grid">
@@ -130,98 +128,90 @@
 	<div class="monolit_sec monolit_page_sec content-page">
 		<div class="vs-section">
 			
-			<main id="barba-wrapper" style="background: url('../img/background/background-body.jpg');">
-				
-				<div class="barba-container">
-					{% block body %}{% endblock %}
-
-
-
-				</div>
-
-			</main>
-		</div>
+<main id="barba-wrapper" style="background: url('../img/background/background-body.jpg');">
+	<div class="barba-container">
+		{% block body %}{% endblock %}
 	</div>
-	<div class="height-emulator" style="height: 1024px;"></div>
-	<footer class="content-footer">
-		<!--  container  -->
-		<div class="container-footer">
-			<div class="row">
-				<div class="col-md-6">
-					<!-- Footer logo -->
-					<div class="footer-item footer-logo">
-						<a href="{{path('app_home')}}" class="ajax"><img width="264" height="100"
+</main>
+</div>
+</div>
+<div class="height-emulator" style="height: 1024px;"></div>
+<footer class="content-footer">
+	<!--  container  -->
+	<div class="container-footer">
+		<div class="row">
+			<div class="col-md-6">
+				<!-- Footer logo -->
+				<div class="footer-item footer-logo">
+					<a href="{{path('app_home')}}" class="ajax"><img width="264" height="100"
+							src="{{asset('img/logo/Logo.svg')}}"
+							alt="footer logo"
+							data-lazy-src="{{asset('img/logo/Logo.svg')}}"
+							data-ll-status="loaded" class="entered lazyloaded">
+							<noscript><img width="264"
+								height="100"
 								src="{{asset('img/logo/Logo.svg')}}"
-								alt="footer logo"
-								data-lazy-src="{{asset('img/logo/Logo.svg')}}"
-								data-ll-status="loaded" class="entered lazyloaded">
-								<noscript><img width="264"
-									height="100"
-									src="{{asset('img/logo/Logo.svg')}}"
-									alt="footer logo"></noscript>
-						</a>
-						<p class="text-footer">
-							DD Interiors Home est une agence d'architecture d'intérieur basée à Paris. L'agence est spécialisée dans la conception et l’agencement intérieur, 
-							propose différentes solutions pour les particuliers et professionnels.
-						</p>
-					</div>
-					<!-- Footer logo end -->
+								alt="footer logo"></noscript>
+					</a>
+					<p class="text-footer">
+						DD Interiors Home est une agence d'architecture d'intérieur basée à Paris. L'agence est spécialisée dans la conception et l’agencement intérieur, 
+						propose différentes solutions pour les particuliers et professionnels.
+					</p>
 				</div>
-				<!-- Footer info -->
-				<div class="col-md-2">
-					<div class="footer-item">
-						<h4 class="text-link">Call</h4>
-						<ul>
-							<li><a href="#">+33 7 64 40 24 70</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- Footer info end-->
-
-				<!-- Footer info end-->
-				<div class="col-md-2">
-					<div class="footer-item">
-
-						<h4 class="text-link">Email</h4>
-						<ul>
-							<li><a href="mailto:info@saphalyadesignstudio.com">info@saphalyadesignstudio.com</a></li>
-							<li><a href="mailto:saphalyaarchitects@gmail.com">saphalyaarchitects@gmail.com</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- Footer info end-->
+				<!-- Footer logo end -->
 			</div>
-			<!-- Footer copyright -->
-			<div class="row">
-				<div class="col-md-6"></div>
-				<div class="col-md-6">
-					<div class="footer-wrap">
-						<span class="copyright">
-							© DD Interiors Home 2023. Powered by
-							<a href="https://www.redmotion.in/" target="_blank" style="color:#fff;font-weight:bold">
-								Mehdi HACHEM</a>
-						</span>
-						<br>
-						<span class="copyright">
-							© Freepik. Powered by
-							<a href="https://fr.freepik.com/photos-gratuite/mur-texture-beton-bleu-marine-massif_17119118.htm#query=fond%20bleu%20fonce&position=1&from_view=keyword&track=ais"
-								style="color:#fff;font-weight:bold">
-								Image de rawpixel.com</a>
-						</span>
-						<span class="to-top">To Top</span>
-					</div>
+			<!-- Footer info -->
+			<div class="col-md-2">
+				<div class="footer-item">
+					<h4 class="text-link">Call</h4>
+					<ul>
+						<li><a href="#">+33 7 64 40 24 70</a></li>
+					</ul>
 				</div>
 			</div>
-			<!-- Footer copyright end -->
+			<!-- Footer info end-->
+
+			<!-- Footer info end-->
+			<div class="col-md-2">
+				<div class="footer-item">
+					<h4 class="text-link">Email</h4>
+					<ul>
+						<li><a href="mailto:info@saphalyadesignstudio.com">info@saphalyadesignstudio.com</a></li>
+						<li><a href="mailto:saphalyaarchitects@gmail.com">saphalyaarchitects@gmail.com</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- Footer info end-->
 		</div>
-		<!--  container  end -->
-		<!-- Hover animation  -->
-		<canvas class="particular footer-canvas" data-color="" width="2844" height="1060"
-			style="display: inline;"></canvas>
-		<!-- Hover animation  end -->
-	</footer>
-	{#
-	</div> #}
+		<!-- Footer copyright -->
+		<div class="row">
+			<div class="col-md-6"></div>
+			<div class="col-md-6">
+				<div class="footer-wrap">
+					<span class="copyright">
+						© DD Interiors Home 2023. Powered by
+						<a href="https://www.redmotion.in/" target="_blank" style="color:#fff;font-weight:bold">
+							Mehdi HACHEM</a>
+					</span>
+					<br>
+					<span class="copyright">
+						© Freepik. Powered by
+						<a href="https://fr.freepik.com/photos-gratuite/mur-texture-beton-bleu-marine-massif_17119118.htm#query=fond%20bleu%20fonce&position=1&from_view=keyword&track=ais"
+							style="color:#fff;font-weight:bold">
+							Image de rawpixel.com</a>
+					</span>
+					<span class="to-top">To Top</span>
+				</div>
+			</div>
+		</div>
+		<!-- Footer copyright end -->
+	</div>
+	<!--  container  end -->
+	<!-- Hover animation  -->
+	<canvas class="particular footer-canvas" data-color="" width="2844" height="1060"
+		style="display: inline;"></canvas>
+	<!-- Hover animation  end -->
+</footer>
 
 
 	{# _________________________________GSAP_JS_____________________________ #}
