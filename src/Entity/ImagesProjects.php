@@ -15,7 +15,7 @@ class ImagesProjects
 
     #[ORM\ManyToOne(inversedBy: 'imagesProjects')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?ArchiProjects $archiprojets = null;    
+    private ?ArchiProjects $archiprojects = null;    
 
     #[ORM\ManyToOne(inversedBy: 'imagesProjects')]
     #[ORM\JoinColumn(nullable: false)]
@@ -29,14 +29,14 @@ class ImagesProjects
         return $this->id;
     }
 
-    public function getArchiprojets(): ?ArchiProjects
+    public function getArchiprojects(): ?ArchiProjects   
     {
-        return $this->archiprojets;
+        return $this->archiprojects;
     }
 
-    public function setArchiprojets(?ArchiProjects $archiprojets): self
+    public function setArchiprojects(?ArchiProjects $archiprojects): self
     {
-        $this->archiprojets = $archiprojets;
+        $this->archiprojects = $archiprojects;
 
         return $this;
     }

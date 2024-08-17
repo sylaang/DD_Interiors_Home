@@ -18,12 +18,12 @@ class CatImagesProjects
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'catImagesProjects', targetEntity: ImagesProjects::class, orphanRemoval: true,cascade: ['persist'])]
-    private Collection $imageProjects;
+    #[ORM\OneToMany(mappedBy: 'catImagesProjects', targetEntity: ImagesProjects::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $imagesProjects;
 
     public function __construct()
     {
-        $this->imageProjects = new ArrayCollection();
+        $this->imagesProjects = new ArrayCollection(); // Corriger le nom de la propriété ici
     }
 
     public function getId(): ?int
@@ -44,26 +44,26 @@ class CatImagesProjects
     }
 
     /**
-     * @return Collection<int, ImageProjects>
+     * @return Collection<int, ImagesProjects>
      */
-    public function getImageProjects(): Collection
+    public function getImagesProjects(): Collection
     {
-        return $this->imageProjects;
+        return $this->imagesProjects;
     }
 
-    public function addImageProject(ImagesProjects $imageProject): self
+    public function addImagesProjects(ImagesProjects $imageProject): self
     {
-        if (!$this->imageProjects->contains($imageProject)) {
-            $this->imageProjects->add($imageProject);
+        if (!$this->imagesProjects->contains($imageProject)) {
+            $this->imagesProjects->add($imageProject);
             $imageProject->setCatImagesProjects($this);
         }
 
         return $this;
     }
 
-    public function removeImageProject(ImagesProjects $imageProject): self
+    public function removeImagesProjects(ImagesProjects $imageProject): self
     {
-        if ($this->imageProjects->removeElement($imageProject)) {
+        if ($this->imagesProjects->removeElement($imageProject)) {
             // set the owning side to null (unless already changed)
             if ($imageProject->getCatImagesProjects() === $this) {
                 $imageProject->setCatImagesProjects(null);

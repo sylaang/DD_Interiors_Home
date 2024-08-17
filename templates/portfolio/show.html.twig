@@ -27,7 +27,7 @@
 
 
 {% for image in archi_project.imagesProjects %}
-{% if image.getCatImagesProjects().getNom() == 'Cuisine' %}
+{% if image.getCatImagesProjects().getNom() == 'residential' %}
 
         <div class="parallax-container parallax-container--center-top">
             <h2 class="parallax-title-portfolio" data-rellax-speed="2">
@@ -37,30 +37,15 @@
 <img src="{{ asset('img/portfolio/') ~ image.getFile}}" id="full-screen" alt="image-porfolio Cuisine" style="width: 700px; height: 500px">
 
 
-    {% elseif image.getCatImagesProjects().getNom() == 'Salon' %}
+    {% elseif image.getCatImagesProjects().getNom() == 'commercial' %}
     <div class="parallax-container parallax-container--center-top">
         <h2 class="parallax-title-portfolio" data-rellax-speed="2">
             {{image.getCatImagesProjects().getNom()}}
         </h2>
     </div>
     <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" id="full-screen" alt="image-porfolio Salon" style="width: 700px; height: 500px">
-    {% elseif image.getCatImagesProjects().getNom() == 'Chambre' %}
-    <div class="parallax-container parallax-container--center-top">
-        <h2 class="parallax parallax-title-portfolio" data-rellax-speed="2">
-            {{image.getCatImagesProjects().getNom()}}
-        </h2>
-    </div>
-    <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" id="full-screen" alt="image-porfolio Chambre" style="width: 700px; height: 500px">
-    {% elseif image.getCatImagesProjects().getNom() == 'Salle de bain' %}
-    <h2 class="parallax parallax-title-portfolio" data-rellax-speed="2">
-        {{image.getCatImagesProjects().getNom()}}
-    </h2>
-    <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" id="full-screen" alt="image-porfolio Salle de bain" style="width: 700px; height: 500px">
-    {% elseif image.getCatImagesProjects().getNom() == 'Salle a manger' %}
-    <h2 class="parallax parallax-title-portfolio" data-rellax-speed="2">
-        {{image.getCatImagesProjects().getNom()}}
-    </h2>
-    <img src="{{ asset('img/portfolio/') ~ image.getFile() }}" id="full-screen" alt="image-porfolio Salle à manger" style="width: 700px; height: 500px">
+
+    
     {% endif %}
     {% endfor %}
 

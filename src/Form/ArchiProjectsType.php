@@ -17,7 +17,16 @@ class ArchiProjectsType extends AbstractType
             ->add('pays')
             ->add('description')
             // Ajoute le champ "images" dans le formulaire
-            ->add('cuisine', FileType::class, [
+            
+            ->add('residential', FileType::class, [
+                // ajout de 'plusieur' images
+                'multiple' => true,
+                //il ne sera pas lié à la base de données donc : ('mapped': false )
+                'mapped' => false,
+                'required' => false
+                
+            ])
+            ->add('commercial', FileType::class, [
                 // ajout de 'plusieur' images
                 'multiple' => true,
                 //il ne sera pas lié à la base de données donc : ('mapped': false )
@@ -25,38 +34,12 @@ class ArchiProjectsType extends AbstractType
                 'required' => false
 
             ])
-            ->add('salon', FileType::class, [
-                // ajout de 'plusieur' images
+            ->add('plans', FileType::class, [
+                'label' => 'Plans',
                 'multiple' => true,
-                //il ne sera pas lié à la base de données donc : ('mapped': false )
+                'required' => false,
                 'mapped' => false,
-                'required' => false
-
-            ])
-            ->add('chambre', FileType::class, [
-                // ajout de 'plusieur' images
-                'multiple' => true,
-                //il ne sera pas lié à la base de données donc : ('mapped': false )
-                'mapped' => false,
-                'required' => false
-
-            ])
-            ->add('salledebain', FileType::class, [
-                // ajout de 'plusieur' images
-                'multiple' => true,
-                //il ne sera pas lié à la base de données donc : ('mapped': false )
-                'mapped' => false,
-                'required' => false
-
-            ])
-            ->add('salleamanger', FileType::class, [
-                // ajout de 'plusieur' images
-                'multiple' => true,
-                //il ne sera pas lié à la base de données donc : ('mapped': false )
-                'mapped' => false,
-                'required' => false
-
-            ])
+            ])            
         ;
     }
 

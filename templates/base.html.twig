@@ -254,6 +254,26 @@
 		});
 	</script>
 
+	<script>
+    // Fonction pour rafraîchir la page
+    function refreshPage() {
+        location.reload();
+    }
+
+    // Écouteur d'événements pour détecter les changements dans l'historique
+    window.addEventListener('popstate', function(event) {
+        // Rafraîchit la page lorsqu'on utilise le bouton "Précédent"
+        refreshPage();
+    });
+
+    // Vous pouvez également ajouter un gestionnaire d'événements pour le bouton "Suivant"
+    // Cela permet de rafraîchir la page lorsque vous naviguez vers l'avant
+    window.addEventListener('pushstate', function(event) {
+        // Rafraîchit la page lorsqu'on utilise le bouton "Suivant"
+        refreshPage();
+    });
+</script>
+
 	{% block javascripts %}
 	{{ encore_entry_script_tags("app") }}
 	{% endblock %}

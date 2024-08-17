@@ -24,15 +24,19 @@ class ArchiProjects
 
     // Ajout de cascade: ['persist'] au moment ou il crée le projet,
     // il va devoir injecter les données concernants les images qu'ont auras ajoutées.
-    #[ORM\OneToMany(mappedBy: 'archiprojets', targetEntity: ImagesProjects::class, orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'archiprojects', targetEntity: ImagesProjects::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $imagesProjects;
 
     #[ORM\Column(length: 35)]
     private ?string $pays = null;
 
+    #[ORM\OneToMany(mappedBy: 'archiprojects', targetEntity: Plans::class, cascade: ['persist', 'remove'])]
+    private Collection $plans;
+
     public function __construct()
     {
         $this->imagesProjects = new ArrayCollection();
+        $this->plans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,22 +76,22 @@ class ArchiProjects
         return $this->imagesProjects;
     }
 
-    public function addImagesProject(ImagesProjects $imagesProject): self
+    public function addImagesProjects(ImagesProjects $imagesProject): self
     {
         if (!$this->imagesProjects->contains($imagesProject)) {
             $this->imagesProjects->add($imagesProject);
-            $imagesProject->setArchiprojets($this);
+            $imagesProject->setArchiprojects($this);
         }
 
         return $this;
     }
 
-    public function removeImagesProject(ImagesProjects $imagesProject): self
+    public function removeImagesProjects(ImagesProjects $imagesProject): self
     {
         if ($this->imagesProjects->removeElement($imagesProject)) {
             // set the owning side to null (unless already changed)
-            if ($imagesProject->getArchiprojets() === $this) {
-                $imagesProject->setArchiprojets(null);
+            if ($imagesProject->getArchiprojects() === $this) {
+                $imagesProject->setArchiprojects(null);
             }
         }
 
@@ -102,6 +106,33 @@ class ArchiProjects
     public function setPays(string $pays): self
     {
         $this->pays = $pays;
+
+        return $this;
+    }
+
+    public function getPlans(): Collection
+    {
+        return $this->plans;
+    }
+
+    public function addPlan(Plans $plan): self
+    {
+        if (!$this->plans->contains($plan)) {
+            $this->plans[] = $plan;
+            $plan->setArchiprojects($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlan(Plans $plan): self
+    {
+        if ($this->plans->removeElement($plan)) {
+            // set the owning side to null (unless already changed)
+            if ($plan->getArchiprojects() === $this) {
+                $plan->setArchiprojects(null);
+            }
+        }
 
         return $this;
     }
