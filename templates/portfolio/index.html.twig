@@ -10,228 +10,16 @@
 {% block body %}
 
 
-<style>
-
-  
-
-  #background-container {
-    overflow: hidden;
-  }
-
-  .carousells {
-    width: 100%;
-    cursor: grab;
-  }
-
-  .carousells.dragging {
-    cursor: grabbing;
-  }
-
-  .carousells--wrap {
-    white-space: nowrap;
-  }
-
-  .carousells--item {
-    display: inline-block;
-    width: 30vw;
-    padding: 3vw;
-    user-select: none;
-  }
-
-  .carousells--item figure {
-    position: relative;
-    z-index: 1;
-    display: block;
-    height: 0;
-    padding-bottom: 56.25%;
-    overflow: hidden;
-  }
-
-  .carousells--item figure img {
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    vertical-align: middle;
-    transform-origin: center;
-  }
-
-  .carousells--item p {
-    font-size: 1.5vw;
-    color: #fff;
-  }
-
-  .carousells--progress {
-    position: fixed;
-    z-index: 2;
-    pointer-events: none;
-    bottom: 10vw;
-    width: 20vw;
-    left: 3vw;
-    height: 1px;
-    background: #fab0621d;
-  }
-
-  .carousells--progress-bar {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fab162;
-    transform: scaleX(0);
-    transform-origin: 0% 0%;
-  }
-
-  #background-container {
-    position: relative;
-    overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-    background: url('../img/background/background-body.jpg') center center / cover no-repeat;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 20%;
-    transition: transform 0.5s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10
-  }
-
-  #background-container,
-  #background-container2 {
-    transition: transform 2.5s ease;
-  }
-
-  #background-container.split-left {
-    transform: translateX(-100%);
-  }
-
-  #background-container.split-right {
-    transform: translateX(100%);
-  }
-
-  #background-container::before,
-  #background-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    background: url('../img/background/background-body.jpg') center center / cover no-repeat;
-    z-index: -1;
-    transition: transform 0.5s ease;
-  }
-
-  #background-container::before {
-    left: 0;
-    transform: translateX(0);
-  }
-
-  #background-container::after {
-    right: 0;
-    transform: translateX(0);
-  }
-
-  #background-container.split-left::before {
-    transform: translateX(-100%);
-  }
-
-  #background-container.split-right::after {
-    transform: translateX(100%);
-  }
-
-  .neon-symbol {
-    font-size: 55px;
-    /* Taille du symbole */
-    color: black;
-    /* Couleur du symbole */
-    position: relative;
-    bottom: 7px;
-    font-weight: 100;
-    /* Pour rendre le symbole plus épais */
-    overflow: hidden;
-    /* Cache la lumière qui dépasse du symbole */
-    background: linear-gradient(90deg, rgba(250, 177, 98, 1) 0%, rgba(250, 177, 98, 0) 100%);
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    /* Pour Chrome/Safari */
-    background-clip: text;
-    /* Pour Firefox */
-    color: transparent;
-    /* Rend le texte transparent pour voir le fond */
-    animation: ledGlow 3s infinite linear;
-    /* Applique l'animation */
-  }
-  .neon-line {
-    width: 45px;
-    height: 3px;
-    bottom: 3px;
-    right: 24px;
-    background: linear-gradient(90deg, rgba(250, 177, 98, 1) 0%, rgba(250, 177, 98, 0) 100%);
-    background-size: 200% 100%;
-    animation: ledGlow 3s infinite linear; /* Applique l'animation néon */
-    position: relative;
-}
-
-.neon-underline {
-  position: relative;
-  display: inline-block;
-  z-index: 11;
-}
-
-.neon-underline::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(250, 177, 98, 1) 0%, rgba(250, 177, 98, 0) 100%);
-  background-size: 200% 100%;
-  animation: ledGlow 3s infinite linear;
-}
-
-  @keyframes ledGlow {
-    0% {
-      background-position: 100% 0;
-    }
-
-    100% {
-      background-position: -100% 0;
-    }
-  }
-
-  @keyframes splitOpen {
-    0% {
-      transform: scaleX(1);
-      transform-origin: center;
-    }
-
-    50% {
-      transform: scaleX(0);
-      transform-origin: center;
-    }
-
-    100% {
-      transform: scaleX(0);
-      transform-origin: center;
-      opacity: 0;
-    }
-  }
-</style>
 
 <div id="background-container">
-<div id="background-container2">
-  <div style="display: flex; gap: 150px;">
-    <button class="button pelement barrier" style="font-size: xx-large; background: none; border: none; color: whitesmoke;">Résidentiel</button>
-    <button class="button pelement barrier" style="font-size: xx-large; background: none; border: none; color: whitesmoke;">Commercial</button>
+  <div id="background-container2">
+    <div style="display: flex; gap: 150px;">
+      <button class="button pelement barrier"
+        style="font-size: xx-large; background: none; border: none; color: whitesmoke;">Résidentiel</button>
+      <button class="button pelement barrier"
+        style="font-size: xx-large; background: none; border: none; color: whitesmoke;">Commercial</button>
 
-  </div>
+    </div>
   </div>
 </div>
 
@@ -239,14 +27,13 @@
 
 
 
-<div
-  style="height: 100vh; display: flex; align-items: center; justify-content: center; background-color: black; position: relative; z-index: 1;">
+<div class="article">
   <div class="carousells">
     <div style="display: flex; justify-content: center; align-items: center;">
       <div id="reset-background" class="neon-container" style="display: flex; align-items: center;">
         <div class="neon-symbol">&lt;</div>
         <div class="neon-line"></div>
-        <h1 id="dynamic-title" class="neon-underline" style="color: #fab162;">Residentiel</h1>
+        <h1 id="dynamic-title" class="neon-underline" style="color: #fab162;"></h1>
       </div>
     </div>
     <div class="carousells--wrap">
@@ -254,17 +41,18 @@
       {% for image in archi_project.imagesProjects %}
       <div class="carousells--item">
         <a href="{{ path('app_portfolio_show', {'id': archi_project.id}) }}">
-        <figure>
+          <figure>
 
-          <img src="{{ asset('img/portfolio/') ~ image.getFile() }}"
-            alt="image-architectural-{{ image.getCatImagesProjects().getNom()|lower }}" />
-        </figure>
+            <img src="{{ asset('img/portfolio/') ~ image.getFile() }}"
+              alt="image-architectural-{{ image.getCatImagesProjects().getNom()|lower }}" />
+          </figure>
         </a>
         <p>{{archi_project.titre}}</p>
       </div>
       {% endfor %}
       {% endfor %}
     </div>
+    
     <div class="carousells--progress">
       <div class="carousells--progress-bar"></div>
     </div>
@@ -278,267 +66,7 @@
 {% block javascripts %}
 
 
-<script>
-  const lerp = (f0, f1, t) => (1 - t) * f0 + t * f1
-  const clamp = (val, min, max) => Math.max(min, Math.min(val, max))
 
-  class DragScroll {
-    constructor(obj) {
-      this.$el = document.querySelector(obj.el)
-      this.$wrap = this.$el.querySelector(obj.wrap)
-      this.$items = this.$el.querySelectorAll(obj.item)
-      this.$bar = this.$el.querySelector(obj.bar)
-      this.init()
-    }
-
-    init() {
-      this.progress = 0
-      this.speed = 0
-      this.oldX = 0
-      this.x = 0
-      this.playrate = 0
-      //
-      this.bindings()
-      this.events()
-      this.calculate()
-      this.raf()
-    }
-
-    bindings() {
-      [
-        'events',
-        'calculate',
-        'raf',
-        'move',
-        'raf',
-        'handleTouchStart',
-        'handleTouchMove',
-        'handleTouchEnd',
-        'handleKeyDown'
-      ].forEach(i => { this[i] = this[i].bind(this) })
-    }
-
-    calculate() {
-      this.progress = 0
-      this.wrapWidth = this.$items[0].clientWidth * this.$items.length
-      this.$wrap.style.width = `${this.wrapWidth}px`
-      this.maxScroll = this.wrapWidth - this.$el.clientWidth
-    }
-
-    handleTouchStart(e) {
-      e.preventDefault()
-      this.dragging = true
-      this.startX = e.clientX || e.touches[0].clientX
-      this.$el.classList.add('dragging')
-    }
-
-    handleTouchMove(e) {
-      if (!this.dragging) return false
-      const x = e.clientX || e.touches[0].clientX
-      this.progress += (this.startX - x) * 2.5
-      this.startX = x
-      this.move()
-    }
-
-    handleTouchEnd() {
-      this.dragging = false
-      this.$el.classList.remove('dragging')
-    }
-
-    handleKeyDown(e) {
-      if (e.key === 'ArrowLeft') {
-        this.progress -= 250
-        this.move()
-      } else if (e.key === 'ArrowRight') {
-        this.progress += 250
-        this.move()
-      }
-    }
-
-    move() {
-      this.progress = clamp(this.progress, 0, this.maxScroll)
-    }
-
-    events() {
-      window.addEventListener('resize', this.calculate)
-      //
-      this.$el.addEventListener('touchstart', this.handleTouchStart)
-      window.addEventListener('touchmove', this.handleTouchMove)
-      window.addEventListener('touchend', this.handleTouchEnd)
-      //
-      window.addEventListener('mousedown', this.handleTouchStart)
-      window.addEventListener('mousemove', this.handleTouchMove)
-      window.addEventListener('mouseup', this.handleTouchEnd)
-      document.body.addEventListener('mouseleave', this.handleTouchEnd)
-      //
-      window.addEventListener('keydown', this.handleKeyDown)
-    }
-
-    raf() {
-      // requestAnimationFrame(this.raf)
-      this.x = lerp(this.x, this.progress, 0.1)
-      this.playrate = this.x / this.maxScroll
-      //
-      this.$wrap.style.transform = `translateX(${-this.x}px)`
-      this.$bar.style.transform = `scaleX(${.18 + this.playrate * .82})`
-      //
-      this.speed = Math.min(100, this.oldX - this.x)
-      this.oldX = this.x
-      //
-      this.scale = lerp(this.scale, this.speed, 0.1)
-      this.$items.forEach(i => {
-        i.style.transform = `scale(${1 - Math.abs(this.speed) * 0.002})`
-        i.querySelector('img').style.transform = `scaleX(${1 + Math.abs(this.speed) * 0.004})`
-      })
-    }
-  }
-
-
-  /*--------------------
-  Instances
-  --------------------*/
-  const scroll = new DragScroll({
-    el: '.carousells',
-    wrap: '.carousells--wrap',
-    item: '.carousells--item',
-    bar: '.carousells--progress-bar',
-  })
-
-
-  /*--------------------
-  One raf to rule em all
-  --------------------*/
-  const raf = () => {
-    requestAnimationFrame(raf)
-    scroll.raf()
-  }
-  raf()
-
-</script>
-
-
-<script>
-  let lastDirection = null; // Variable pour garder une trace de la dernière direction
-
-  function handleButtonClick(event) {
-    event.preventDefault(); // Empêche l'action par défaut du bouton
-
-    const category = this.textContent.trim().toLowerCase(); // Récupère la catégorie sélectionnée
-    const container = document.querySelector('#background-container');
-    const allItems = document.querySelectorAll('.carousells--item'); // Sélectionne toutes les images
-    const titleElement = document.getElementById('dynamic-title'); // Sélectionne l'élément <h1>
-
-    // Met à jour le texte du titre en fonction du bouton cliqué
-    if (category === 'résidentiel') {
-      titleElement.textContent = 'Résidentiel';
-    } else if (category === 'commercial') {
-      titleElement.textContent = 'Commercial';
-    }
-
-    // Masquer toutes les images
-    allItems.forEach(item => item.style.display = 'none');
-
-    // Afficher seulement les images correspondant à la catégorie sélectionnée
-    allItems.forEach(item => {
-      const imgAlt = item.querySelector('img').alt.toLowerCase();
-      if ((category === 'résidentiel' && imgAlt.includes('residential')) ||
-        (category === 'commercial' && imgAlt.includes('commercial'))) {
-        item.style.display = 'inline-block';
-      }
-    });
-
-    // Appliquer les animations de background
-    container.classList.remove('split-left', 'split-right'); // Enlève les classes précédentes
-    container.classList.add(category === 'résidentiel' ? 'split-left' : 'split-right');
-    lastDirection = container.classList.contains('split-left') ? 'split-left' : 'split-right';
-
-    // Attendre que l'animation se termine avant d'effectuer d'autres actions
-    setTimeout(() => {
-      container.remove();
-    }, 2500); // Correspond à la durée de la transition (2.5s)
-  }
-
-  function resetBackground() {
-    // Supprimer les éléments existants pour les recréer
-    const existingBackgroundContainer = document.getElementById('background-container');
-    if (existingBackgroundContainer) {
-      existingBackgroundContainer.classList.add('fade-out'); // Ajouter une classe pour une transition douce
-      setTimeout(() => existingBackgroundContainer.remove(), 500); // Attendre que la transition se termine avant de supprimer
-    }
-
-    // Créer le conteneur de fond avec les boutons "Résidentiel" et "Commercial"
-    const backgroundContainer = document.createElement('div');
-    backgroundContainer.id = 'background-container';
-    backgroundContainer.style = `
-          position: relative;
-          overflow: hidden;
-          width: 100vw;
-          height: 100vh;
-          background: url('../img/background/background-body.jpg') center center / cover no-repeat;
-          display: flex;
-          align-items: flex-start;
-          justify-content: center;
-          padding-top: 20%;
-          transition: transform 2.5s ease;
-          position: absolute;
-          top: 0;
-          left: 0;
-          z-index: 10;
-      `;
-
-    const backgroundContainer2 = document.createElement('div');
-    backgroundContainer2.id = 'background-container2';
-    backgroundContainer2.style = 'transition: transform 2.5s ease;';
-
-    const buttonContainer = document.createElement('div');
-    buttonContainer.style = 'display: flex; gap: 150px;';
-
-    const buttonResidentiel = document.createElement('button');
-    buttonResidentiel.className = 'button pelement barrier';
-    buttonResidentiel.style = 'font-size: xx-large; background: none; border: none; color: whitesmoke;';
-    buttonResidentiel.textContent = 'Résidentiel';
-
-    const buttonCommercial = document.createElement('button');
-    buttonCommercial.className = 'button pelement barrier';
-    buttonCommercial.style = 'font-size: xx-large; background: none; border: none; color: whitesmoke;';
-    buttonCommercial.textContent = 'Commercial';
-
-    // Ajouter les boutons au conteneur
-    buttonContainer.appendChild(buttonResidentiel);
-    buttonContainer.appendChild(buttonCommercial);
-    backgroundContainer2.appendChild(buttonContainer);
-    backgroundContainer.appendChild(backgroundContainer2);
-
-    // Insérer le nouveau conteneur de fond au début du body
-    document.body.insertBefore(backgroundContainer, document.body.firstChild);
-
-    // Réappliquer les écouteurs d'événements aux nouveaux boutons
-    document.querySelectorAll('.barrier').forEach(button => {
-      button.addEventListener('click', handleButtonClick);
-    });
-
-    // Réafficher toutes les images de la galerie après un court délai pour éviter l'affichage des images de la catégorie précédente
-    setTimeout(() => {
-      document.querySelectorAll('.carousells--item').forEach(item => item.style.display = 'inline-block');
-    }, 2000); // Attendre un court moment pour permettre à la réinitialisation du fond d'avoir lieu
-
-    // Appliquer la dernière direction au conteneur de background
-    if (lastDirection) {
-      backgroundContainer.classList.add(lastDirection);
-      setTimeout(() => {
-        backgroundContainer.classList.remove(lastDirection);
-      }, 10); // Attendre un court moment avant de retirer la classe pour déclencher l'animation inverse
-    }
-  }
-
-  // Écouteurs d'événements pour les boutons de catégorie
-  document.querySelectorAll('.barrier').forEach(button => {
-    button.addEventListener('click', handleButtonClick);
-  });
-
-  // Écouteur d'événement pour le bouton "Retour"
-  document.getElementById('reset-background').addEventListener('click', resetBackground);
-</script>
-
-<script src="{{ asset('js/portfolio.js') }}"></script>
+<script src="{{ asset('js/portfolioIndex.js') }}"></script>
+<script src="{{ asset('js/portfolioIndexCarrousel.js') }}"></script>
 {% endblock %}
