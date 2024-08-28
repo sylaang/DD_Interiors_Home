@@ -156,11 +156,9 @@
 
 
                                                         <div class="caption">
-                                                            <p>Hampstead, London<br>
-                                                                House re-build, basement extension<br>
-                                                                Minale + Mann Architecture + Interiors<br>
-                                                                Minale + Mann Construction<br>
-                                                                3,300 sqft</p>
+                                                            <p>{{ archi_project.ville }}, {{ archi_project.pays }}<br>
+                                                                DD Interiors Home Interior Designer<br>
+                                                                {{ archi_project.m2 }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -181,14 +179,14 @@
                                                 <h2 class="title">Design Brief</h2>
 
                                                 <div class="content">
-                                                    <p>Cannon Place is a Victorian house conversion, located in
+                                                    <p>{{ archi_project.designBrief }} Cannon Place is a Victorian house conversion, located in
                                                         Hampstead Heath, London.</p>
-                                                    <p>The design brief was to create a contemporary, yet functional
+                                                    <p>{{ archi_project.vision }} The design brief was to create a contemporary, yet functional
                                                         family home that embraced volume, depth and light as the core
                                                         design principles. It was a pleasure working with our clients,
                                                         who were open to design innovation and enjoyed being challenged
                                                         with new ideas.</p>
-                                                    <p>The entire process included a full strip out of the main
+                                                    <p>{{ archi_project.transformation }}The entire process included a full strip out of the main
                                                         structure of the house, creating a new configuration of the
                                                         internal volume on all floors. Vast open internal spaces with
                                                         strong architectural angles, high ceilings and design features
@@ -314,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="col-md-12">
                                 <!-- Including coloured-text component -->
                                 <section class="component component-coloured-text lined brand-color checked visible"
-                                    style="background-color: #1b1b1e;" data-txt-colour="#ffffff"
+                                    style="background: url('../img/background/background-body.jpg');" data-txt-colour="#ffffff"
                                     data-bg-colour="#1b1b1e">
 
 
@@ -340,13 +338,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                         </div>
                                         <div class="col-md-6 equate" style="height: 307px;">
 
-                                            <div class="line "
-                                                style="background-color: rgb(255, 255, 255); transform: matrix(1, 0, 0, 1, 0, 0);">
+                                            <div class="line"style="background-color: #fab162; transform: matrix(1, 0, 0, 1, 0, 0);">
                                             </div>
 
 
                                             <div class="inner" style="color: #ffffff;">
-                                                <h2 class="title">Architecture</h2>
+                                                <h2 style="color: #fab162;" class="title">Architecture</h2>
 
                                                 <div class="content">
                                                     <p style="opacity: 0.7;">A striking contemporary staircase at the
@@ -375,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-                    <div class="content container-fluid    ">
+                    <div class="content container-fluid">
                         <div class="row no-gutter fifty-fifty-layout" data-pnp-equate-height=".equalise">
                             <div class="col-sm-6 equalise" style="height: 2280px;">
                                 <!-- Including parallax-image component -->
@@ -396,19 +393,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </div>
                                 </section>
                                 <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                <section class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
                                     data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
                                     style="animation-duration: 2s;">
                                     <div class="col-xs-12" style="padding-top: 0%; padding-bottom: 0%;">
                                         <!-- <div class="inner" style="padding-top: %">-->
                                         <div class="inner">
-
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/6.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/6.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
-                                            </div>
-
+                                            <div class="image" style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/6.jpg&quot;); transform: translate3d(0px, 0px, 0px);"></div>
                                         </div>
                                     </div>
                                 </section>

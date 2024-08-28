@@ -280,6 +280,28 @@
 		</div>
 		<div class="grid__logo"></div>
 	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+    const gridLines = document.querySelectorAll('.grid__line');
+
+    gridLines.forEach(line => {
+        line.addEventListener('transitionend', (event) => {
+            // Vérifie si la propriété qui a terminé l'animation est "transform"
+            if (event.propertyName === 'transform') {
+                // Déclenche le changement de couleur après 5 secondes
+                setTimeout(() => {
+                    line.style.backgroundColor = 'rgba(0, 0, 0, 0';
+                }, 2000); // 5000 ms = 5 secondes
+            }
+        });
+
+        // Pour déclencher l'animation (exemple)
+        setTimeout(() => {
+            line.style.transform = 'scaleY(1)';
+        }, 100);
+    });
+});
+	</script>
 	<div class="monolit_sec monolit_page_sec content-page">
 		<div class="vs-section">
 			

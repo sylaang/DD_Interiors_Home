@@ -15,13 +15,16 @@ class ArchiProjectsType extends AbstractType
         $builder
             ->add('titre')
             ->add('pays')
+            ->add('ville')
+            ->add('m2')
             ->add('description')
-            // Ajoute le champ "images" dans le formulaire
+            ->add('designBrief')
+            ->add('vision')
+            ->add('transformation')
             
             ->add('residential', FileType::class, [
                 // ajout de 'plusieur' images
                 'multiple' => true,
-                //il ne sera pas lié à la base de données donc : ('mapped': false )
                 'mapped' => false,
                 'required' => false
                 
@@ -29,7 +32,6 @@ class ArchiProjectsType extends AbstractType
             ->add('commercial', FileType::class, [
                 // ajout de 'plusieur' images
                 'multiple' => true,
-                //il ne sera pas lié à la base de données donc : ('mapped': false )
                 'mapped' => false,
                 'required' => false
 

@@ -33,6 +33,21 @@ class ArchiProjects
     #[ORM\OneToMany(mappedBy: 'archiprojects', targetEntity: Plans::class, cascade: ['persist', 'remove'])]
     private Collection $plans;
 
+    #[ORM\Column]
+    private ?float $m2 = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $designBrief = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $vision = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $transformation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $ville = null;
+
     public function __construct()
     {
         $this->imagesProjects = new ArrayCollection();
@@ -133,6 +148,66 @@ class ArchiProjects
                 $plan->setArchiprojects(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getM2(): ?float
+    {
+        return $this->m2;
+    }
+
+    public function setM2(float $m2): static
+    {
+        $this->m2 = $m2;
+
+        return $this;
+    }
+
+    public function getDesignBrief(): ?string
+    {
+        return $this->designBrief;
+    }
+
+    public function setDesignBrief(string $designBrief): static
+    {
+        $this->designBrief = $designBrief;
+
+        return $this;
+    }
+
+    public function getVision(): ?string
+    {
+        return $this->vision;
+    }
+
+    public function setVision(string $vision): static
+    {
+        $this->vision = $vision;
+
+        return $this;
+    }
+
+    public function getTransformation(): ?string
+    {
+        return $this->transformation;
+    }
+
+    public function setTransformation(string $transformation): static
+    {
+        $this->transformation = $transformation;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): static
+    {
+        $this->ville = $ville;
 
         return $this;
     }
