@@ -4,6 +4,26 @@
 
 {% block body %}
     <h1>Create new ArchiProjects</h1>
+       {{ form_start(form) }}
+    {{ form_row(form.titre) }}
+    {{ form_row(form.pays) }}
+    {{ form_row(form.ville) }}
+    {{ form_row(form.m2) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.designBrief) }}
+    {{ form_row(form.vision) }}
+    {{ form_row(form.transformation) }}
+    {{ form_row(form.existant) }}
+    {{ form_row(form.projet) }}
+
+    {# Affiche les champs si présents dans le formulaire #}
+    {% if form.residential is defined %}
+        {{ form_row(form.residential) }}
+    {% endif %}
+
+    {% if form.commercial is defined %}
+        {{ form_row(form.commercial) }}
+    {% endif %}
 
     {{ include('admin/portfolio/_form.html.twig') }}
 

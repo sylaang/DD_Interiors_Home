@@ -2,30 +2,55 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PlansRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PlansRepository::class)]
 class Plans
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $file;
-
-    #[ORM\ManyToOne(targetEntity: ArchiProjects::class, inversedBy: 'plans')]
+    #[ORM\ManyToOne(inversedBy: 'plans')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?ArchiProjects $archiprojects = null;
+    private ?ArchiProjects $archiprojects = null;    
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    #[ORM\ManyToOne(inversedBy: 'plans')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CatPlans $catPlans = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $file = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getArchiprojects(): ?ArchiProjects   
+    {
+        return $this->archiprojects;
+    }
+
+    public function setArchiprojects(?ArchiProjects $archiprojects): self
+    {
+        $this->archiprojects = $archiprojects;
+
+        return $this;
+    }
+
+    public function getCatPlans(): ?CatPlans
+    {
+        return $this->catPlans;
+    }
+
+    public function setCatPlans(?CatPlans $catPlans): self
+    {
+        $this->catPlans = $catPlans;
+
+        return $this;
     }
 
     public function getFile(): ?string
@@ -36,30 +61,6 @@ class Plans
     public function setFile(string $file): self
     {
         $this->file = $file;
-
-        return $this;
-    }
-
-    public function getarchiprojects(): ?ArchiProjects
-    {
-        return $this->archiprojects;
-    }
-
-    public function setarchiprojects(?ArchiProjects $archiprojects): self
-    {
-        $this->archiprojects = $archiprojects;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): static
-    {
-        $this->image = $image;
 
         return $this;
     }

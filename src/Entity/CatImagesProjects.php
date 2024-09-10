@@ -23,7 +23,7 @@ class CatImagesProjects
 
     public function __construct()
     {
-        $this->imagesProjects = new ArrayCollection(); // Corriger le nom de la propriété ici
+        $this->imagesProjects = new ArrayCollection();
     }
 
     public function getId(): ?int

@@ -129,7 +129,7 @@
 
 
 
-                    <div class="content container-fluid    ">
+                    <div class="content container-fluid">
                         <div class="row no-gutter full-width-layout">
                             <div class="col-md-12">
                                 <!-- Including coloured-text component -->
@@ -151,14 +151,18 @@
                                                 <div class="content scrollTo">
 
                                                     <div class="image svg">
-                                                        <img src="https://minaleandmann.com/wp-content/uploads/2018/04/53WR-LGV2.svg"
-                                                            alt="image">
+                                                        {% for plan in archi_project.plans %}
+                                                        {% if loop.index == 2 %}
+                                                        <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}"
+                                                            alt="image" class="img-responsive">
+                                                        {% endif %}
+                                                        {% endfor %}
 
 
                                                         <div class="caption">
                                                             <p>{{ archi_project.ville }}, {{ archi_project.pays }}<br>
-                                                                DD Interiors Home Interior Designer<br>
-                                                                {{ archi_project.m2 }}</p>
+                                                                DD Interiors Home, Interior Designer<br>
+                                                                {{ archi_project.m2 }} m²</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -176,21 +180,12 @@
 
 
                                             <div class="inner" style="color: #000000;">
-                                                <h2 class="title">Design Brief</h2>
+                                                <h2 class="title">Résumé du projet</h2>
 
                                                 <div class="content">
-                                                    <p>{{ archi_project.designBrief }} Cannon Place is a Victorian house conversion, located in
-                                                        Hampstead Heath, London.</p>
-                                                    <p>{{ archi_project.vision }} The design brief was to create a contemporary, yet functional
-                                                        family home that embraced volume, depth and light as the core
-                                                        design principles. It was a pleasure working with our clients,
-                                                        who were open to design innovation and enjoyed being challenged
-                                                        with new ideas.</p>
-                                                    <p>{{ archi_project.transformation }}The entire process included a full strip out of the main
-                                                        structure of the house, creating a new configuration of the
-                                                        internal volume on all floors. Vast open internal spaces with
-                                                        strong architectural angles, high ceilings and design features
-                                                        appear throughout.</p>
+                                                    <p>{{ archi_project.designBrief }}</p>
+                                                    <p>{{ archi_project.vision }}</p>
+                                                    <p>{{ archi_project.transformation }}</p>
                                                 </div>
 
 
@@ -203,782 +198,723 @@
                         </div>
                     </div>
                 </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-1">
+
+                <section class="component component-full-bleed-image" data-transition="peel" data-parallax="">
+                    
 
 
 
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including full-bleed-image component -->
-                                <section class="component component-full-bleed-image" data-transition="peel"
-                                    data-parallax="">
-                                    <div class="image-mask" style="transform: matrix(1, 0, 0, 1, 0, 0);">
-                                        <div class="image-container"
-                                            style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/2-1.jpg&quot;); transform: matrix(1, 0, 0, 1, 0, 0);">
-                                        </div>
+                            <div class="content container-fluid">
+                                <div class="row no-gutter full-width-layout">
+                                    <div class="col-md-12">
+                                        <!-- Including full-bleed-image component -->
+                                        <section class="component component-full-bleed-image" data-transition="peel"
+                                            data-parallax="">
+                                            <div class="image-mask" style="transform: matrix(1, 0, 0, 1, 0, 0);">
+                                                {% set secondImage = archi_project.imagesProjects|slice(1, 1)|first %}
+                                                {% if secondImage %}
+                                                <div class="image-container"
+                                                    style="background-image: url('{{ asset('img/portfolio/' ~ secondImage.getFile()) }}'); transform: matrix(1, 0, 0, 1, 0, 0);">
+                                                </div>
+                                                {% endif %}
 
+
+                                            </div>
+                                        </section>
                                     </div>
-                                </section>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const imageContainer = document.querySelector('.component-full-bleed-image .image-container');
-    const section = document.querySelector('.component-full-bleed-image');
-    const scrollSpeedFactor = 0.8; // Réduction de la vitesse de déploiement
 
-    // Fonction pour ajuster l'image en fonction du scroll
-    const adjustImageWidth = () => {
-        const sectionTop = section.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-
-        // Vérifier si la section est dans la vue
-        if (sectionTop < windowHeight && sectionTop > -section.offsetHeight) {
-            const scrollProgress = (windowHeight - sectionTop) / windowHeight;
-
-            // Calculer la largeur visible de l'image en pourcentage avec facteur de vitesse
-            const newWidth = Math.min(100, scrollProgress * 100 * scrollSpeedFactor); // Ajustement avec facteur de vitesse
-
-            // Appliquer la nouvelle largeur à la partie visible de l'image
-            imageContainer.style.clipPath = `inset(0 ${100 - newWidth}% 0 0)`;
-        }
-    };
-
-    // Appeler la fonction au chargement initial et lors du scroll
-    adjustImageWidth();
-    window.addEventListener('scroll', adjustImageWidth);
-});
-                </script>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg padded" style="" data-header="white" id="mm-2">
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg padded" style="" data-header="white"
+                            id="mm-2">
 
 
 
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter fifty-fifty-layout">
-                            <div class="col-sm-6">
-                                <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter fifty-fifty-layout">
+                                    <div class="col-sm-6">
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
 
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/3-1.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/3-1.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
+                                                    <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/3-1.jpg); padding-top: %;"></div> -->
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/3-1.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
+                                                    </div>
+
+                                                </div>
                                             </div>
-
-                                        </div>
+                                        </section>
                                     </div>
-                                </section>
-                            </div>
-                            <div class="col-sm-6">
-                                <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 5%; padding-bottom: 0%;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
+                                    <div class="col-sm-6">
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 5%; padding-bottom: 0%;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
 
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/4-1.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/4-1.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
+                                                    <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/4-1.jpg); padding-top: %;"></div> -->
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/4-1.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
+                                                    </div>
+
+                                                </div>
                                             </div>
-
-                                        </div>
+                                        </section>
                                     </div>
-                                </section>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-3">
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-3">
 
 
 
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including coloured-text component -->
-                                <section class="component component-coloured-text lined brand-color checked visible"
-                                    style="background: url('../img/background/background-body.jpg');" data-txt-colour="#ffffff"
-                                    data-bg-colour="#1b1b1e">
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter full-width-layout">
+                                    <div class="col-md-12">
+                                        <!-- Including coloured-text component -->
+                                        <section
+                                            class="component component-coloured-text lined brand-color checked visible"
+                                            style="background: url('../img/background/background-body.jpg');"
+                                            data-txt-colour="#ffffff" data-bg-colour="#1b1b1e">
 
 
 
 
 
-                                    <div class="row" data-pnp-equate-height=".equate" data-resize-mobile="false">
-                                        <div class="col-md-6 equate no-content" style="height: 307px;">
+                                            <div class="row" data-pnp-equate-height=".equate"
+                                                data-resize-mobile="false">
+                                                <div class="col-md-6 equate no-content" style="height: 307px;">
 
-                                            <div class="inner no-caption" style="color: rgb(255, 255, 255);">
+                                                    <div class="inner no-caption" style="color: rgb(255, 255, 255);">
 
 
-                                                <div class="content">
+                                                        <div class="content">
+
+                                                        </div>
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="col-md-6 equate" style="height: 307px;">
+
+                                                    <div class="line"
+                                                        style="background-color: #fab162; transform: matrix(1, 0, 0, 1, 0, 0);">
+                                                    </div>
+
+                                                    <div class="inner" style="color: #ffffff;">
+                                                        <h2 style="color: #fab162;" class="title">Architecture</h2>
+
+                                                        <div class="content">
+                                                            <p style="opacity: 0.7;">A striking contemporary staircase
+                                                                at the
+                                                                center is the feature of the house. It connects all four
+                                                                floors,
+                                                                creating a vertical tunnel of light that cascades from
+                                                                the light
+                                                                well at the top, down to the lower ground floor,
+                                                                creating a
+                                                                shadowy interplay throughout the day.</p>
+                                                            <p style="opacity: 0.7;">The open plan layout of the bottom
+                                                                two
+                                                                floors gives the house a spacious and airy feel. An
+                                                                eight meter
+                                                                void between lower and ground floor acts as a light
+                                                                well, and
+                                                                accentuates the vertical expanse between the two floors.
+                                                            </p>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg padded" style="" data-header="black"
+                            id="mm-4">
+
+
+
+                            <div class="content container-fluid">
+                                <div class="row no-gutter fifty-fifty-layout" data-pnp-equate-height=".equalise">
+                                    <div class="col-sm-6 equalise" style="height: 2280px;">
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
+
+                                                    <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/5-1.jpg); padding-top: %;"></div> -->
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/5-1.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 0%; padding-bottom: 0%;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/6.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-6 equalise" style="height: 2280px;">
+                                        <!-- Including pinned-text component -->
+                                        <section class="component component-pinned-text pinned"
+                                            style="position: sticky; top: 90px;">
+                                            <div class="col-xs-12">
+                                                <div class="inner">
+                                                    <h2>Interior Design</h2>
+
+                                                    <p>The interior backdrop for the interior is kept consistent
+                                                        throughout the
+                                                        home to bring out the key features. Soft grey walls reflect
+                                                        light and
+                                                        create a sense of calm, while bandsawn timber flooring adds
+                                                        texture and
+                                                        warmth.</p>
+                                                    <p>High ceilings and open expanses of space create a gallery-like
+                                                        feel.
+                                                        Individual more secluded spaces can be found in the private
+                                                        study,&nbsp;guest bedroom and gym.</p>
+                                                    <p>The selection of natural finishes, including marble, brass and
+                                                        timber,
+                                                        help to balance the imposing architectural details with a warm
+                                                        and
+                                                        inviting home.</p>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg" style="" data-header="black" id="mm-5">
+
+
+
+                            <div class="content container-fluid">
+                                <div class="row no-gutter full-width-layout">
+                                    <div class="col-md-12">
+                                        <!-- Including magnifying-image component -->
+                                        <section class="component component-magnifying-image visible">
+                                            <div class="col-xs-12">
+
+                                                <div class="select-view pinned" style="position: sticky; top: 110px;">
+                                                    <ul>
+
+                                                        <li data-key="0" class="">
+                                                            <button>
+                                                                <span class="mobile">Plan Projet</span>
+                                                                <span class="desktop">Plan Projet</span>
+                                                            </button>
+                                                        </li>
+
+
+                                                        <li data-key="1" class="active">
+                                                            <button>
+                                                                <span class="mobile">Plan Existant</span>
+                                                                <span class="desktop">Plan Existant</span>
+                                                            </button>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+
+
+
+                                                <div class="views fade-mode"
+                                                    style="width: 1119px; transform: matrix(1, 0, 0, 1, 565.359, 0); height: 413px;">
+
+                                                    <div class="view 0" data-key="0"
+                                                        style="visibility: hidden; opacity: 0;">
+                                                        <div class="image">
+                                                            {% for plan in archi_project.plans %}
+                                                            {% if loop.first %}
+                                                            <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}"
+                                                                alt="image" class="img-responsive">
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+
+
+                                                        <div class="image last"
+                                                            style="visibility: inherit; opacity: 0;">
+                                                            {% for plan in archi_project.plans %}
+                                                            {% if loop.first %}
+                                                            <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}"
+                                                                alt="image" class="img-responsive last"
+                                                                style="opacity: 1; visibility: inherit;">
+                                                            {% endif %}
+                                                            {% endfor %}
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="view 1" data-key="1"
+                                                        style="visibility: inherit; opacity: 1;">
+                                                        <div class="image">
+                                                            {% for plan in archi_project.plans %}
+                                                            {% if loop.index == 2 %}
+                                                            <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}"
+                                                                alt="image" class="img-responsive">
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+
+
+                                                        <div class="image last"
+                                                            style="opacity: 1; visibility: inherit;">
+                                                            {% for plan in archi_project.plans %}
+                                                            {% if loop.index == 2 %}
+                                                            <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}"
+                                                                alt="image" class="img-responsive last"
+                                                                style="opacity: 1; visibility: inherit;">
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+
+                                                    </div>
 
                                                 </div>
 
 
 
                                             </div>
-
-
-
-                                        </div>
-                                        <div class="col-md-6 equate" style="height: 307px;">
-
-                                            <div class="line"style="background-color: #fab162; transform: matrix(1, 0, 0, 1, 0, 0);">
-                                            </div>
-
-
-                                            <div class="inner" style="color: #ffffff;">
-                                                <h2 style="color: #fab162;" class="title">Architecture</h2>
-
-                                                <div class="content">
-                                                    <p style="opacity: 0.7;">A striking contemporary staircase at the
-                                                        center is the feature of the house. It connects all four floors,
-                                                        creating a vertical tunnel of light that cascades from the light
-                                                        well at the top, down to the lower ground floor, creating a
-                                                        shadowy interplay throughout the day.</p>
-                                                    <p style="opacity: 0.7;">The open plan layout of the bottom two
-                                                        floors gives the house a spacious and airy feel. An eight meter
-                                                        void between lower and ground floor acts as a light well, and
-                                                        accentuates the vertical expanse between the two floors.</p>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
+                                        </section>
                                     </div>
-
-                                </section>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg padded" style="" data-header="black" id="mm-4">
+                        <style>
+                            .view {
+                                position: absolute;
+                                /* Pour superposer les vues */
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                transition: opacity 0.5s ease, visibility 1.5s ease;
+                                opacity: 0;
+                                visibility: hidden;
+                            }
+
+                            .view.active {
+                                opacity: 1;
+                                visibility: visible;
+                            }
+                        </style>
+
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-6">
 
 
 
-                    <div class="content container-fluid">
-                        <div class="row no-gutter fifty-fifty-layout" data-pnp-equate-height=".equalise">
-                            <div class="col-sm-6 equalise" style="height: 2280px;">
-                                <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
-
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/5-1.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/5-1.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </section>
-                                <!-- Including parallax-image component -->
-                                <section class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 0%; padding-bottom: 0%;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
-                                            <div class="image" style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/6.jpg&quot;); transform: translate3d(0px, 0px, 0px);"></div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="col-sm-6 equalise" style="height: 2280px;">
-                                <!-- Including pinned-text component -->
-                                <section class="component component-pinned-text pinned"
-                                    style="position: sticky; top: 90px;">
-                                    <div class="col-xs-12">
-                                        <div class="inner">
-                                            <h2>Interior Design</h2>
-
-                                            <p>The interior backdrop for the interior is kept consistent throughout the
-                                                home to bring out the key features. Soft grey walls reflect light and
-                                                create a sense of calm, while bandsawn timber flooring adds texture and
-                                                warmth.</p>
-                                            <p>High ceilings and open expanses of space create a gallery-like feel.
-                                                Individual more secluded spaces can be found in the private
-                                                study,&nbsp;guest bedroom and gym.</p>
-                                            <p>The selection of natural finishes, including marble, brass and timber,
-                                                help to balance the imposing architectural details with a warm and
-                                                inviting home.</p>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg" style="" data-header="black" id="mm-5">
-
-
-
-                    <div class="content container-fluid">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including magnifying-image component -->
-                                <section class="component component-magnifying-image visible">
-                                    <div class="col-xs-12">
-
-                                        <div class="select-view pinned" style="position: sticky; top: 110px;">
-                                            <ul>
-
-                                                <li data-key="0" class="">
-                                                    <button>
-                                                        <span class="mobile">View 1</span>
-                                                        <span class="desktop">View 1</span>
-                                                    </button>
-                                                </li>
-
-
-                                                <li data-key="1" class="active">
-                                                    <button>
-                                                        <span class="mobile">View 2</span>
-                                                        <span class="desktop">View 2</span>
-                                                    </button>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-
-
-
-                                        <div class="views fade-mode"
-                                            style="width: 1119px; transform: matrix(1, 0, 0, 1, 565.359, 0); height: 413px;">
-
-                                            <div class="view 0" data-key="0" style="visibility: hidden; opacity: 0;">
-                                                <div class="image">
-                                                    <img src="https://minaleandmann.com/wp-content/uploads/2018/04/53WR-GF-1.svg"
-                                                        alt="image" class="img-responsive">
-                                                </div>
-
-
-                                                <div class="image last" style="visibility: inherit; opacity: 0;">
-                                                    <img src="https://minaleandmann.com/wp-content/uploads/2018/04/53WR-GF-1.svg"
-                                                        alt="image" class="img-responsive last"
-                                                        style="visibility: inherit; opacity: 0;">
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter full-width-layout">
+                                    <div class="col-md-12">
+                                        <!-- Including full-bleed-image component -->
+                                        <section class="component component-full-bleed-image" data-transition="peel"
+                                            data-parallax="">
+                                            <div class="image-mask" style="transform: matrix(1, 0, 0, 1, 0, 0);">
+                                                <div class="image-container"
+                                                    style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/7-1.jpg&quot;); transform: matrix(1, 0, 0, 1, 0, 0);">
                                                 </div>
 
                                             </div>
-
-
-                                            <div class="view 1" data-key="1" style="visibility: inherit; opacity: 1;">
-                                                <div class="image">
-                                                    <img src="https://minaleandmann.com/wp-content/uploads/2018/04/53WR-LG-1.svg"
-                                                        alt="image" class="img-responsive">
-                                                </div>
-
-
-                                                <div class="image last" style="opacity: 1; visibility: inherit;">
-                                                    <img src="https://minaleandmann.com/wp-content/uploads/2018/04/53WR-LG-1.svg"
-                                                        alt="image" class="img-responsive last"
-                                                        style="opacity: 1; visibility: inherit;">
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-
-
+                                        </section>
                                     </div>
-                                </section>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <style>
-                    .view {
-                        position: absolute;
-                        /* Pour superposer les vues */
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        transition: opacity 0.5s ease, visibility 1.5s ease;
-                        opacity: 0;
-                        visibility: hidden;
-                    }
-
-                    .view.active {
-                        opacity: 1;
-                        visibility: visible;
-                    }
-                </style>
-
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-6">
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg padded" style="" data-header="white"
+                            id="mm-7">
 
 
 
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including full-bleed-image component -->
-                                <section class="component component-full-bleed-image" data-transition="peel"
-                                    data-parallax="">
-                                    <div class="image-mask"
-                                        style="transform: translate(-30%, 0%) matrix(1, 0, 0, 1, 0, 0);">
-                                        <!-- <div class="image-container" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/7-1.jpg); padding-top: %;"></div>-->
-                                        <div class="image-container"
-                                            style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/7-1.jpg&quot;); transform: translate(30%, 0%) matrix(1, 0, 0, 1, 0, 0);">
-                                        </div>
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter fifty-fifty-layout">
+                                    <div class="col-sm-6">
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
 
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg padded" style="" data-header="white" id="mm-7">
-
-
-
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter fifty-fifty-layout">
-                            <div class="col-sm-6">
-                                <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
-
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/9-1.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/9-1.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="col-sm-6">
-                                <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 5%; padding-bottom: 5%;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
-
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/10-2.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/10-2.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-8">
-
-
-
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including full-bleed-image component -->
-                                <section class="component component-full-bleed-image" data-transition="peel"
-                                    data-parallax="">
-                                    <div class="image-mask"
-                                        style="transform: translate(-30%, 0%) matrix(1, 0, 0, 1, 0, 0);">
-                                        <!-- <div class="image-container" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/11.jpg); padding-top: %;"></div>-->
-                                        <div class="image-container"
-                                            style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/11.jpg&quot;); transform: translate(30%, 0%) matrix(1, 0, 0, 1, 0, 0);">
-                                        </div>
-
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg" style="padding-bottom:50px;" data-header="white"
-                    id="mm-9">
-
-
-
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including coloured-text component -->
-                                <section
-                                    class="component component-coloured-text lined brand-color checked has-next visible"
-                                    style="background-color: #1b1b1e;" data-txt-colour="#ffffff"
-                                    data-bg-colour="#1b1b1e">
-
-
-
-
-
-                                    <div class="row" data-pnp-equate-height=".equate" data-resize-mobile="false">
-                                        <div class="col-md-6 equate no-content" style="height: 418px;">
-
-                                            <div class="inner no-caption" style="color: rgb(255, 255, 255);">
-
-
-                                                <div class="content">
+                                                    <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/9-1.jpg); padding-top: %;"></div> -->
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/9-1.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
+                                                    </div>
 
                                                 </div>
-
-
-
                                             </div>
-
-
-
-                                        </div>
-                                        <div class="col-md-6 equate" style="height: 418px;">
-
-                                            <div class="line "
-                                                style="background-color: rgb(255, 255, 255); transform: matrix(1, 0, 0, 0, 0, 0); transform-origin: left top 0px;">
-                                            </div>
-
-
-                                            <div class="inner" style="color: #ffffff;">
-                                                <h2 class="title">Award winning</h2>
-
-                                                <div class="content">
-                                                    <p style="opacity: 0.7;">The Sunday Times British Homes Awards, 2018
-                                                    </p>
-                                                    <p style="opacity: 0.7;">– Winner: Best Interior Design</p>
-                                                    <p style="opacity: 0.7;">– Highly commended: Home Transformation</p>
-                                                    <p style="opacity: 0.7;"><img decoding="async" loading="lazy"
-                                                            class="alignnone wp-image-3448"
-                                                            src="https://minaleandmann.com/wp-content/uploads/2018/02/BHA-AA-WINNER-2018.png"
-                                                            alt="" width="140" height="122">&nbsp;<img decoding="async"
-                                                            loading="lazy" class="alignnone wp-image-3449"
-                                                            src="https://minaleandmann.com/wp-content/uploads/2018/02/BHA-AA-Highly-2018.png"
-                                                            alt="" width="140" height="122"></p>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
+                                        </section>
                                     </div>
+                                    <div class="col-sm-6">
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 5%; padding-bottom: 5%;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
 
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-10">
-
-
-
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including full-bleed-image component -->
-                                <section class="component component-full-bleed-image after-brand" data-transition="peel"
-                                    data-parallax="">
-                                    <div class="image-mask"
-                                        style="transform: translate(-30%, 0%) matrix(1, 0, 0, 1, 0, 0);">
-                                        <!-- <div class="image-container" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/8-1.jpg); padding-top: %;"></div>-->
-                                        <div class="image-container"
-                                            style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/8-1.jpg&quot;); transform: translate(30%, 0%) matrix(1, 0, 0, 1, 0, 0);">
-                                        </div>
-
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-11">
-
-
-
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including coloured-text component -->
-                                <section class="component component-coloured-text lined brand-color checked visible"
-                                    style="background-color: #1b1b1e;" data-txt-colour="#ffffff"
-                                    data-bg-colour="#1b1b1e">
-
-
-
-
-
-                                    <div class="row" data-pnp-equate-height=".equate" data-resize-mobile="false">
-                                        <div class="col-md-6 equate no-content" style="height: 307px;">
-
-                                            <div class="inner no-caption" style="color: rgb(255, 255, 255);">
-
-
-                                                <div class="content">
+                                                    <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/10-2.jpg); padding-top: %;"></div> -->
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/10-2.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
+                                                    </div>
 
                                                 </div>
-
-
-
                                             </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-8">
 
 
 
-                                        </div>
-                                        <div class="col-md-6 equate" style="height: 307px;">
-
-                                            <div class="line "
-                                                style="background-color: rgb(255, 255, 255); transform: matrix(1, 0, 0, 0, 0, 0); transform-origin: left top 0px;">
-                                            </div>
-
-
-                                            <div class="inner" style="color: #ffffff;">
-                                                <h2 class="title">Design Details</h2>
-
-                                                <div class="content">
-                                                    <p style="opacity: 0.7;">A central design feature is a black
-                                                        Valchromat shodow-gap clad ‘box’ that runs vertically across two
-                                                        floors, wrapping around utility spaces for the house on both
-                                                        floors.</p>
-                                                    <p style="opacity: 0.7;">The dark cladding adds drama and contrast
-                                                        to the otherwise soft palette of the interior. It also serves as
-                                                        a multipurpose function, including bookshelves in the reception
-                                                        room, child-friendly storage in the family room, and a
-                                                        continuation of the kitchen, enclosing the fridge and hiding
-                                                        pantry space discreetly.</p>
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter full-width-layout">
+                                    <div class="col-md-12">
+                                        <!-- Including full-bleed-image component -->
+                                        <section class="component component-full-bleed-image" data-transition="peel"
+                                            data-parallax="">
+                                            <div class="image-mask" style="transform: matrix(1, 0, 0, 1, 0, 0);">
+                                                <div class="image-container"
+                                                    style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/11.jpg&quot;); transform: matrix(1, 0, 0, 1, 0, 0);">
                                                 </div>
 
-
                                             </div>
-                                        </div>
+                                        </section>
                                     </div>
-
-                                </section>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg padded" style="" data-header="white" id="mm-12">
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-11">
 
 
 
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter fifty-fifty-layout">
-                            <div class="col-sm-6">
-                                <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
-
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/12.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/12.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="col-sm-6">
-                                <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 5%; padding-bottom: 0%;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
-
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/13.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/13.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-13">
-
-
-
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including coloured-text component -->
-                                <section class="component component-coloured-text lined brand-color checked visible"
-                                    style="background-color: #1b1b1e;" data-txt-colour="#ffffff"
-                                    data-bg-colour="#1b1b1e">
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter full-width-layout">
+                                    <div class="col-md-12">
+                                        <!-- Including coloured-text component -->
+                                        <section
+                                            class="component component-coloured-text lined brand-color checked visible"
+                                            style="background-color: #1b1b1e;" data-txt-colour="#ffffff"
+                                            data-bg-colour="#1b1b1e">
 
 
 
 
 
-                                    <div class="row" data-pnp-equate-height=".equate" data-resize-mobile="false">
-                                        <div class="col-md-6 equate no-content" style="height: 325px;">
+                                            <div class="row" data-pnp-equate-height=".equate"
+                                                data-resize-mobile="false">
+                                                <div class="col-md-6 equate no-content" style="height: 307px;">
 
-                                            <div class="inner no-caption" style="color: rgb(255, 255, 255);">
+                                                    <div class="inner no-caption" style="color: rgb(255, 255, 255);">
 
 
-                                                <div class="content">
+                                                        <div class="content">
+
+                                                        </div>
+
+
+
+                                                    </div>
+
+
 
                                                 </div>
+                                                <div class="col-md-6 equate" style="height: 307px;">
+
+                                                    <div class="line "
+                                                        style="background-color: rgb(255, 255, 255); transform: matrix(1, 0, 0, 0, 0, 0); transform-origin: left top 0px;">
+                                                    </div>
 
 
+                                                    <div class="inner" style="color: #ffffff;">
+                                                        <h2 class="title">Design Details</h2>
 
-                                            </div>
+                                                        <div class="content">
+                                                            <p style="opacity: 0.7;">A central design feature is a black
+                                                                Valchromat shodow-gap clad ‘box’ that runs vertically
+                                                                across two
+                                                                floors, wrapping around utility spaces for the house on
+                                                                both
+                                                                floors.</p>
+                                                            <p style="opacity: 0.7;">The dark cladding adds drama and
+                                                                contrast
+                                                                to the otherwise soft palette of the interior. It also
+                                                                serves as
+                                                                a multipurpose function, including bookshelves in the
+                                                                reception
+                                                                room, child-friendly storage in the family room, and a
+                                                                continuation of the kitchen, enclosing the fridge and
+                                                                hiding
+                                                                pantry space discreetly.</p>
+                                                        </div>
 
 
-
-                                        </div>
-                                        <div class="col-md-6 equate" style="height: 325px;">
-
-                                            <div class="line "
-                                                style="background-color: rgb(255, 255, 255); transform: matrix(1, 0, 0, 0, 0, 0); transform-origin: left top 0px;">
-                                            </div>
-
-
-                                            <div class="inner" style="color: #ffffff;">
-                                                <h2 class="title">Furniture Design&nbsp;&nbsp;</h2>
-
-                                                <div class="content">
-                                                    <p style="opacity: 0.7;">Bespoke furniture pieces, designed in
-                                                        collaboration with MannMade London interweave throughout all
-                                                        rooms in the house.</p>
-                                                    <p style="opacity: 0.7;">The kitchen islands were designed to
-                                                        reflect the generous proportions of the space. The Valchromat
-                                                        units are topped with thick slabs of Tundra Grey marble.</p>
-                                                    <p style="opacity: 0.7;">Other bespoke joinery includes the master
-                                                        bespoke wardrobe running the length of the bedroom hall, unique
-                                                        bronze trim veneer side boards, and a one-off child’s captains
-                                                        bunk-bed.</p>
+                                                    </div>
                                                 </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg padded" style="" data-header="white" id="mm-14">
-
-
-
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter fifty-fifty-layout">
-                            <div class="col-sm-6">
-                                <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
-
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/14.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/14.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
                                             </div>
 
-                                        </div>
+                                        </section>
                                     </div>
-                                </section>
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <!-- Including parallax-image component -->
-                                <section
-                                    class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
-                                    data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
-                                    style="animation-duration: 2s;">
-                                    <div class="col-xs-12" style="padding-top: 5%; padding-bottom: 0%;">
-                                        <!-- <div class="inner" style="padding-top: %">-->
-                                        <div class="inner">
+                        </div>
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg padded" style="" data-header="white"
+                            id="mm-12">
 
-                                            <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/15.jpg); padding-top: %;"></div> -->
-                                            <div class="image"
-                                                style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/15.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
+
+
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter fifty-fifty-layout">
+                                    <div class="col-sm-6">
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
+
+                                                    <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/12.jpg); padding-top: %;"></div> -->
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/12.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 5%; padding-bottom: 0%;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
+
+                                                    <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/13.jpg); padding-top: %;"></div> -->
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/13.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg" style="" data-header="white" id="mm-13">
+
+
+
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter full-width-layout">
+                                    <div class="col-md-12">
+                                        <!-- Including coloured-text component -->
+                                        <section
+                                            class="component component-coloured-text lined brand-color checked visible"
+                                            style="background-color: #1b1b1e;" data-txt-colour="#ffffff"
+                                            data-bg-colour="#1b1b1e">
+
+
+
+
+
+                                            <div class="row" data-pnp-equate-height=".equate"
+                                                data-resize-mobile="false">
+                                                <div class="col-md-6 equate no-content" style="height: 325px;">
+
+                                                    <div class="inner no-caption" style="color: rgb(255, 255, 255);">
+
+
+                                                        <div class="content">
+
+                                                        </div>
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="col-md-6 equate" style="height: 325px;">
+
+                                                    <div class="line "
+                                                        style="background-color: rgb(255, 255, 255); transform: matrix(1, 0, 0, 0, 0, 0); transform-origin: left top 0px;">
+                                                    </div>
+
+
+                                                    <div class="inner" style="color: #ffffff;">
+                                                        <h2 class="title">Furniture Design&nbsp;&nbsp;</h2>
+
+                                                        <div class="content">
+                                                            <p style="opacity: 0.7;">Bespoke furniture pieces, designed
+                                                                in
+                                                                collaboration with MannMade London interweave throughout
+                                                                all
+                                                                rooms in the house.</p>
+                                                            <p style="opacity: 0.7;">The kitchen islands were designed
+                                                                to
+                                                                reflect the generous proportions of the space. The
+                                                                Valchromat
+                                                                units are topped with thick slabs of Tundra Grey marble.
+                                                            </p>
+                                                            <p style="opacity: 0.7;">Other bespoke joinery includes the
+                                                                master
+                                                                bespoke wardrobe running the length of the bedroom hall,
+                                                                unique
+                                                                bronze trim veneer side boards, and a one-off child’s
+                                                                captains
+                                                                bunk-bed.</p>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                        </div>
+                                        </section>
                                     </div>
-                                </section>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Including layout component -->
-
-                <!-- Including layout component -->
-                <div class="component layout negative-margin pnp-bg last-layout" style="" data-header="white"
-                    id="mm-16">
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg padded" style="" data-header="white"
+                            id="mm-14">
 
 
 
-                    <div class="content container-fluid    ">
-                        <div class="row no-gutter full-width-layout">
-                            <div class="col-md-12">
-                                <!-- Including expanding-cta component -->
-                                <section class="component component-expanding-cta smoothstate">
-                                    <div class="spacer"></div>
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter fifty-fifty-layout">
+                                    <div class="col-sm-6">
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 0px; padding-bottom: 0px;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
 
+                                                    <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/14.jpg); padding-top: %;"></div> -->
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/14.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
+                                                    </div>
 
-                                    <a href="https://minaleandmann.com/residential-portfolio/broomwood/" class="inner">
-                                        <div class="background"
-                                            style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/1-New-Size-4.jpg);"
-                                            data-poster="https://minaleandmann.com/wp-content/uploads/2018/05/3.-Broomwood-Mobile-Banner.jpg"
-                                            data-mobile="https://minaleandmann.com/wp-content/uploads/2018/05/3.-Broomwood-Mobile-Banner.jpg">
-                                        </div>
-                                        <div class="caption">
-                                            <div class="subtitle">Residential</div>
-                                            <h4>Broomwood</h4>
-                                        </div>
-                                    </a>
-                                </section>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- Including parallax-image component -->
+                                        <section
+                                            class="component component-parallax-image aos-transparent aos-not-transparent animated fadeInUp full-visible"
+                                            data-pnp-animate="fadeInUp" data-pnp-animation-duration="2s"
+                                            style="animation-duration: 2s;">
+                                            <div class="col-xs-12" style="padding-top: 5%; padding-bottom: 0%;">
+                                                <!-- <div class="inner" style="padding-top: %">-->
+                                                <div class="inner">
+
+                                                    <!-- <div class="image" style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/15.jpg); padding-top: %;"></div> -->
+                                                    <div class="image"
+                                                        style="background-image: url(&quot;https://minaleandmann.com/wp-content/uploads/2018/04/15.jpg&quot;); transform: translate(0%, -20%) translate3d(0px, 0px, 0px);">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+
+                        <!-- Including layout component -->
+                        <div class="component layout negative-margin pnp-bg last-layout" style="" data-header="white"
+                            id="mm-16">
+
+                            <div class="content container-fluid    ">
+                                <div class="row no-gutter full-width-layout">
+                                    <div class="col-md-12">
+                                        <!-- Including expanding-cta component -->
+                                        <section class="component component-expanding-cta smoothstate">
+                                            <div class="spacer"></div>
+
+
+                                            <a href="https://minaleandmann.com/residential-portfolio/broomwood/"
+                                                class="inner">
+                                                <div class="background"
+                                                    style="background-image: url(https://minaleandmann.com/wp-content/uploads/2018/04/1-New-Size-4.jpg);"
+                                                    data-poster="https://minaleandmann.com/wp-content/uploads/2018/05/3.-Broomwood-Mobile-Banner.jpg"
+                                                    data-mobile="https://minaleandmann.com/wp-content/uploads/2018/05/3.-Broomwood-Mobile-Banner.jpg">
+                                                </div>
+                                                <div class="caption">
+                                                    <div class="subtitle">Residential</div>
+                                                    <h4>Broomwood</h4>
+                                                </div>
+                                            </a>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
             </article>
         </div>
@@ -996,7 +932,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 {% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('.component-full-bleed-image'); // Sélectionner tous les éléments
+        const scrollSpeedFactor = 0.8; // Réduction de la vitesse de déploiement
+        const initialRevealPercent = 25; // Commence à révéler l'image en masquant seulement 75%
 
+        // Fonction pour ajuster l'image en fonction du scroll
+        const adjustImageWidth = () => {
+            sections.forEach(section => {
+                const imageContainer = section.querySelector('.image-container');
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                // Vérifier si la section est dans la vue
+                if (sectionTop < windowHeight && sectionTop > -section.offsetHeight) {
+                    const scrollProgress = (windowHeight - sectionTop) / windowHeight;
+
+                    // Calculer la largeur visible de l'image en pourcentage avec facteur de vitesse
+                    let newWidth = Math.min(100, scrollProgress * 100 * scrollSpeedFactor);
+
+                    // Ajouter l'offset initial de 25%
+                    newWidth = newWidth + initialRevealPercent;
+
+                    // S'assurer que la largeur ne dépasse pas 100%
+                    newWidth = Math.min(newWidth, 100);
+
+                    // Appliquer la nouvelle largeur à la partie visible de l'image
+                    imageContainer.style.clipPath = `inset(0 ${100 - newWidth}% 0 0)`;
+                }
+            });
+        };
+
+        // Appeler la fonction au chargement initial et lors du scroll
+        adjustImageWidth();
+        window.addEventListener('scroll', adjustImageWidth);
+    });
+</script>
 
 <script src="{{asset('js/portfolio.js')}}"></script>
 <script src="{{asset('js/portfolioPlan.js')}}"></script>

@@ -30,7 +30,7 @@ class ArchiProjects
     #[ORM\Column(length: 35)]
     private ?string $pays = null;
 
-    #[ORM\OneToMany(mappedBy: 'archiprojects', targetEntity: Plans::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'archiprojects', targetEntity: Plans::class,orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $plans;
 
     #[ORM\Column]
@@ -113,18 +113,10 @@ class ArchiProjects
         return $this;
     }
 
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
-
-    public function setPays(string $pays): self
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
+    
+        /**
+     * @return Collection<int, Plans>
+     */
     public function getPlans(): Collection
     {
         return $this->plans;
@@ -133,7 +125,7 @@ class ArchiProjects
     public function addPlan(Plans $plan): self
     {
         if (!$this->plans->contains($plan)) {
-            $this->plans[] = $plan;
+            $this->plans->add($plan);
             $plan->setArchiprojects($this);
         }
 
@@ -151,6 +143,19 @@ class ArchiProjects
 
         return $this;
     }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(string $pays): self
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
 
     public function getM2(): ?float
     {

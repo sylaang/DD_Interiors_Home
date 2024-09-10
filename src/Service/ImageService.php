@@ -110,7 +110,7 @@ class ImageService
         $this->entityManager->flush();
     }
 
-    public function editProjectImages($archiProject, $residentialPictures, $commercialPictures, $plans, $catRepository)
+    public function editProjectImages($archiProject, $residentialPictures, $commercialPictures, $planProjet, $planExistant, $catRepository)
     {
         // Boucler sur les images résidentielles et les ajouter à l'entité ArchiProjects
         foreach ($residentialPictures as $picture) {
@@ -120,7 +120,7 @@ class ImageService
             $img = new ImagesProjects();
             $img->setCatImagesProjects($catRepository->findOneBy(['nom' => 'residential']));
             $img->setFile($fileName);
-            $archiProject->addImagesProject($img);
+            $archiProject->addImagesProjects($img);
         }
 
         // Boucler sur les images commerciales et les ajouter à l'entité ArchiProjects
@@ -131,11 +131,20 @@ class ImageService
             $img = new ImagesProjects();
             $img->setCatImagesProjects($catRepository->findOneBy(['nom' => 'commercial']));
             $img->setFile($fileName);
-            $archiProject->addImagesProject($img);
+            $archiProject->addImagesProjects($img);
         }
 
         // Traiter les plans et les ajouter à l'entité ArchiProjects
-        foreach ($plans as $plan) {
+        foreach ($planProjet as $plan) {
+            $fileName = md5(uniqid()) . '.' . $plan->guessExtension();
+            $plan->move($this->plansDirectory, $fileName);
+
+            $img = new Plans();
+            $img->setFile($fileName);
+            $archiProject->addPlan($img);
+        }
+
+        foreach ($planExistant as $plan) {
             $fileName = md5(uniqid()) . '.' . $plan->guessExtension();
             $plan->move($this->plansDirectory, $fileName);
 

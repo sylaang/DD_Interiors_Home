@@ -3,44 +3,67 @@
 {% block title %}ArchiProjects{% endblock %}
 
 {% block body %}
-    <h1>ArchiProjects</h1>
+<h1>ArchiProjects</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ archi_project.id }}</td>
-            </tr>
-            <tr>
-                <th>image</th>
-            {% for image in archi_project.imagesProjects %} 
-                        {% if image.getCatImagesProjects().getNom() == 'commercial' %}
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ archi_project.id }}</td>
+        </tr>
+        <tr>
+            <th>image</th>
+            {% for image in archi_project.imagesProjects %}
+            {% if image.getCatImagesProjects().getNom() == 'commercial' %}
             <th>Commercial:</th>
-            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image-architectural-commercial-ddinteriroshome" width="100"></td>
-        {% elseif image.getCatImagesProjects().getNom() == 'residential' %}
-             <th>residential:</th>
-            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}" alt="image-architectural-residential-ddinteriorshome" width="100"></td>       
-        {% endif %}
-                {% endfor %}
-            </tr>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}"
+                    alt="image-architectural-commercial-ddinteriroshome" width="100"></td>
+            {% elseif image.getCatImagesProjects().getNom() == 'residential' %}
+            <th>residential:</th>
+            <td><img src="{{ asset('img/portfolio/') ~ image.getFile() }}"
+                    alt="image-architectural-residential-ddinteriorshome" width="100"></td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>Titre</th>
+            <td>{{ archi_project.titre }}</td>
+        </tr>
+        <tr>
+            <th>Pays</th>
+            <td>{{ archi_project.pays }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ archi_project.description }}</td>
+        </tr>
+        <tr>
+            <th>image plans</th>
+            {% for plan in archi_project.plans %}
             <tr>
-                <th>Titre</th>
-                <td>{{ archi_project.titre }}</td>
-            </tr>
-            <tr>
-                <th>Pays</th>
-                <td>{{ archi_project.pays }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ archi_project.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+                {% if plan.catPlans.nom == 'Existant' %}
+            <th>plans Existant</th>
 
-    <a href="{{ path('app_admin_portfolio_index') }}">back to list</a>
+            <td>
+                <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}" alt="Plan Image" width="100">
+            </td>
+            {% elseif plan.catPlans.nom == 'Projet' %}
+            <th>plans Projet</th>
 
-    <a href="{{ path('app_admin_portfolio_edit', {'id': archi_project.id}) }}">edit</a>
+            <td>
+                <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}" alt="Plan Image" width="100">
+            </td>
+            {% endif %}
 
-    {{ include('admin/portfolio/_delete_form.html.twig') }}
+        </tr>
+        {% endfor %}
+        </tr>
+    </tbody>
+</table>
+
+<a href="{{ path('app_admin_portfolio_index') }}">back to list</a>
+
+<a href="{{ path('app_admin_portfolio_edit', {'id': archi_project.id}) }}">edit</a>
+
+{{ include('admin/portfolio/_delete_form.html.twig') }}
 {% endblock %}

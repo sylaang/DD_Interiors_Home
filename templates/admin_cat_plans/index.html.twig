@@ -1,0 +1,35 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}CatPlans index{% endblock %}
+
+{% block body %}
+    <h1>CatPlans index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cat_plan in cat_plans %}
+            <tr>
+                <td>{{ cat_plan.id }}</td>
+                <td>{{ cat_plan.nom }}</td>
+                <td>
+                    <a href="{{ path('app_admin_cat_plans_show', {'id': cat_plan.id}) }}">show</a>
+                    <a href="{{ path('app_admin_cat_plans_edit', {'id': cat_plan.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_cat_plans_new') }}">Create new</a>
+{% endblock %}
