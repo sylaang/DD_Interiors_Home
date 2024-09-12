@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Create new ArchiProjects</h1>
+    <div class="container-fluid">
        {{ form_start(form) }}
     {{ form_row(form.titre) }}
     {{ form_row(form.pays) }}
@@ -18,12 +19,25 @@
 
     {# Affiche les champs si présents dans le formulaire #}
     {% if form.residential is defined %}
-        {{ form_row(form.residential) }}
+         <div class="form-group">
+        {{ form_label(form.commercial, 'Images residential', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.residential, {'attr': {'class': 'form-control', 'multiple': true}}) }}
+            {{ form_errors(form.residential) }}
+        </div>
+    </div>
     {% endif %}
 
     {% if form.commercial is defined %}
-        {{ form_row(form.commercial) }}
+         <div class="form-group">
+        {{ form_label(form.commercial, 'Images Commercial', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.commercial, {'attr': {'class': 'form-control', 'multiple': true}}) }}
+            {{ form_errors(form.commercial) }}
+        </div>
+    </div>
     {% endif %}
+</div>
 
     {{ include('admin/portfolio/_form.html.twig') }}
 

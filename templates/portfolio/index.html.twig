@@ -38,16 +38,17 @@
     <div class="carousells--wrap">
       {% for archi_project in archi_projects %}
       {% for image in archi_project.imagesProjects %}
+          {% if loop.first %}
       <div class="carousells--item">
         <a href="{{ path('app_portfolio_show', {'id': archi_project.id}) }}">
           <figure>
-
             <img src="{{ asset('img/portfolio/') ~ image.getFile() }}"
               alt="image-architectural-{{ image.getCatImagesProjects().getNom()|lower }}" />
           </figure>
         </a>
         <p>{{archi_project.titre}}</p>
       </div>
+          {% endif %}
       {% endfor %}
       {% endfor %}
     </div>

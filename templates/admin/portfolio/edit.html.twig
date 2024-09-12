@@ -48,35 +48,35 @@
     </div>
     <!-- Description -->
     <div class="form-group">
-        {{ form_label(form.description, 'City', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_label(form.description, 'description', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
         <div class="col-sm-10">
             {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.description) }}
         </div>
     <!-- M2 -->
     <div class="form-group">
-        {{ form_label(form.m2, 'City', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_label(form.m2, 'M²', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
         <div class="col-sm-10">
             {{ form_widget(form.m2, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.m2) }}
         </div>
     <!-- Design brief -->
     <div class="form-group">
-        {{ form_label(form.designBrief, 'City', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_label(form.designBrief, 'designBrief', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
         <div class="col-sm-10">
             {{ form_widget(form.designBrief, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.designBrief) }}
         </div>
     <!-- Vision -->
     <div class="form-group">
-        {{ form_label(form.vision, 'City', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_label(form.vision, 'vision', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
         <div class="col-sm-10">
             {{ form_widget(form.vision, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.vision) }}
         </div>
     <!-- Transformation -->
     <div class="form-group">
-        {{ form_label(form.transformation, 'City', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_label(form.transformation, 'transformation', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
         <div class="col-sm-10">
             {{ form_widget(form.transformation, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.transformation) }}
@@ -88,43 +88,78 @@
     {% set hasResidentialImages = archi_project.imagesProjects|filter(image => image.catImagesProjects.nom ==
     'residential')|length > 0 %}
 
-    <!-- Champ Images Résidentielles -->
-    {% if not hasCommercialImages %}
-    <div class="form-group">
-        {{ form_label(form.residential, 'Residential Images', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-        <div class="col-sm-10">
-            {{ form_widget(form.residential, {'attr': {'class': 'form-control', 'multiple': true}}) }}
-            {{ form_errors(form.residential) }}
-        </div>
+<!-- Champ Images Résidentielles -->
+{% if not hasCommercialImages %}
+<div class="form-group">
+    {{ form_label(form.residential, 'Residential Images', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    <div class="col-sm-10">
+        {{ form_widget(form.residential, {'attr': {'class': 'form-control', 'multiple': true}}) }}
+        {{ form_errors(form.residential) }}
     </div>
-    {% endif %}
+</div>
+{% endif %}
 
-    <!-- Champ Images Commerciales -->
-    {% if not hasResidentialImages %}
-    <div class="form-group">
-        {{ form_label(form.commercial, 'Images Commercial', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-        <div class="col-sm-10">
-            {{ form_widget(form.commercial, {'attr': {'class': 'form-control', 'multiple': true}}) }}
-            {{ form_errors(form.commercial) }}
-        </div>
-    </div>
-    {% endif %}
-
-    <div class="form-group mt-3">
-        <div class="col-md-12">
-            <h5>Images Enregistrées</h5>
-            <div class="d-flex flex-wrap gap-2">
-                {% for image in archi_project.imagesProjects %}
+<!-- Affichage des images résidentielles existantes -->
+{% if hasResidentialImages %}
+<div class="form-group mt-3">
+    <div class="col-md-12">
+        <h5>Residential Images</h5>
+        <div class="d-flex flex-wrap gap-2">
+            {% for image in archi_project.imagesProjects|filter(image => image.catImagesProjects.nom == 'residential') %}
                 <div class="image-item">
-                    <img src="{{ asset('img/portfolio/' ~ image.getFile()) }}" alt="DD Interior Home Image"
-                        class="img-responsive" width="150">
-                    <!-- Affiche la catégorie d'image -->
+                    <img src="{{ asset('img/portfolio/' ~ image.getFile()) }}" alt="Residential Image"
+                         class="img-responsive" width="150">
                     <p>{{ image.catImagesProjects.nom }}</p>
+
+                    <!-- Formulaire pour supprimer l'image -->
+                    <form action="{{ path('app_admin_image_delete', { id: image.id }) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
                 </div>
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
     </div>
+</div>
+{% endif %}
+
+<!-- Champ Images Commerciales -->
+{% if not hasResidentialImages %}
+<div class="form-group">
+    {{ form_label(form.commercial, 'Commercial Images', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    <div class="col-sm-10">
+        {{ form_widget(form.commercial, {'attr': {'class': 'form-control', 'multiple': true}}) }}
+        {{ form_errors(form.commercial) }}
+    </div>
+</div>
+{% endif %}
+
+<!-- Affichage des images commerciales existantes -->
+{% if hasCommercialImages %}
+<div class="form-group mt-3">
+    <div class="col-md-12">
+        <h5>Commercial Images</h5>
+        <div class="d-flex flex-wrap gap-2">
+            {% for image in archi_project.imagesProjects|filter(image => image.catImagesProjects.nom == 'commercial') %}
+                <div class="image-item">
+                    <img src="{{ asset('img/portfolio/' ~ image.getFile()) }}" alt="Commercial Image"
+                         class="img-responsive" width="150">
+                    <p>{{ image.catImagesProjects.nom }}</p>
+
+                    <!-- Formulaire pour supprimer l'image -->
+                        <form action="{{ path('app_admin_image_delete', { id: image.id }) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                        </form>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
 
     <div class="form-group row mt-5 mb-5">
         <!-- Champ pour "Plan Projet" -->
@@ -148,6 +183,10 @@
                     <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}" alt="Plan Image"
                         class="img-responsive" width="150">
                 </div>
+                <form action="{{ path('app_admin_plan_delete', { id: plan.id }) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ plan.id) }}">
+                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
                 {% else %}
                 <p>Aucun plan enregistré pour ce projet.</p>
                 {% endfor %}
