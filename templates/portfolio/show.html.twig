@@ -467,9 +467,9 @@
                                                         style="visibility: hidden; opacity: 0;">
                                                         <div class="image">
                                                             {% for plan in archi_project.plans %}
-                                                            {% if loop.first %}
+                                                            {% if plan.catPlans.nom == 'Projet' %}
                                                             <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}"
-                                                                alt="image" class="img-responsive">
+                                                                alt="plan projet {{ archi_project.titre }}, {{ archi_project.m2}}m², DD Interiors Home" class="img-responsive">
                                                             {% endif %}
                                                             {% endfor %}
                                                         </div>
@@ -478,9 +478,9 @@
                                                         <div class="image last"
                                                             style="visibility: inherit; opacity: 0;">
                                                             {% for plan in archi_project.plans %}
-                                                            {% if loop.first %}
+                                                            {% if plan.catPlans.nom == 'Projet' %}
                                                             <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}"
-                                                                alt="image" class="img-responsive last"
+                                                                alt="plan projet {{ archi_project.titre }}, {{ archi_project.m2}}m², DD Interiors Home" class="img-responsive last"
                                                                 style="opacity: 1; visibility: inherit;">
                                                             {% endif %}
                                                             {% endfor %}
@@ -494,9 +494,9 @@
                                                         style="visibility: inherit; opacity: 1;">
                                                         <div class="image">
                                                             {% for plan in archi_project.plans %}
-                                                            {% if loop.index == 2 %}
+                                                            {% if plan.catPlans.nom == 'Existant' %}
                                                             <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}"
-                                                                alt="image" class="img-responsive">
+                                                               alt="plan existant {{ archi_project.titre }}, {{ archi_project.m2}}m², DD Interiors Home" class="img-responsive">
                                                             {% endif %}
                                                             {% endfor %}
                                                         </div>
@@ -505,9 +505,9 @@
                                                         <div class="image last"
                                                             style="opacity: 1; visibility: inherit;">
                                                             {% for plan in archi_project.plans %}
-                                                            {% if loop.index == 2 %}
+                                                            {% if plan.catPlans.nom == 'Existant' %}
                                                             <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}"
-                                                                alt="image" class="img-responsive last"
+                                                                alt="plan existant {{ archi_project.titre }}, {{ archi_project.m2}}m², DD Interiors Home" class="img-responsive last"
                                                                 style="opacity: 1; visibility: inherit;">
                                                             {% endif %}
                                                             {% endfor %}

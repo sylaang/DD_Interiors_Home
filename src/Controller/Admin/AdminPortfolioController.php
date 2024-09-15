@@ -9,6 +9,7 @@ use App\Service\ImageService;
 use App\Entity\ImagesProjects;
 use App\Form\ArchiProjectsType;
 use Doctrine\ORM\EntityManager;
+use App\Repository\PlansRepository;
 use App\Repository\CatPlansRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ArchiProjectsRepository;
@@ -41,15 +42,15 @@ class AdminPortfolioController extends AbstractController
     public function new(Request $request, ArchiProjectsRepository $archiProjectsRepository, CatImagesProjectsRepository $catRepository, CatPlansRepository $catplanRepository): Response
     {
         $archiProject = new ArchiProjects();
-
+    
         // Passez les options include_residential et include_commercial ici
         $form = $this->createForm(ArchiProjectsType::class, $archiProject, [
             'include_residential' => true, // Mettez à true ou false selon le besoin
             'include_commercial' => true,  // Mettez à true ou false selon le besoin
         ]);
-
+    
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer les images transmises
             $residential = $form->get('residential')->getData();
@@ -57,32 +58,32 @@ class AdminPortfolioController extends AbstractController
             // Assurez-vous de bien passer les options ou vérifier leur présence
             $existant = $form->has('existant') ? $form->get('existant')->getData() : [];
             $projet = $form->has('projet') ? $form->get('projet')->getData() : [];
-
+    
             $touteslesimages = [
                 'residential' => $residential,
                 'commercial' => $commercial,
             ];
-
+    
             $touteslesplans = [
                 'existant' => $existant,
                 'projet' => $projet,
             ];
-
+    
             // Boucler sur les images
             foreach ($touteslesimages as $nomDeLaPiece => $imagesdunepiece) {
                 $cat = $catRepository->findOneBy(['nom' => $nomDeLaPiece]);
-
+    
                 // Vérifier si la catégorie existe
                 if ($cat) {
                     foreach ($imagesdunepiece as $picture) {
                         $fichier = md5(uniqid()) . '.' . $picture->guessExtension();
-
+    
                         // Copie le fichier dans le dossier img/portfolio
                         $picture->move(
                             $this->getParameter('images_directory'),
                             $fichier
                         );
-
+    
                         // Stocker l'image dans la BDD (son nom)
                         $img = new ImagesProjects();
                         $img->setCatImagesProjects($cat);
@@ -91,22 +92,22 @@ class AdminPortfolioController extends AbstractController
                     }
                 }
             }
-
+    
             // Boucler sur les plans
             foreach ($touteslesplans as $nomDePlan => $plansdunepiece) {
                 $cat = $catplanRepository->findOneBy(['nom' => $nomDePlan]);
-
+    
                 // Vérifier si la catégorie existe
                 if ($cat) {
                     foreach ($plansdunepiece as $plan) {
                         $fichier = md5(uniqid()) . '.' . $plan->guessExtension();
-
+    
                         // Copie le fichier dans le dossier plans
                         $plan->move(
                             $this->getParameter('plans_directory'),
                             $fichier
                         );
-
+    
                         // Stocker le plan dans la BDD (son nom)
                         $planEntity = new Plans();
                         $planEntity->setCatPlans($cat);
@@ -115,12 +116,12 @@ class AdminPortfolioController extends AbstractController
                     }
                 }
             }
-
+    
             $archiProjectsRepository->save($archiProject, true);
-
+    
             return $this->redirectToRoute('app_admin_portfolio_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->renderForm('admin/portfolio/new.html.twig', [
             'archi_project' => $archiProject,
             'form' => $form,
@@ -137,101 +138,78 @@ class AdminPortfolioController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_admin_portfolio_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ArchiProjects $archiProject, ArchiProjectsRepository $archiProjectsRepository, CatImagesProjectsRepository $catRepository, ImageService $imageService, CatPlansRepository $catplanRepository): Response
+    public function edit(Request $request, ArchiProjects $archiProject, ArchiProjectsRepository $archiProjectsRepository, CatImagesProjectsRepository $catRepository,
+        ImageService $imageService, CatPlansRepository $catplanRepository): Response 
     {
         // Déterminer si les champs doivent être inclus dans le formulaire
         $hasCommercialImages = $archiProject->getImagesProjects()->exists(function ($key, $image) {
             return $image->getCatImagesProjects()->getNom() === 'commercial';
         });
-
+    
         $hasResidentialImages = $archiProject->getImagesProjects()->exists(function ($key, $image) {
             return $image->getCatImagesProjects()->getNom() === 'residential';
         });
-
+    
         $includeResidential = !$hasCommercialImages;
         $includeCommercial = !$hasResidentialImages;
-
+    
         // Créer le formulaire
         $form = $this->createForm(ArchiProjectsType::class, $archiProject, [
             'include_residential' => $includeResidential,
             'include_commercial' => $includeCommercial,
         ]);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer les fichiers transmis
             $residential = $form->has('residential') ? $form->get('residential')->getData() : [];
             $commercial = $form->has('commercial') ? $form->get('commercial')->getData() : [];
-            $plans = $form->has('plans') ? $form->get('plans')->getData() : [];
-
-            // Traiter les fichiers "Plans" (Plan Projet et Plan Existant)
-            $planProjet = [];
-            $planExistant = [];
-
-            if (!empty($plans)) {
-                foreach ($plans as $plan) {
-                    // Exemple avec convention de nommage
-                    if (strpos($plan->getClientOriginalName(), 'projet_') === 0) {
-                        $planProjet[] = $plan;
-                    } elseif (strpos($plan->getClientOriginalName(), 'existant_') === 0) {
-                        $planExistant[] = $plan;
-                    }
-                }
-            }
-
-                 // Si des fichiers sont présents dans "plans"
-        if (!empty($plans)) {
-            foreach ($plans as $plan) {
-                if (strpos($plan->getClientOriginalName(), 'projet_') === 0) {
-                    $planProjet[] = $plan;
-                } elseif (strpos($plan->getClientOriginalName(), 'existant_') === 0) {
-                    $planExistant[] = $plan;
-                }
-            }
-        } else {
-            // Récupérer les fichiers si "plans" est vide
             $existant = $form->has('existant') ? $form->get('existant')->getData() : [];
             $projet = $form->has('projet') ? $form->get('projet')->getData() : [];
 
-            // Associer les plans récupérés avec leur catégorie
             $touteslesplans = [
                 'existant' => $existant,
                 'projet' => $projet,
             ];
+    
+            // Traiter les fichiers "Plans" (Plan Projet et Plan Existant)
+            $planProjet = [];
+            $planExistant = [];
+    
+        // Traiter les fichiers "Plans" (Plan Projet et Plan Existant)
+        foreach ($touteslesplans as $nomDePlan => $plansdunepiece) {
+            $cat = $catplanRepository->findOneBy(['nom' => $nomDePlan]);
 
-            foreach ($touteslesplans as $nomDePlan => $plansdunepiece) {
-                $cat = $catplanRepository->findOneBy(['nom' => $nomDePlan]);
+            // Vérifier si la catégorie existe
+            if ($cat) {
+                foreach ($plansdunepiece as $plan) {
+                    $fichier = md5(uniqid()) . '.' . $plan->guessExtension();
 
-                if ($cat) {
-                    foreach ($plansdunepiece as $plan) {
-                        $fichier = md5(uniqid()) . '.' . $plan->guessExtension();
+                    // Copier le fichier dans le dossier plans
+                    $plan->move(
+                        $this->getParameter('plans_directory'),
+                        $fichier
+                    );
 
-                        // Copier le fichier dans le dossier approprié
-                        $plan->move(
-                            $this->getParameter('plans_directory'),
-                            $fichier
-                        );
-
-                        // Créer l'entité Plans et l'associer au projet
-                        $planEntity = new Plans();
-                        $planEntity->setCatPlans($cat);
-                        $planEntity->setFile($fichier);
-                        $archiProject->addPlan($planEntity);
-                    }
+                    // Stocker le plan dans la BDD (son nom)
+                    $planEntity = new Plans();
+                    $planEntity->setCatPlans($cat);
+                    $planEntity->setFile($fichier);
+                    $archiProject->addPlan($planEntity);
                 }
             }
         }
-
+    
             // Appeler la méthode du service pour éditer les images du projet
             $imageService->editProjectImages($archiProject, $residential, $commercial, $planProjet, $planExistant, $catRepository);
-
+    
             // Enregistrer le projet
             $archiProjectsRepository->save($archiProject, true);
-
+    
             // Rediriger vers la page d'index
             return $this->redirectToRoute('app_admin_portfolio_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         // Rendre le formulaire
         return $this->renderForm('admin/portfolio/edit.html.twig', [
             'archi_project' => $archiProject,
@@ -261,52 +239,36 @@ class AdminPortfolioController extends AbstractController
 
         return $this->redirectToRoute('app_admin_portfolio_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    #[Route('/image/{id}', name: 'app_admin_image_delete', methods: ['POST'])]
-    public function deleteSingleImage(Request $request, int $id, ImageService $imageService): Response
+    
+    #[Route('/delete-image/{id}', name: 'app_admin_delete_image', methods: ['POST'])]
+    public function deleteImage(Request $request, ImagesProjects $image, ImagesProjectsRepository $imagesProjectsRepository, ImageService $imageService): Response
     {
-        // Vérifier le token CSRF pour la sécurité
-        if (!$this->isCsrfTokenValid('delete' . $id, $request->request->get('_token'))) {
-            throw new \InvalidArgumentException('Token CSRF invalide.');
+        if ($this->isCsrfTokenValid('delete' . $image->getId(), $request->request->get('_token'))) {
+            // Supprimer l'image via le service
+            $imageService->deleteImage($image->getId(), null); // Aucun planId
+    
+            // Supprimer l'image de la base de données
+            $imagesProjectsRepository->remove($image, true);
         }
     
-        // Suppression de l'image
-        $imageService->deleteImage($id, null);
-    
-        // Récupérer l'URL de la page d'édition depuis le referer ou via un paramètre
         $referer = $request->headers->get('referer');
-    
-        // Vérifier si l'URL de référence contient l'ID du projet pour rediriger vers la page d'édition appropriée
-        if ($referer && preg_match('/edit\/(\d+)/', $referer, $matches)) {
-            // Redirection vers la page d'édition du projet
-            $projectId = $matches[1];
-            return $this->redirectToRoute('app_admin_portfolio_edit', ['id' => $projectId]);
-        }
-    
-        // Redirection par défaut si l'URL de référence ne peut pas être utilisée
-        return $this->redirectToRoute('app_admin_portfolio_index');
+    return $this->redirect($referer ?: $this->generateUrl('app_admin_portfolio_index'));
     }
 
-    #[Route('/plan/{id}', name: 'app_admin_plan_delete', methods: ['POST'])]
-public function deleteSinglePlan(Request $request, int $id, ImageService $imageService): Response
+    #[Route('/delete-plan/{id}', name: 'app_admin_delete_plan', methods: ['POST'])]
+public function deletePlan(Request $request, Plans $plan, PlansRepository $plansRepository, ImageService $imageService): Response
 {
-    // Vérification du token CSRF pour la sécurité
-    if (!$this->isCsrfTokenValid('delete' . $id, $request->request->get('_token'))) {
-        throw new \InvalidArgumentException('Token CSRF invalide.');
+    if ($this->isCsrfTokenValid('delete' . $plan->getId(), $request->request->get('_token'))) {
+        // Supprimer le fichier du plan via le service
+        $imageService->deleteImage(null, $plan->getId()); // Aucun imageId, suppression du plan
+
+        // Supprimer le plan de la base de données
+        $plansRepository->remove($plan, true);
     }
 
-    // Suppression du plan
-    $imageService->deleteImage(null, $id);
-
-    // Redirection vers la page d'édition en utilisant le référent comme précédemment
+    // Rediriger vers la page précédente (referer)
     $referer = $request->headers->get('referer');
-    if ($referer && preg_match('/edit\/(\d+)/', $referer, $matches)) {
-        $projectId = $matches[1];
-        return $this->redirectToRoute('app_admin_portfolio_edit', ['id' => $projectId]);
-    }
-
-    // Redirection par défaut
-    return $this->redirectToRoute('app_admin_portfolio_index');
+    return $this->redirect($referer ?: $this->generateUrl('app_admin_portfolio_index'));
 }
 
     public function replaceImage(Request $request, EntityManagerInterface $entityManager, ImageService $imageService): Response
@@ -333,4 +295,5 @@ public function deleteSinglePlan(Request $request, int $id, ImageService $imageS
         // Redirigez l'utilisateur vers la page précédente
         return $this->redirect($refererUrl);
     }
+    
 }

@@ -112,10 +112,11 @@
                     <p>{{ image.catImagesProjects.nom }}</p>
 
                     <!-- Formulaire pour supprimer l'image -->
-                    <form action="{{ path('app_admin_image_delete', { id: image.id }) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">
+                    <form action="{{ path('app_admin_delete_image', { 'id': image.id }) }}" method="post" onsubmit="return confirm('Veut-tu vraiment supprimer cette image ?');">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
                         <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                     </form>
+                    
                 </div>
             {% endfor %}
         </div>
@@ -147,10 +148,10 @@
                     <p>{{ image.catImagesProjects.nom }}</p>
 
                     <!-- Formulaire pour supprimer l'image -->
-                        <form action="{{ path('app_admin_image_delete', { id: image.id }) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
-                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                        </form>
+                    <form action="{{ path('app_admin_delete_image', { 'id': image.id }) }}" method="post" onsubmit="return confirm('Veut-tu vraiment supprimer cette image ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
 
                 </div>
             {% endfor %}
@@ -173,26 +174,30 @@
                 {{ form_errors(form.existant) }}
     </div>
 
-    <!-- Section pour afficher les plans déjà enregistrés -->
-    <div class="form-group row mt-3">
-        <div class="col-md-12">
-            <h5>Plans Enregistrés</h5>
-            <div class="d-flex flex-wrap gap-2">
-                {% for plan in archi_project.plans %}
+   <!-- Section pour afficher les plans déjà enregistrés -->
+<div class="form-group row mt-3">
+    <div class="col-md-12">
+        <h5>Plans Enregistrés</h5>
+        <div class="d-flex flex-wrap gap-2">
+            {% for plan in archi_project.plans %}
+            {{dump(plan.catPlans)}}
                 <div class="plan-item">
-                    <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}" alt="Plan Image"
-                        class="img-responsive" width="150">
+                    <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}" alt="Plan Image" class="img-responsive" width="150">
+                    
+                    <p style="color: black">{{ plan.catplans.nom }}</p>
+                    
+                    <!-- Formulaire pour supprimer le plan -->
+                    <form action="{{ path('app_admin_delete_plan', { 'id': plan.id }) }}" method="post" onsubmit="return confirm('Veut-tu vraiment supprimer ce plan ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ plan.id) }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
                 </div>
-                <form action="{{ path('app_admin_plan_delete', { id: plan.id }) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ plan.id) }}">
-                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                </form>
-                {% else %}
+            {% else %}
                 <p>Aucun plan enregistré pour ce projet.</p>
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
     </div>
+</div>
     <!-- Bouton de soumission -->
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
