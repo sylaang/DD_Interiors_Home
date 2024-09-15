@@ -52,7 +52,16 @@ font-family: "Palatino Linotype", serif;
 
 .affix {
     height: 90px;
-    background-color: #0d0d0d89;
+    background-color: #0d0d0d6d;
+    transition: background-color 2.5s ease;
+}
+
+.affix-white {
+    background-color: rgba(245, 245, 245, 0.674) !important;
+}
+
+.nav-white a {
+    color: black !important;
 }
 
 .header__burger {
