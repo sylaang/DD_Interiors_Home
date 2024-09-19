@@ -17,27 +17,85 @@
     {{ form_row(form.existant) }}
     {{ form_row(form.projet) }}
 
-    {# Affiche les champs si présents dans le formulaire #}
+
     {% if form.residential is defined %}
-         <div class="form-group">
-        {{ form_label(form.commercial, 'Images residential', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    <div class="form-group" id="image-fields-residential">
+        {{ form_label(form.residential, 'Images Résidentielles', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
         <div class="col-sm-10">
             {{ form_widget(form.residential, {'attr': {'class': 'form-control', 'multiple': true}}) }}
             {{ form_errors(form.residential) }}
         </div>
     </div>
-    {% endif %}
+    
+    <div id="new-image-fields-residential"></div>
+{% endif %}
 
     {% if form.commercial is defined %}
-         <div class="form-group">
-        {{ form_label(form.commercial, 'Images Commercial', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    <div class="form-group" id="image-fields-commercial">
+        {{ form_label(form.commercial, 'Images Commerciales', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
         <div class="col-sm-10">
             {{ form_widget(form.commercial, {'attr': {'class': 'form-control', 'multiple': true}}) }}
             {{ form_errors(form.commercial) }}
         </div>
     </div>
+    
+    <div id="new-image-fields-commercial"></div>
     {% endif %}
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let imageFieldCommercialIndex = 1;
+    let imageFieldResidentialIndex = 1;
+
+    // Fonction pour ajouter un nouveau champ commercial
+    function ajouterNouveauChampImageCommercial() {
+        const champCommercial = document.getElementById('image-fields-commercial');
+        const nouveauChampCommercial = champCommercial.cloneNode(true); // Cloner le champ commercial
+        nouveauChampCommercial.querySelector('input[type="file"]').value = ''; // Réinitialiser le champ de fichier
+        nouveauChampCommercial.id = `image-fields-commercial-${imageFieldCommercialIndex++}`;
+
+        // Ajoute l'écouteur sur le nouveau champ pour qu'il puisse déclencher l'ajout de nouveaux champs
+        nouveauChampCommercial.addEventListener('change', function (e) {
+            if (e.target.type === 'file' && e.target.files.length > 0) {
+                ajouterNouveauChampImageCommercial();
+            }
+        });
+
+        document.getElementById('new-image-fields-commercial').appendChild(nouveauChampCommercial);
+    }
+
+    // Fonction pour ajouter un nouveau champ residential
+    function ajouterNouveauChampImageResidential() {
+        const champResidential = document.getElementById('image-fields-residential');
+        const nouveauChampResidential = champResidential.cloneNode(true); // Cloner le champ residential
+        nouveauChampResidential.querySelector('input[type="file"]').value = ''; // Réinitialiser le champ de fichier
+        nouveauChampResidential.id = `image-fields-residential-${imageFieldResidentialIndex++}`;
+
+        // Ajoute l'écouteur sur le nouveau champ pour qu'il puisse déclencher l'ajout de nouveaux champs
+        nouveauChampResidential.addEventListener('change', function (e) {
+            if (e.target.type === 'file' && e.target.files.length > 0) {
+                ajouterNouveauChampImageResidential();
+            }
+        });
+
+        document.getElementById('new-image-fields-residential').appendChild(nouveauChampResidential);
+    }
+
+    // Écouteur pour le champ commercial initial
+    document.getElementById('image-fields-commercial').addEventListener('change', function (e) {
+        if (e.target.type === 'file' && e.target.files.length > 0) {
+            ajouterNouveauChampImageCommercial();
+        }
+    });
+
+    // Écouteur pour le champ residential initial
+    document.getElementById('image-fields-residential').addEventListener('change', function (e) {
+        if (e.target.type === 'file' && e.target.files.length > 0) {
+            ajouterNouveauChampImageResidential();
+        }
+    });
+});
+</script>
 
     {{ include('admin/portfolio/_form.html.twig') }}
 

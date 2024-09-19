@@ -1,47 +1,34 @@
 $(window).scroll(function() {
     if ($(document).scrollTop() > 50) {
+        // Si le scroll dépasse 50px, on ajoute la classe affix
         $('.nav').addClass('affix');
-        console.log("OK");
     } else {
+        // Si le scroll est en dessous de 50px, on retire la classe affix
         $('.nav').removeClass('affix');
     }
-  });
 
-
-  $(window).scroll(function() {
-    // Vérifier si on est sur la page "portfolio"
-    if (window.location.pathname.includes('portfolio')) {
-        var scrollTop = $(document).scrollTop();
-        var nav = $('.nav');
-
-        // Vérifier si la barre de navigation est fixée (affix) et si on est en haut de la page
-        if (scrollTop > 50) {
-            nav.addClass('affix');
-            var navTop = nav.offset().top;
-
-            // Vérifier si la .nav est au-dessus d'un élément avec une background-image
-            var backgroundImageElements = $('div[style*="background-image"]');
-            var isAboveBackgroundImage = false;
-
-            backgroundImageElements.each(function() {
-                var elementTop = $(this).offset().top;
-                var elementBottom = elementTop + $(this).outerHeight();
-
-                if (navTop >= elementTop && navTop <= elementBottom) {
-                    isAboveBackgroundImage = true;
-                    return false; // Sortir de la boucle each si trouvé
-                }
-            });
-
-            if (isAboveBackgroundImage) {
-                nav.css('background-color', 'rgba(245, 245, 245, 0.674)').addClass('nav-white');
-            } else {
-                nav.css('background-color', '#0d0d0d6d').removeClass('nav-white'); // Remettre la couleur d'origine
-            }
-        } else {
-            // Réinitialiser la couleur de fond et retirer la classe affix quand on est en haut de la page
-            nav.removeClass('affix').css('background-color', 'transparent').removeClass('nav-white');
-        }
+    // Si on est à la fin de la page, on retire aussi la classe affix
+    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+        $('.nav').removeClass('affix');
     }
+});
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const nav = document.querySelector('.nav');
+    const links = document.querySelectorAll('.nav ul li a');
+
+    window.addEventListener('scroll', function () {
+        const documentHeight = document.documentElement.scrollHeight;
+        const windowHeight = window.innerHeight;
+        const scrollPosition = window.scrollY + windowHeight;
+
+        // Vérifier si on est au bas de la page
+        if (scrollPosition >= documentHeight) {
+            nav.style.background = 'none'; // Enlever le background
+            links.forEach(link => link.style.color = 'whitesmoke'); // Changer la couleur des liens
+        } else {
+            links.forEach(link => link.style.color = '#1a1818'); // Couleur des liens par défaut
+        }
+    });
 });
 

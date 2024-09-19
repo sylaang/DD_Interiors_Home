@@ -3,10 +3,10 @@ let lastDirection = null; // Variable pour garder une trace de la dernière dire
 function handleButtonClick(event) {
   event.preventDefault(); // Empêche l'action par défaut du bouton
 
-  const category = this.textContent.trim().toLowerCase(); // Récupère la catégorie sélectionnée
+  const category = this.textContent.trim().toLowerCase();
   const container = document.querySelector('#background-container');
-  const allItems = document.querySelectorAll('.carousells--item'); // Sélectionne toutes les images
-  const titleElement = document.getElementById('dynamic-title'); // Sélectionne l'élément <h1>
+  const allItems = document.querySelectorAll('.carousells--item');
+  const titleElement = document.getElementById('dynamic-title');
 
   // Met à jour le texte du titre en fonction du bouton cliqué
   if (category === 'résidentiel') {
@@ -54,7 +54,7 @@ function resetBackground() {
         overflow: hidden;
         width: 100vw;
         height: 100vh;
-        background: url('../img/background/background-body.jpg') center center / cover no-repeat;
+        background: whitesmoke;
         display: flex;
         align-items: flex-start;
         justify-content: center;
@@ -75,12 +75,12 @@ function resetBackground() {
 
   const buttonResidentiel = document.createElement('button');
   buttonResidentiel.className = 'button pelement barrier';
-  buttonResidentiel.style = 'font-size: xx-large; background: none; border: none; color: whitesmoke;';
+  buttonResidentiel.style = 'font-size: xx-large; background: none; border: none; color: #1a1818;';
   buttonResidentiel.textContent = 'Résidentiel';
 
   const buttonCommercial = document.createElement('button');
   buttonCommercial.className = 'button pelement barrier';
-  buttonCommercial.style = 'font-size: xx-large; background: none; border: none; color: whitesmoke;';
+  buttonCommercial.style = 'font-size: xx-large; background: none; border: none; color: #1a1818;';
   buttonCommercial.textContent = 'Commercial';
 
   // Ajouter les boutons au conteneur

@@ -3,7 +3,7 @@
 
 
 <head>
-<script type="application/ld+json">
+	<script type="application/ld+json">
 {
   "@context": "http://www.schema.org",
   "@type": "Organization",
@@ -61,8 +61,8 @@
 </script>
 
 
-    <!-- LocalBusiness Metadata Schema -->
-<script type="application/ld+json">
+	<!-- LocalBusiness Metadata Schema -->
+	<script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "LocalBusiness",
@@ -104,8 +104,8 @@
 }
 </script>
 
-    <!-- WebPage Metadata Schema -->
-<script type="application/ld+json">
+	<!-- WebPage Metadata Schema -->
+	<script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "WebPage",
@@ -158,13 +158,13 @@
         }
     }
 </script>
-<meta charset="UTF-8" lang='fr'>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>
-	{% block title %}
-	DDInteriorsHome: Acceuil
-	{% endblock %}
-</title>
+	<meta charset="UTF-8" lang='fr'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		{% block title %}
+		DDInteriorsHome: Acceuil
+		{% endblock %}
+	</title>
 
 	{#_______________________________________________________________FONT_AWESOME________________________________________________#}
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -179,7 +179,8 @@
 	<link href="{{ asset('css/site.css') }}" rel="stylesheet">
 
 	{#_______________________________________________________________FOOTER________________________________________________#}
-	<link data-minify="1" rel="stylesheet" id="monolit-style-css" href="{{ asset('css/footer/style.css') }}" type="text/css" media="all">
+	<link data-minify="1" rel="stylesheet" id="monolit-style-css" href="{{ asset('css/footer/style.css') }}"
+		type="text/css" media="all">
 
 	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -189,11 +190,11 @@
 
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T6JKXC5Z4H"></script>
 	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	
-	  gtag('config', 'G-T6JKXC5Z4H');
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-T6JKXC5Z4H');
 	</script>
 
 
@@ -212,53 +213,95 @@
 	<div class="cursor"></div>
 	<div class="cursor-follower"></div>
 	<header>
-<nav class="nav">
-	<div class="header__burger">
-		<div id="menu-toggle" class="hamburger">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div>
-	</div>
-	<div class="header__logo">
-		<ul>
-			<li>
-				<a href="{{path('app_home')}}"></a>
-			</li>
-		</ul>
-	</div>
-	<div class="burger-menu">
-		<div data-aos="fade-right" data-aos-duration="3000">
-			<ul class="navlinks">
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_home') }}">Home</a>
-				</li>
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="#">À propos</a>
-				</li>
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_portfolio_index') }}">Portfolio</a>
-				</li>
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_prestations_index') }}">Nos prestations</a>
-				</li>
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_contact') }}">Contact</a>
-				</li>
-				{% if is_granted('ROLE_USER') == false %}
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_login') }}">Connexion</a>
-				</li>
-				{% endif %}
-				{% if is_granted('ROLE_ADMIN') %}
-				<li>
-					<a class="button pelement" style="padding-top: 0;" href="{{ path('app_admin_dashboard') }}">Dashboard</a>
-				</li>
-				{% endif %}
-			</ul>
-		</div>
-	</div>
-</nav>
+		<nav class="nav">
+			<div class="header__burger">
+				<div id="menu-toggle" class="hamburger">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+				<div class="header__logo disparition">
+					<ul>
+						<li>
+							<a href="{{path('app_home')}}"></a>
+						</li>
+					</ul>
+				</div>
+			<script>
+				document.addEventListener('DOMContentLoaded', () => {
+					const disparition = document.querySelector('.disparition');
+
+					window.addEventListener('scroll', () => {
+						const scrollPosition = window.scrollY + window.innerHeight;
+						const documentHeight = document.documentElement.scrollHeight;
+
+						if (scrollPosition >= documentHeight) {
+							disparition.classList.add('hidden');
+						} else {
+							disparition.classList.remove('hidden');
+						}
+					});
+				});
+			</script>
+			<script>
+				document.addEventListener('DOMContentLoaded', function () {
+					const logo = document.querySelector('.header__logo');
+
+					window.addEventListener('scroll', function () {
+						// Calculer la hauteur totale du document
+						const documentHeight = document.documentElement.scrollHeight;
+						// Calculer la hauteur visible de la fenêtre
+						const windowHeight = window.innerHeight;
+						// Calculer la position actuelle du scroll
+						const scrollPosition = window.scrollY + windowHeight;
+
+						// Vérifier si la position du scroll est au bas de la page
+						if (scrollPosition >= documentHeight) {
+							logo.classList.add('hide-logo');
+						} else {
+							logo.classList.remove('hide-logo');
+						}
+					});
+				});
+			</script>
+			<div class="burger-menu">
+				<div data-aos="fade-right" data-aos-duration="3000">
+					<ul class="navlinks">
+						<li>
+							<a class="button pelement" style="padding-top: 0;" href="{{ path('app_home') }}">Home</a>
+						</li>
+						<li>
+							<a class="button pelement" style="padding-top: 0;" href="#">À propos</a>
+						</li>
+						<li>
+							<a class="button pelement" style="padding-top: 0;"
+								href="{{ path('app_portfolio_index') }}">Portfolio</a>
+						</li>
+						<li>
+							<a class="button pelement" style="padding-top: 0;"
+								href="{{ path('app_prestations_index') }}">Nos prestations</a>
+						</li>
+						<li>
+							<a class="button pelement" style="padding-top: 0;"
+								href="{{ path('app_contact') }}">Contact</a>
+						</li>
+						{% if is_granted('ROLE_USER') == false %}
+						<li>
+							<a class="button pelement" style="padding-top: 0;"
+								href="{{ path('app_login') }}">Connexion</a>
+						</li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+						<li>
+							<a class="button pelement" style="padding-top: 0;"
+								href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
 	</header>
 
 	<div class="grid">
@@ -280,115 +323,144 @@
 		</div>
 		<div class="grid__logo"></div>
 	</div>
+
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
-    const gridLines = document.querySelectorAll('.grid__line');
+			const gridLines = document.querySelectorAll('.grid__line');
 
-    gridLines.forEach(line => {
-        line.addEventListener('transitionend', (event) => {
-            // Vérifie si la propriété qui a terminé l'animation est "transform"
-            if (event.propertyName === 'transform') {
-                // Déclenche le changement de couleur après 5 secondes
-                setTimeout(() => {
-                    line.style.backgroundColor = 'rgba(0, 0, 0, 0';
-                }, 2000); // 5000 ms = 5 secondes
-            }
-        });
+			gridLines.forEach(line => {
+				line.addEventListener('transitionend', (event) => {
+					// Vérifie si la propriété qui a terminé l'animation est "transform"
+					if (event.propertyName === 'transform') {
+						// Déclenche le changement de couleur après 5 secondes
+						setTimeout(() => {
+							line.style.backgroundColor = 'rgba(0, 0, 0, 0';
+						}, 2000); // 5000 ms = 5 secondes
+					}
+				});
 
-        // Pour déclencher l'animation (exemple)
-        setTimeout(() => {
-            line.style.transform = 'scaleY(1)';
-        }, 100);
-    });
-});
+				// Pour déclencher l'animation (exemple)
+				setTimeout(() => {
+					line.style.transform = 'scaleY(1)';
+				}, 100);
+			});
+		});
 	</script>
 	<div class="monolit_sec monolit_page_sec content-page">
 		<div class="vs-section">
-			
-<main id="barba-wrapper" style="background: url('../img/background/background-body.jpg');">
-	<div class="barba-container">
-		{% block body %}{% endblock %}
-	</div>
-</main>
-</div>
-</div>
-<div class="height-emulator" style="height: 1024px;"></div>
-<footer class="content-footer">
-	<!--  container  -->
-	<div class="container-footer">
-		<div class="row">
-			<div class="col-md-6">
-				<!-- Footer logo -->
-				<div class="footer-item footer-logo">
-					<a href="{{path('app_home')}}" class="ajax"><img width="264" height="100"
-							src="{{asset('img/logo/Logo.svg')}}"
-							alt="footer logo"
-							data-lazy-src="{{asset('img/logo/Logo.svg')}}"
-							data-ll-status="loaded" class="entered lazyloaded">
-							<noscript><img width="264"
-								height="100"
-								src="{{asset('img/logo/Logo.svg')}}"
-								alt="footer logo"></noscript>
-					</a>
-					<p class="text-footer">
-						DD Interiors Home est une agence d'architecture d'intérieur basée à Paris. L'agence est spécialisée dans la conception et l’agencement intérieur, 
-						propose différentes solutions pour les particuliers et professionnels.
-					</p>
-				</div>
-				<!-- Footer logo end -->
-			</div>
-			<!-- Footer info -->
-			<div class="col-md-2">
-				<div class="footer-item">
-					<h4 class="text-link">Call</h4>
-					<ul>
-						<li><a href="#">+33 7 64 40 24 70</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- Footer info end-->
 
-			<!-- Footer info end-->
-			<div class="col-md-2">
-				<div class="footer-item">
-					<h4 class="text-link">Email</h4>
-					<ul>
-						<li><a href="mailto:info@saphalyadesignstudio.com">info@saphalyadesignstudio.com</a></li>
-						<li><a href="mailto:saphalyaarchitects@gmail.com">saphalyaarchitects@gmail.com</a></li>
-					</ul>
+			<main id="barba-wrapper" style="background: url('../img/background/background-body.jpg');">
+				<div class="barba-container">
+					{% block body %}{% endblock %}
 				</div>
-			</div>
-			<!-- Footer info end-->
+			</main>
 		</div>
-		<!-- Footer copyright -->
-		<div class="row">
-			<div class="col-md-6"></div>
-			<div class="col-md-6">
-				<div class="footer-wrap">
-					<span class="copyright">
-						© DD Interiors Home 2023. Powered by
-						<a href="https://www.redmotion.in/" target="_blank" style="color:#fff;font-weight:bold">
-							Mehdi HACHEM</a>
-					</span>
-					<br>
-					<span class="copyright">
-						© Freepik. Powered by
-						<a href="https://fr.freepik.com/photos-gratuite/mur-texture-beton-bleu-marine-massif_17119118.htm#query=fond%20bleu%20fonce&position=1&from_view=keyword&track=ais"
-							style="color:#fff;font-weight:bold">
-							Image de rawpixel.com</a>
-					</span>
-					<span class="to-top">To Top</span>
-				</div>
-			</div>
-		</div>
-		<!-- Footer copyright end -->
 	</div>
-	<!--  container  end -->
-	<!-- Hover animation  -->
-	<canvas class="particular footer-canvas" data-color="" width="2844" height="1060"
-		style="display: inline;"></canvas>
-	<!-- Hover animation  end -->
-</footer>
+	<div class="height-emulator" style="height: 1024px;"></div>
+	<footer class="content-footer">
+		<!--  container  -->
+		<div class="container-footer">
+			<div class="row">
+				<div class="col-md-6">
+					<!-- Footer logo -->
+					<div class="footer-item footer-logo">
+						<div class="apparition">
+							<a href="{{path('app_home')}}" class="ajax"><img width="264" height="100"
+									src="{{asset('img/logo/Logo.svg')}}" alt="footer logo ddinteriorshome"
+									data-lazy-src="{{asset('img/logo/Logo.svg')}}" data-ll-status="loaded"
+									class="entered lazyloaded">
+								<noscript><img width="264" height="100" src="{{asset('img/logo/Logo.svg')}}"
+										alt="footer logo"></noscript>
+							</a>
+						</div>
+						<script>
+							document.addEventListener('DOMContentLoaded', () => {
+								const apparition = document.querySelector('.apparition');
+
+								window.addEventListener('scroll', () => {
+									const scrollPosition = window.scrollY + window.innerHeight;
+									const documentHeight = document.documentElement.scrollHeight;
+
+									if (scrollPosition >= documentHeight) {
+										apparition.classList.add('visible');
+									} else {
+										apparition.classList.remove('visible');
+									}
+								});
+							});
+						</script>
+						<p class="text-footer">
+							DD Interiors Home est une agence d'architecture d'intérieur basée à Paris. L'agence est
+							spécialisée dans la conception et l’agencement intérieur,
+							propose différentes solutions pour les particuliers et professionnels.
+						</p>
+					</div>
+					<!-- Footer logo end -->
+				</div>
+				<!-- Footer info -->
+				<div class="col-md-2">
+					<div class="footer-item">
+						<h4 class="text-link">Call</h4>
+						<ul>
+							<li><a href="#">+33 7 64 40 24 70</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- Footer info end-->
+
+				<!-- Footer info end-->
+				<div class="col-md-2">
+					<div class="footer-item">
+						<h4 class="text-link">Email</h4>
+						<ul>
+							<li><a href="mailto:ddinteriorshome@gmail.com">ddinteriorshome@gmail.com</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- Footer info end-->
+			</div>
+			<!-- Footer copyright -->
+			<div class="row">
+				<div class="col-md-6"></div>
+				<div class="col-md-6">
+					<div class="footer-wrap">
+						<span class="copyright">
+							© DD Interiors Home 2023. Powered by
+							<a href="#" target="_blank" style="color:#fff;font-weight:bold">
+								Mehdi HACHEM</a>
+						</span>
+						<br>
+						<span class="copyright">
+							© Freepik. Powered by
+							<a href="https://fr.freepik.com/photos-gratuite/mur-texture-beton-bleu-marine-massif_17119118.htm#query=fond%20bleu%20fonce&position=1&from_view=keyword&track=ais"
+								style="color:#fff;font-weight:bold">
+								Image de rawpixel.com</a>
+						</span>
+						<span class="to-top">To Top</span>
+						<script>
+							document.addEventListener('DOMContentLoaded', () => {
+								const toTopButton = document.querySelector('.to-top');
+
+								toTopButton.addEventListener('click', () => {
+									// Défile vers le haut de la page
+									window.scrollTo({
+										top: 0,
+										behavior: 'smooth' // Utiliser 'smooth' pour une transition fluide
+									});
+								});
+							});
+						</script>
+					</div>
+				</div>
+			</div>
+			<!-- Footer copyright end -->
+		</div>
+		<!--  container  end -->
+		<!-- Hover animation  -->
+		<canvas class="particular footer-canvas" data-color="" width="2844" height="1060"
+			style="display: inline;"></canvas>
+		<!-- Hover animation  end -->
+	</footer>
 
 
 	{# _________________________________GSAP_JS_____________________________ #}
@@ -432,24 +504,44 @@
 	</script>
 
 	<script>
-    // Fonction pour rafraîchir la page
-    function refreshPage() {
-        location.reload();
-    }
+		var refreshing = false;
 
-    // Écouteur d'événements pour détecter les changements dans l'historique
-    window.addEventListener('popstate', function(event) {
-        // Rafraîchit la page lorsqu'on utilise le bouton "Précédent"
-        refreshPage();
-    });
+		function refreshPage() {
+			if (!refreshing) {
+				refreshing = true;
+				setTimeout(() => {
+					location.reload();
+					refreshing = false;
+				}, 1000); // 500 ms = 0.5 seconde de délai
+			}
+		}
 
-    // Vous pouvez également ajouter un gestionnaire d'événements pour le bouton "Suivant"
-    // Cela permet de rafraîchir la page lorsque vous naviguez vers l'avant
-    window.addEventListener('pushstate', function(event) {
-        // Rafraîchit la page lorsqu'on utilise le bouton "Suivant"
-        refreshPage();
-    });
-</script>
+		// Écouteur d'événements pour détecter les changements dans l'historique
+		window.addEventListener('popstate', function (event) {
+			refreshPage();
+		});
+
+		// Pour gérer les changements d'état via pushState et replaceState
+		function trackHistoryChanges() {
+			var pushState = history.pushState;
+			var replaceState = history.replaceState;
+
+			history.pushState = function (state, title, url) {
+				pushState.apply(history, arguments);
+				refreshPage();
+			};
+
+			history.replaceState = function (state, title, url) {
+				replaceState.apply(history, arguments);
+				refreshPage();
+			};
+		}
+
+		// Appeler cette fonction pour surveiller les changements d'état
+		trackHistoryChanges();
+
+
+	</script>
 
 	{% block javascripts %}
 	{{ encore_entry_script_tags("app") }}

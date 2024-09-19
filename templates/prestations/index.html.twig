@@ -1,73 +1,328 @@
 {% extends 'base.html.twig' %}
 {% block title %}DD Interiors Home Nos
-	prestations
+prestations
 {% endblock %}
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('css/styleCard.css') }}"/>
+
+<link rel="stylesheet" href="{{ asset('css/styleCard.css') }}" />
 {% endblock %}
 {% block body %}
-			<section class="pageTop anim" data-scrollama-index="0">
-  <div class="overflow-hidden">
-    <div class="pageTop__bg parallax" data-rellax-speed="-3" style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);"></div>
-    <div class="pageTop__container">
-      <div class="container">
-        <h1 class="pageTop__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-          Prestation
-          </font></font><span class="reveal_title"></span>
-        </h1>
-        
-      </div>
-    </div>
+{# <section class="pageTop anim" data-scrollama-index="0">
+	<div class="overflow-hidden">
+		<div class="pageTop__bg parallax" data-rellax-speed="-3"
+			style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);">
+		</div>
+		<div class="pageTop__container">
+			<div class="container">
+				<h1 class="pageTop__title">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;">
+							Prestation
+						</font>
+					</font><span class="reveal_title"></span>
+				</h1>
+
+			</div>
+		</div>
 </section>
 
-	<div class="container-card">
-		{% for prestation in prestations %}
-			<a href="{{path('app_prestations_show', {'id': prestation.id}) }}">
-				<div class="card photo-drop-shadow">
-					<div class="image-card"></div>
-					<!-- {# <img src="https://www.architecture-organique.com/wp-content/uploads/2010/06/maison-architecte-ossature-bois-seine-et-marne-15.jpg" alt=""> #} -->
-					<div class="card-content">
-						<h2>
-							Titre
-							{{ prestation.titre }}
-						</h2>
-						<p>
-							{% if not prestation.forfait %}
-								Prix :
-								{{ prestation.prix }}
-								{% if prestation.prix %}
-									€
-								{% endif %}
-								{% if
-          							prestation.categoriesPrix.nom == "mètre carré" %}
-									m²
-								{% elseif prestation.categoriesPrix.nom == "par pièce" %}
-									/pièce
-								{% endif %}
-							{% endif %}
-						</p>
-						<p>
-							{% if prestation.forfait %}
-								forfait :
-								{{ prestation.forfait }}
-									€
-									<br>
-								forfait :
-								{{ prestation.forfait2 }}
-									€
-							{% endif %}
-							<li>
-								{{ prestation.description }}
-								{% if prestation.description2 %}
-									<br/>
-								{% endif %}
-								{{ prestation.description2 }}
-							</li>
-						</p>
-					</a>
+<div class="container-card">
+	{% for prestation in prestations %}
+	<a href="{{path('app_prestations_show', {'id': prestation.id}) }}">
+		<div class="card photo-drop-shadow">
+			<div class="image-card"></div>
+			<div class="card-content">
+				<h2>
+					Titre
+					{{ prestation.titre }}
+				</h2>
+				<p>
+					{% if not prestation.forfait %}
+					Prix :
+					{{ prestation.prix }}
+					{% if prestation.prix %}
+					€
+					{% endif %}
+					{% if
+					prestation.categoriesPrix.nom == "mètre carré" %}
+					m²
+					{% elseif prestation.categoriesPrix.nom == "par pièce" %}
+					/pièce
+					{% endif %}
+					{% endif %}
+				</p>
+				<p>
+					{% if prestation.forfait %}
+					forfait :
+					{{ prestation.forfait }}
+					€
+					<br>
+					forfait :
+					{{ prestation.forfait2 }}
+					€
+					{% endif %}
+					<li>
+						{{ prestation.description }}
+						{% if prestation.description2 %}
+						<br />
+						{% endif %}
+						{{ prestation.description2 }}
+					</li>
+				</p>
+	</a>
+</div>
+</div>
+
+{% endfor %}
+</div> #}
+<div style="height: 100%;">
+	<div style="background: url('../img/background/image-prestation.jpeg');
+    min-height: 100vh; max-height: 100%; width: 100%; background-size: cover; background-repeat: no-repeat;">
+		<div style="height: 100vh; overflow: auto; scrollbar-width: none;">
+			<div style="background-color: rgba(255, 255, 255, 0.787); height: auto;">
+				<div class="container-fluid">
+					<div class="col-md-6">
+						<div class="container">
+							<div class="row justify-content-end align-items-end"
+								style="min-height: 50vh; max-height: auto;">
+
+								<div class="col-md-7" style="margin-right: 2.5vw">
+									<h2 class="slide__title" style="font-size: 63px; font-weight: 900; opacity: 1;">
+										<span>NOS</span><br>
+										<span>PRESTATIONS</span>
+									</h2>
+									<p class="slide__title"
+										style="text-align: right; font-size: 43px; font-weight: 900; opacity: 1; display: block;">
+										en résumé <i class="fa fa-angle-double-right" style="color: #297899; font-size: inherit;"></i></p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6 ms-auto">
+						<div class="container">
+							<div class="col-md-6" style="margin-left: 2.5vw;">
+								<div class="button-wrapper">
+									<button id="toggleButton" class="pelement">
+										<strong>Conseil</strong>
+									</button>
+									<div id="toggleText">
+										<p>
+											Besoin d'une prestation rapide pour vous aider dans vos projets
+											d'aménagement ? Vous rencontrez des difficultés à vendre votre bien ? Nous
+											vous proposons de vous accompagner avec différents forfaits adaptés à vos
+											besoins.
+										</p>
+
+										<ul>
+											<li><strong>Visite-Conseils: </strong> 180,00€ HT (+ 50,00€ HT avec
+												compte-rendu)</li>
+											<li><strong>Coaching Déco: </strong> de 300,00€ à 460,00€ HT</li>
+											<li><strong>Home Staging: </strong> sur devis.</li>
+										</ul>
+
+									</div>
+									<span style="margin: 1em 0;"></span>
+								</div>
+							</div>
+
+							<div class="col-md-6" style="margin-left: 2.5vw">
+								<div class="button-wrapper">
+									<button id="secondToggleButton" class="pelement">
+										<strong>Conception</strong>
+									</button>
+									<div id="secondToggleText">
+										<p>
+											Vous souhaitez avoir des idées d'aménagement et de décoration modélisées en
+											3D de qualité ? Nous vous proposons différents forfaits de conception par
+											espace comprenant des plans d'aménagement, des propositions de matériaux et
+											de mobiliers, des visuels 3D, ainsi qu'un descriptif du projet.
+										</p>
+
+										<ul>
+											<li><strong>Cuisine: </strong>490,00€ HT</li>
+											<li><strong>Salon: </strong> 420,00€ HT</li>
+											<li><strong>Salle de bain: </strong>460,00€ HT</li>
+											<li><strong>Chambre: </strong>390,00€ HT</li>
+											<li><strong>Dressing: </strong>sur devis</li>
+											<li><strong>Meuble sur mesure: </strong>sur devis</li>
+											<li><strong>Extérieur: </strong>sur devis</li>
+											<li><strong>Commerce:: </strong>sur devis</li>
+											<li><strong>Relevé de l'état des lieux : </strong>de 180,00€ à 300,00€ HT
+											</li>
+										</ul>
+
+									</div>
+									<span style="margin: 1em 0;"></span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+
 				</div>
 			</div>
+			<div style="background-color: rgba(245, 245, 245, 0); height: 50vh;">
+				
+				<div class="col-md-6 ms-auto">
+					<div class="container">
+						<div class="row align-items-end"
+							style="min-height: 50vh;">
 
-		{% endfor %}
+							<div class="col-md-7" style="margin-right: 2.5vw;">
+								<h2 class="slide__title" style="text-align: right; display: block; font-size: 63px; font-weight: 900; opacity: 1; color: #297899;">
+									<span>NOS</span><br>
+									<span>PRESTATIONS</span>
+								</h2>
+								<p class="slide__title"
+									style="margin-bottom: 0.5em; text-align: right; display: block; font-size: 43px; font-weight: 900; opacity: 1; color: #297899;">
+									en détail<i class="fa fa-angle-double-down" style="color: #fab162; display: block; text-align: center; margin-left: 70%; font-size: inherit;"></i></p>
+									
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div style="background-color: rgba(245, 245, 245, 0.46); height: 60vh;"></div>
+
+		</div>
 	</div>
+</div>
+<style>
+	.button-wrapper {
+		position: relative;
+		display: inline-block;
+		bottom: 10vh;
+	}
+
+	button.active {
+		color: #fab162 !important;
+	}
+
+	#toggleButton,
+	#secondToggleButton {
+		border: none;
+		background: none;
+		font-size: 16px;
+		color: #1a1818;
+	}
+
+	#toggleText,
+	#secondToggleText {
+		max-height: 0;
+		opacity: 0;
+		overflow: hidden;
+		transition: max-height 5s ease-out, opacity 5s ease-out;
+		color: #1a1818;
+		margin: 0;
+		transition: max-height 2s ease-out, opacity 1s ease-out, padding linear 0.5s;
+	}
+
+	#toggleText ul,
+	#secondToggleText ul {
+		margin-top: 1em;
+	}
+
+	#toggleText p,
+	#secondToggleText p {
+		line-height: 1.2;
+	}
+
+	#toggleText.visible,
+	#secondToggleText.visible {
+		max-height: 500px;
+		opacity: 1;
+		padding-top: 2em;
+	}
+
+	#toggleText ul li,
+	#secondToggleText ul li {
+		list-style: none;
+		position: relative;
+		padding-left: 15px;
+	}
+
+	#toggleText ul li::before,
+	#secondToggleText ul li::before {
+		content: "";
+		display: inline-block;
+		width: 5px;
+		height: 5px;
+		background-color: #297899;
+		border-radius: 50%;
+		position: absolute;
+		left: 0;
+		top: 55%;
+		transform: translateY(-50%);
+	}
+
+	#toggleText ul li strong,
+	#secondToggleText ul li strong {
+		color: #297899;
+	}
+
+
+	.button-wrapper span {
+		position: relative;
+		display: block;
+		width: 30vw;
+		height: 1px;
+		background-color: rgba(0, 0, 0, 0.637);
+		margin-top: 5px;
+	}
+
+	.paragraph-container {
+		position: relative;
+		padding-left: 25px;
+		margin: 10px 0;
+	}
+
+	.paragraph-container p::before {
+		content: "";
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		background-color: #1a1818;
+		border-radius: 50%;
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const button = document.getElementById('toggleButton');
+		const secondButton = document.getElementById('secondToggleButton');
+		const text = document.getElementById('toggleText');
+		const secondText = document.getElementById('secondToggleText');
+
+		button.addEventListener('click', function () {
+			if (text.classList.contains('visible')) {
+				text.classList.remove('visible');
+				button.classList.remove('active');
+			} else {
+				text.classList.add('visible');
+				button.classList.add('active');
+			}
+		});
+
+		secondButton.addEventListener('click', function () {
+			if (secondText.classList.contains('visible')) {
+				secondText.classList.remove('visible');
+				secondButton.classList.remove('active');
+			} else {
+				secondText.classList.add('visible');
+				secondButton.classList.add('active');
+			}
+		});
+	});
+
+</script>
+
+
+
 {% endblock %}

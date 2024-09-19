@@ -82,7 +82,7 @@
 
   .carousells--item p {
     font-size: 1.5vw;
-    color: #fff;
+    color: #1a1818;
   }
 
   .carousells--progress {
@@ -93,7 +93,7 @@
     width: 20vw;
     left: 3vw;
     height: 1px;
-    background: #fab0621d;
+    background: #29779966;
   }
 
   .carousells--progress-bar {
@@ -113,7 +113,7 @@
     overflow: hidden;
     width: 100vw;
     height: 100vh;
-    background: url('../img/background/background-body.jpg') center center / cover no-repeat;
+    background: whitesmoke;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -145,7 +145,7 @@
     top: 0;
     width: 50%;
     height: 100%;
-    background: url('../img/background/background-body.jpg') center center / cover no-repeat;
+    background: whitesmoke;
     z-index: -1;
     transition: transform 0.5s ease;
   }
@@ -171,7 +171,7 @@
   .neon-symbol {
     font-size: 55px;
     /* Taille du symbole */
-    color: black;
+    color: #1a1818;
     /* Couleur du symbole */
     position: relative;
     bottom: 7px;
@@ -253,7 +253,7 @@
     height: 100vh; 
     display: flex; align-items: center; 
     justify-content: center; 
-    background-color: black; 
+    background-color: whitesmoke; 
     position: relative; 
     z-index: 1;
   }

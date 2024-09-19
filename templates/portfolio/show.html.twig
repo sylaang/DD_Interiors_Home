@@ -13,14 +13,17 @@
 {% endblock %}
 
 {% block body %}
+{% set firstImage = archi_project.imagesProjects|slice(0, 1)|first %}
 {% set secondImage = archi_project.imagesProjects|slice(1, 1)|first %}
 {% set thirdImage = archi_project.imagesProjects|slice(2, 1)|first %}
 {% set fourthImage = archi_project.imagesProjects|slice(3, 1)|first %}
 {% set fifthImage = archi_project.imagesProjects|slice(4, 1)|first %}
+
+
 <section class="pageTop anim" data-scrollama-index="0" style="height: 100vh; z-index: 6;">
     <div class="overflow-hidden">
-        <div class="pageTop__bg parallax" data-rellax-speed="-3"
-            style="background-image: url(&quot;https://media1.ledevoir.com/images_galerie/nwd_1135230_914403/image.jpg&quot;); transform: translate3d(0px, 0px, 0px);"
+        <div class="pageTop__bg parallax margin" data-rellax-speed="-3"
+            style="background-image: url('{{ asset('img/portfolio/') ~ firstImage.getFile() }}'); transform: translate3d(0px, 0px, 0px);"
             style="margin-bottom: 100vh;"></div>
         <div class="pageTop__container">
             <div class="container">

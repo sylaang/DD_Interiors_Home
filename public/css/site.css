@@ -18,7 +18,7 @@ font-family: "Palatino Linotype", serif;
     margin-top: 0px;
     z-index: 905000;
     width: 100%;
-    height: 65px;
+    height: 63px;
     position: fixed;
     line-height: 65px;
     padding: 16px;
@@ -27,7 +27,7 @@ font-family: "Palatino Linotype", serif;
 }
 
 .nav ul li a {
-    color: #fff;
+    color: #1a1818;
     padding: 12px;
 }
 
@@ -50,18 +50,14 @@ font-family: "Palatino Linotype", serif;
     align-items: end;
 }
 
+.nav ul li a {
+    transition: color 2.5s ease;
+}
+
 .affix {
     height: 90px;
-    background-color: #0d0d0d6d;
+    background-color: rgba(245, 245, 245, 0.748) !important;
     transition: background-color 2.5s ease;
-}
-
-.affix-white {
-    background-color: rgba(245, 245, 245, 0.674) !important;
-}
-
-.nav-white a {
-    color: black !important;
 }
 
 .header__burger {
@@ -130,7 +126,7 @@ font-family: "Palatino Linotype", serif;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #0D0D0Df0;
+    background-color: #0d0d0d53;
 }
 
 .pageTop__container {
@@ -293,7 +289,7 @@ html {
 body {
     font-size: 16px;
     color: #fff;
-    background-color: black;
+    background-color: #1a1818;
 }
 
 a {
@@ -1002,10 +998,11 @@ a.cookie__info {
 .cursor {
     position: fixed;
     background-color: #fab162;
+    background-color: #29779976;
     width: 6px;
     height: 6px;
     border-radius: 100%;
-    z-index: 2;
+    z-index: 1;
     user-select: none;
     pointer-events: none;
     z-index: 10000;
@@ -1023,11 +1020,11 @@ a.cookie__info {
 
 .cursor-follower {
     position: fixed;
-    background-color: rgba(255, 255, 255, .3);
+    background-color: #fab06275;
     width: 20px;
     height: 20px;
     border-radius: 100%;
-    z-index: 1;
+    z-index: 2;
     transition: .3s cubic-bezier(.25, .1, .25, 1) .1s transform, .2s cubic-bezier(.75, -.27, .3, 1.33) opacity, .3s cubic-bezier(.75, -.27, .3, 1.33) width, .3s cubic-bezier(.75, -.27, .3, 1.33) height, .3s cubic-bezier(.75, -.27, .3, 1.33) margin;
     user-select: none;
     pointer-events: none;
@@ -1129,35 +1126,35 @@ a.cookie__info {
 }
 
 .grid__col:nth-child(2) .grid__fill {
-    transition-delay: .1s
+    transition-delay: .2s
 }
 
 .grid__col:nth-child(2) .grid__line {
-    transition-delay: .1s
+    transition-delay: .2s
 }
 
 .grid__col:nth-child(3) .grid__fill {
-    transition-delay: .2s
+    transition-delay: .3s
 }
 
 .grid__col:nth-child(3) .grid__line {
-    transition-delay: .2s
+    transition-delay: .3s
 }
 
 .grid__col:nth-child(4) .grid__fill {
-    transition-delay: .3s
+    transition-delay: .4s
 }
 
 .grid__col:nth-child(4) .grid__line {
-    transition-delay: .3s
+    transition-delay: .4s
 }
 
 .grid__col:nth-child(5) .grid__fill {
-    transition-delay: .4s
+    transition-delay: .5s
 }
 
 .grid__col:nth-child(5) .grid__line {
-    transition-delay: .4s
+    transition-delay: .5s
 }
 
 .grid__fill {
@@ -1177,7 +1174,7 @@ a.cookie__info {
     right: 0;
     width: 1px;
     height: 100%;
-    background-color: black;
+    background-color: #1a1818;
     transform: scaleY(0);
     transform-origin: center top;
     transition: all .6s cubic-bezier(.42, 0, 1, 1)
@@ -1226,6 +1223,26 @@ a.cookie__info {
     z-index: 10;
     top: -70px;
     left: 30vh;
+}
+
+.disparition {
+    /* Styles de base pour .disparition */
+    transition: opacity 1s ease; /* Assurez-vous que la transition est fluide */
+}
+
+.disparition.hidden {
+    opacity: 0; /* Rendre invisible */
+    height: 0; /* Optionnel : réajuster la hauteur si nécessaire */
+    overflow: hidden; /* Masquer le contenu si la hauteur est ajustée à 0 */
+}
+
+.apparition {
+    opacity: 0; /* Initialement caché */
+    transition: opacity 1s ease; /* Transition fluide */
+}
+
+.apparition.visible {
+    opacity: 1; /* Visible */
 }
 
 .off .header__logo {
@@ -1543,8 +1560,8 @@ a.cookie__info {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 1px solid #fff;
-    background-image: url(../images/svg/arrow.svg);
+    border: 1px solid #fab162;
+    background-color: #29779965;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 15px 15px;
@@ -1606,9 +1623,8 @@ a.cookie__info {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    filter: gray;
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1);
+    -webkit-filter: grayscale(0.7);
+    filter: grayscale(0.7) brightness(0.8);
     will-change: transform;
 }
 
@@ -1619,7 +1635,7 @@ a.cookie__info {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #0d0d0df0;
+    background-color: rgba(255, 255, 255, 0.787);
 }
 
 .slide__container {
@@ -1770,7 +1786,7 @@ a.cookie__info {
     letter-spacing: 1px;
     text-transform: uppercase;
     display: inline-block;
-    color: #eeecea;
+    color: #1a1818;
     transform: translate(-20px);
     transition: all .4s .6s;
     opacity: 0;
@@ -1780,8 +1796,8 @@ a.cookie__info {
 .slide__smalltext {
     font-size: 14px;
     letter-spacing: 0;
-    color: #eeecea;
-    margin: 80px 0;
+    color: #1a1818;
+    margin: 50px 0;
     width: 60%;
     position: relative;
     opacity: 0;

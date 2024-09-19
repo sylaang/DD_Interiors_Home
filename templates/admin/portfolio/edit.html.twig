@@ -180,7 +180,6 @@
         <h5>Plans Enregistrés</h5>
         <div class="d-flex flex-wrap gap-2">
             {% for plan in archi_project.plans %}
-            {{dump(plan.catPlans)}}
                 <div class="plan-item">
                     <img src="{{ asset('img/portfolio/plans/' ~ plan.getFile()) }}" alt="Plan Image" class="img-responsive" width="150">
                     
