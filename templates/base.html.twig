@@ -221,13 +221,13 @@
 					<span></span>
 				</div>
 			</div>
-				<div class="header__logo disparition">
-					<ul>
-						<li>
-							<a href="{{path('app_home')}}"></a>
-						</li>
-					</ul>
-				</div>
+			<div class="header__logo disparition">
+				<ul>
+					<li>
+						<a href="{{path('app_home')}}"></a>
+					</li>
+				</ul>
+			</div>
 			<script>
 				document.addEventListener('DOMContentLoaded', () => {
 					const disparition = document.querySelector('.disparition');
@@ -359,13 +359,14 @@
 	<div class="height-emulator" style="height: 1024px;"></div>
 	<footer class="content-footer">
 		<!--  container  -->
-		<div class="container-footer">
+		<div class="container-fluid" style="margin-top: 10vh;">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6" style="position: relative; top: -11vh;">
+
 					<!-- Footer logo -->
-					<div class="footer-item footer-logo">
+					<div class="footer-item footer-logo" style="margin-left: 10vw;">
 						<div class="apparition">
-							<a href="{{path('app_home')}}" class="ajax"><img width="264" height="100"
+							<a href="{{path('app_home')}}" class="ajax"><img width="500" height="300"
 									src="{{asset('img/logo/Logo.svg')}}" alt="footer logo ddinteriorshome"
 									data-lazy-src="{{asset('img/logo/Logo.svg')}}" data-ll-status="loaded"
 									class="entered lazyloaded">
@@ -389,72 +390,129 @@
 								});
 							});
 						</script>
-						<p class="text-footer">
+						<p class="text-footer" style="font-size: 14px;">
 							DD Interiors Home est une agence d'architecture d'intérieur basée à Paris. L'agence est
 							spécialisée dans la conception et l’agencement intérieur,
 							propose différentes solutions pour les particuliers et professionnels.
 						</p>
 					</div>
 					<!-- Footer logo end -->
-				</div>
-				<!-- Footer info -->
-				<div class="col-md-2">
-					<div class="footer-item">
-						<h4 class="text-link">Call</h4>
-						<ul>
-							<li><a href="#">+33 7 64 40 24 70</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- Footer info end-->
 
-				<!-- Footer info end-->
-				<div class="col-md-2">
-					<div class="footer-item">
-						<h4 class="text-link">Email</h4>
-						<ul>
-							<li><a href="mailto:ddinteriorshome@gmail.com">ddinteriorshome@gmail.com</a></li>
-						</ul>
-					</div>
 				</div>
-				<!-- Footer info end-->
-			</div>
-			<!-- Footer copyright -->
-			<div class="row">
-				<div class="col-md-6"></div>
 				<div class="col-md-6">
-					<div class="footer-wrap">
-						<span class="copyright">
-							© DD Interiors Home 2023. Powered by
-							<a href="#" target="_blank" style="color:#fff;font-weight:bold">
-								Mehdi HACHEM</a>
-						</span>
-						<br>
-						<span class="copyright">
-							© Freepik. Powered by
-							<a href="https://fr.freepik.com/photos-gratuite/mur-texture-beton-bleu-marine-massif_17119118.htm#query=fond%20bleu%20fonce&position=1&from_view=keyword&track=ais"
-								style="color:#fff;font-weight:bold">
-								Image de rawpixel.com</a>
-						</span>
-						<span class="to-top">To Top</span>
-						<script>
-							document.addEventListener('DOMContentLoaded', () => {
-								const toTopButton = document.querySelector('.to-top');
+					<div class="row">
 
-								toTopButton.addEventListener('click', () => {
-									// Défile vers le haut de la page
-									window.scrollTo({
-										top: 0,
-										behavior: 'smooth' // Utiliser 'smooth' pour une transition fluide
-									});
-								});
-							});
-						</script>
+						<!-- Footer info -->
+						<div class="col-md-6">
+							<div class="footer-item ">
+								<h4 class="text-link" style="color: #297899;">APPELEZ-NOUS !</h4>
+								<ul>
+									<li style="color: rgba(245, 245, 245, 0.455); font-size: 12px;">Pour plus de
+										renseignements, vous
+										pouvez nous
+										joindre par téléphone au numéro inscrit ci-dessous.</li>
+									<li><a href="#" style="color: #fab162; font-size: 14px;">+33 7 64 40 24 70</a></li>
+								</ul>
+							</div>
+						</div>
+
+
+						<!-- Footer info end-->
+						<div class="col-md-6">
+							<div class="footer-item ">
+								<h4 class="text-link" style="color: #297899;">EMAIL</h4>
+								<ul>
+									<li style="color: rgba(245, 245, 245, 0.455); font-size: 12px;">N'hésitez pas à nous
+										adresser un mail
+										pour
+										toute question relative à votre projet.</li>
+									<li><a style="color: #fab162; font-size: 14px;"
+											href="mailto:ddinteriorshome@gmail.com">ddinteriorshome@gmail.com</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- Footer info end-->
+
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 offset-3" style="margin-top: 10vh;">
+
+							<!-- Footer copyright -->
+							<div class="row">
+								<div class="footer-wrap">
+									<span class="copyright">
+										© DD Interiors Home 2023. Powered by
+										<a href="#" target="_blank" style="color:#297899;font-weight:bold">
+											Mehdi HACHEM</a>
+									</span>
+									<br>
+									<span class="copyright">
+										© Freepik. Powered by
+										<a href="https://fr.freepik.com/photos-gratuite/mur-texture-beton-bleu-marine-massif_17119118.htm#query=fond%20bleu%20fonce&position=1&from_view=keyword&track=ais"
+											style="color:#fff;font-weight:bold">
+											Image de rawpixel.com</a>
+									</span>
+								</div>
+							</div>
+
+
+						</div>
+
+
+
+
 					</div>
 				</div>
+				
 			</div>
-			<!-- Footer copyright end -->
+			
+			
+			<div class="col-md-12 offset-5" style="margin-top: 0vh;">
+				<!-- Footer copyright end -->
+				<span class="to-top">Cliquez moi pour remonter</span>
+			</div>
 		</div>
+		</div>
+
+
+
+
+
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const toTopButton = document.querySelector('.to-top');
+
+				toTopButton.addEventListener('click', () => {
+					// Défile vers le haut de la page
+					window.scrollTo({
+						top: 0,
+						behavior: 'smooth' // Utiliser 'smooth' pour une transition fluide
+					});
+				});
+			});
+		</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		<!--  container  end -->
 		<!-- Hover animation  -->
 		<canvas class="particular footer-canvas" data-color="" width="2844" height="1060"

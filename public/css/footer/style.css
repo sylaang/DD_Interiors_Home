@@ -4,18 +4,6 @@
     overflow-x: hidden !important
 }
 
-/*body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    color: #000;
-    background: #1B1B1B;
-    height: 100%;
-    text-align: left
-} */
-
 
 .content-holder-main {
     width: 100%;
@@ -23,9 +11,8 @@
 
 .text-footer {
     text-align: left;
-    font-size: 12px;
     line-height: 24px;
-    padding-bottom: 10px
+    padding-bottom: 10px;
 }
 
 
@@ -120,7 +107,6 @@ section {
 }
 
 .footer-item ul li {
-    float: left;
     width: 100%;
     margin-bottom: 6px
 }
@@ -131,18 +117,16 @@ section {
 }
 
 .footer-logo img {
-    margin-bottom: 20px;
     min-height: 250px;
     min-width: 300px;
 }
 
 .footer-logo p {
-    max-width: 300px
+    max-width: 500px;
 }
 
 
 .copyright {
-    float: left;
     text-align: left;
     color: #fff;
     font-size: 11px;
@@ -151,7 +135,6 @@ section {
 }
 
 .to-top {
-    float: right;
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -211,6 +194,7 @@ section {
         float: left;
         padding: 50px 0
     }
+    
 
     @media only screen and (-webkit-min-device-pixel-ratio:2) {
         .bg {
