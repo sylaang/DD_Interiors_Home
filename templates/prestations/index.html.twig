@@ -5,6 +5,8 @@ prestations
 {% block stylesheets %}
 
 <link rel="stylesheet" href="{{ asset('css/styleCard.css') }}" />
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
 {% endblock %}
 {% block body %}
 {# <section class="pageTop anim" data-scrollama-index="0">
@@ -75,11 +77,13 @@ prestations
 
 {% endfor %}
 </div> #}
+
+
 <div style="height: 100%;">
 	<div style="background: url('../img/background/image-prestation.jpeg');
     min-height: 100vh; max-height: 100%; width: 100%; background-size: cover; background-repeat: no-repeat;">
-		<div style="height: 100vh; overflow: auto; scrollbar-width: none;">
-			<div style="background-color: rgba(255, 255, 255, 0.787); height: auto;">
+		<div class="overflow-container" style="">
+			<div style="background-color: rgba(255, 255, 255, 0.844); height: auto;">
 				<div class="container-fluid">
 					<div class="col-md-6">
 						<div class="container">
@@ -93,7 +97,8 @@ prestations
 									</h2>
 									<p class="slide__title"
 										style="text-align: right; font-size: 43px; font-weight: 900; opacity: 1; display: block;">
-										en résumé <i class="fa fa-angle-double-right" style="color: #297899; font-size: inherit;"></i></p>
+										en résumé <i class="fa fa-angle-double-right"
+											style="color: #297899; font-size: 33px;"></i></p>
 								</div>
 							</div>
 						</div>
@@ -164,33 +169,214 @@ prestations
 				</div>
 			</div>
 			<div style="background-color: rgba(245, 245, 245, 0); height: 50vh;">
-				
+
 				<div class="col-md-6 ms-auto">
 					<div class="container">
-						<div class="row align-items-end"
-							style="min-height: 50vh;">
+						<div class="row align-items-end" style="min-height: 50vh;">
 
-							<div class="col-md-7" style="margin-right: 2.5vw;">
-								<h2 class="slide__title" style="text-align: right; display: block; font-size: 63px; font-weight: 900; opacity: 1; color: #297899;">
+							<div class="col-md-8">
+								<h2 class="" style="text-align: right; display: block; font-size: 63px; font-weight: 900; color: #297899;
+									margin: 0; letter-spacing: -1px;">
 									<span>NOS</span><br>
 									<span>PRESTATIONS</span>
 								</h2>
-								<p class="slide__title"
-									style="margin-bottom: 0.5em; text-align: right; display: block; font-size: 43px; font-weight: 900; opacity: 1; color: #297899;">
-									en détail<i class="fa fa-angle-double-down" style="color: #fab162; display: block; text-align: center; margin-left: 70%; font-size: inherit;"></i></p>
-									
+								<p class="" style="margin-bottom: 0.5em; text-align: right; display: block; font-size: 43px; font-weight: 900; color: #297899;
+									margin: 0; letter-spacing: -1px;">
+									en détail<i class="fa fa-angle-double-down"
+										style="color: #fab162; display: block; text-align: center; margin-left: 70%; font-size: 33px;"></i>
+								</p>
+
 							</div>
 						</div>
 					</div>
 				</div>
 
 			</div>
-			<div style="background-color: rgba(245, 245, 245, 0.46); height: 60vh;"></div>
+
+
+			<div class="section-right">
+				<div class="col-md-6 ms-auto">
+					<div class="container">
+						<div class="row">
+
+							<div class="animated-element animated-element-right col-md-8">
+								<i class="fa fa-angle-double-left"
+									style="color: #297899; font-size: 33px; display: block; text-align: end; margin-top: 2em;"></i>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-8">
+								<h3 class="animated-element animated-element-down"
+									style="color: #297899; text-align: right; margin-top: 1em; font-family: 'Lobster', cursive; ">
+									<strong>Prestation / au forfait</strong>
+								</h3>
+							</div>
+							<div class="col-md-8 animated-element animated-element-left">
+
+								<h1 style="color: #1a1818; text-align: right; font-weight: 900;">Visite-conseils</h1>
+							</div>
+							<div class="col-md-8 animated-element animated-element-up">
+
+								<p style="font-size: 14px; color: #1a1818; text-align: right;">A l’écoute de vos envies
+									et de vos éventuels problèmes d’ordre technique, nous vous proposons des solutions :
+									optimiser l’aménagement d’une pièce pour créer un gain d’espace, agencement d’une
+									pièce et choix des teintes et des matériaux, faisabilité technique de certaines de
+									vos idées, donner notre avis sur le potentiel d’un bien à acquérir ou encore des
+									conseils pour faciliter la vente de votre bien. La prestation facturée 180,00€ HT
+									est à régler à la fin de la visite-conseils. Un compte-rendu peut-être délivré pour
+									un forfait supplémentaire de 50€ HT.</p>
+							</div>
+
+							<div class="col-md-8 animated-element animated-element-up"
+								style="display: flex; justify-content: space-around; margin-left: 3vw; margin-top: 1em; color: #297899; font-size: 36px; ">
+
+								<i class="fa fa-gears"></i>
+								<i class="fa-regular fa-clock"></i>
+								<i class="fa-solid fa-euro-sign"></i>
+							</div>
+							<div class="col-md-8 animated-element animated-element-up"
+								style="display: flex; justify-content: space-around; margin-left: 3vw; font-family: 'Lobster', cursive; color: #297899; font-size: 20px; font-weight: 900; ">
+
+								<span>Déroulement</span>
+								<span>Déroulement</span>
+								<span>Déroulement</span>
+							</div>
+							<div class="col-md-8 animated-element animated-element-up"
+								style="display: flex; justify-content: space-around; margin-left: 3vw; color: #1a1818; font-size: 14px;">
+
+								<p>sur place</p>
+								<p>1 à 2h</p>
+								<p>180.00€ HT</p>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<div class="section-left">
+				<div class="col-md-6">
+
+					<div class="container" style="margin-left: 15vw;">
+						<div class="row">
+
+							<div class="col-md-8 animated-element animated-element-left">
+								<i class="fa fa-angle-double-right"
+									style="color: #297899; font-size: 33px; display: block; text-align: start; margin-top: 2em;"></i>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-8 animated-element animated-element-right">
+								<h3
+									style="color: #297899; text-align: left; margin-top: 1em; font-family: 'Lobster', cursive; ">
+									<strong>Prestation / au forfait</strong>
+								</h3>
+							</div>
+							<div class="col-md-8 animated-element animated-element-down">
+
+								<h1 style="color: #1a1818; text-align: left; font-weight: 900;">Coaching Déco</h1>
+							</div>
+							<div class="col-md-8 animated-element animated-element-up">
+
+								<p style="font-size: 14px; color: #1a1818; text-align: left;">Pour une mission plus
+									approfondie, nous vous conseillerons le coaching en décoration, qui consiste à se
+									rendre dans des magasins ciblés au préalable pour procéder à l’achat de fournitures
+									(revêtements de sols/murs, mobiliers, éléments de décoration…) tout en vous
+									conseillant sur les aspects esthétiques et techniques de votre projet.</p>
+							</div>
+
+							<div class="col-md-8 animated-element animated-element-up"
+								style="display: flex; justify-content: space-around; margin-top: 1em; color: #297899; font-size: 36px;">
+
+								<i class="fa fa-gears"></i>
+								<i class="fa-regular fa-clock"></i>
+								<i class="fa-solid fa-euro-sign"></i>
+							</div>
+							<div class="col-md-8 animated-element animated-element-up"
+								style="display: flex; justify-content: space-around; font-family: 'Lobster', cursive; color: #297899; font-size: 20px; font-weight: 900;">
+
+								<span>Déroulement</span>
+								<span>Déroulement</span>
+								<span>Déroulement</span>
+							</div>
+							<div class="col-md-8 animated-element animated-element-up"
+								style="display: flex; justify-content: space-around; color: #1a1818; font-size: 14px;">
+
+								<p>sur place et/ou en brmagasin</p>
+								<p>demi-journée ou journée entière</p>
+								<p>300,00€ ou 460,00€ HT</p>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+			<div style="background-color: rgba(245, 245, 245, 0.723); height: 60vh;">
+
+
+
+
+			</div>
+
+
+
 
 		</div>
+
 	</div>
 </div>
+
 <style>
+	.overflow-container {
+		height: 100vh;
+		overflow: auto;
+	}
+
+	.section-right {
+		text-align: right;
+		background-color: rgba(245, 245, 245, 0.723);
+		height: 60vh;
+		margin-top: 1em;
+	}
+
+	.section-left {
+		text-align: left;
+		background-color: rgba(255, 255, 255, 0.844);
+		height: 60vh;
+		width: 100%;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 -2px 5px rgba(0, 0, 0, 0.2);
+		position: relative;
+		z-index: 30;
+	}
+
+	.icon-right {
+		color: #297899;
+		font-size: 33px;
+		margin-top: 2em;
+	}
+
+	.icon-left {
+		color: #297899;
+		font-size: 33px;
+		margin-top: 2em;
+	}
+
+	.section-icons {
+		display: flex;
+		justify-content: space-around;
+		margin-left: 3vw;
+		color: #297899;
+		font-size: 36px;
+	}
+
 	.button-wrapper {
 		position: relative;
 		display: inline-block;
@@ -291,6 +477,49 @@ prestations
 		top: 50%;
 		transform: translateY(-50%);
 	}
+
+	.animated-element-right {
+		opacity: 0;
+		transform: translateX(-100%);
+		transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+	}
+
+	.animated-element-right.active {
+		opacity: 1;
+		transform: none;
+	}
+
+.animated-element-left {
+    opacity: 0;
+    transform: translateX(50%);
+    transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+}
+
+.animated-element-left.active {
+    opacity: 1;
+    transform: none;
+}
+
+	.animated-element-up {
+		opacity: 0;
+		transform: translateY(50%);
+		transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+	}
+
+	.animated-element-up.active {
+		opacity: 1;
+		transform: none;
+	}
+	.animated-element-down {
+		opacity: 0;
+		transform: translateY(-150%);
+		transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+	}
+
+	.animated-element-down.active {
+		opacity: 1;
+		transform: none;
+	}
 </style>
 
 <script>
@@ -321,6 +550,31 @@ prestations
 		});
 	});
 
+</script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const targets = document.querySelectorAll('.animated-element'); 
+
+		const callback = (entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('active');
+				} else {
+					entry.target.classList.remove('active');
+				}
+			});
+		};
+
+		const observer = new IntersectionObserver(callback, {
+			root: document.querySelector('.overflow-container'), // Conteneur défilant
+			threshold: 0.999 // Ajuste selon tes besoins
+		});
+
+		targets.forEach(target => {
+			observer.observe(target); // Observe chaque élément
+		});
+	});
 </script>
 
 
