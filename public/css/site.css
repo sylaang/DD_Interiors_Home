@@ -825,12 +825,11 @@ feuille de style user-agent section {
     bottom: 0;
     left: calc(50% - 1px);
     height: 70px;
-    color: #eeecea;
     border-left: 1px solid rgba(238, 236, 234, .2);
     white-space: nowrap;
     text-transform: uppercase;
     line-height: 70px;
-    color: #eeecea;
+    color: #fab162;
     z-index: 5;
     transform: translateY(50%);
     transition: all .4s
@@ -856,7 +855,7 @@ feuille de style user-agent section {
     display: block;
     width: 1px;
     height: 100%;
-    background-color: #eeecea;
+    background-color: #297899;
     transform: scale(1, 0) translate3d(0, 0, 0);
     animation: scroller 3s infinite
 }
@@ -1774,6 +1773,7 @@ a.cookie__info {
     font-size: 94px;
     font-weight: 900;
     color: #fab162;
+    text-shadow: 1px 1px 5px black;
     margin: 0;
     letter-spacing: -1px;
     display: inline-block;
